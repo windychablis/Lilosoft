@@ -1,0 +1,31 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="com.chablis.lilosoft.fragment.FirstFragment">
+
+    <!--<android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_margin="20dp"
+        android:paddingBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>-->
+
+    <GridView
+        android:gravity="center"
+        android:id="@+id/gridView"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="20dp"
+        android:numColumns="4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </GridView>
+
+</FrameLayout>

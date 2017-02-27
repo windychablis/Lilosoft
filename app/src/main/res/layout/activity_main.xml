@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bj"
+    tools:context="com.chablis.lilosoft.activity.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/top_bj">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="45dp"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="40dp"
+            android:text="10:12星期一"
+            android:textColor="@color/color_title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="40dp"
+            android:text="2017-01-07"
+            android:textColor="@color/color_title"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/tabIndicators"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tabGuideButton"
+            style="@style/MainTabButton"
+            android:drawableTop="@mipmap/icon_guide"
+            android:text="@string/tab_guide" />
+
+        <RadioButton
+            android:id="@+id/tabPrintButton"
+            style="@style/MainTabButton"
+            android:drawableTop="@mipmap/icon_map"
+            android:text="@string/tab_map" />
+
+        <RadioButton
+            android:id="@+id/tabConsultButton"
+            style="@style/MainTabButton"
+            android:drawableTop="@mipmap/icon_consult"
+            android:text="@string/tab_consult" />
+
+        <RadioButton
+            android:id="@+id/tabEvaluationButton"
+            style="@style/MainTabButton"
+            android:drawableTop="@mipmap/icon_appointment"
+            android:text="@string/tab_appointment" />
+    </RadioGroup>
+
+    <!--<FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_top"
+        android:layout_above="@id/tabIndicators"></FrameLayout>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabIndicators"
+        android:layout_below="@+id/rl_top"
+        android:layout_marginTop="10dp">
+
+        <!--  圆点指示器  -->
+        <com.chablis.lilosoft.widget.RoundNavigationIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="32dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></android.support.v4.view.ViewPager>
+    </FrameLayout>
+
+
+</RelativeLayout>
