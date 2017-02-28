@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
@@ -28,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -41,17 +45,23 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     TextView tvTime;
     @BindView(R.id.tv_date)
     TextView tvDate;
+    @BindView(R.id.tabGuideButton)
+    RadioButton tabGuideButton;
+    @BindView(R.id.tabMapButton)
+    RadioButton tabMapButton;
+    @BindView(R.id.tabConsultButton)
+    RadioButton tabConsultButton;
+    @BindView(R.id.tabEvaluationButton)
+    RadioButton tabEvaluationButton;
+    @BindView(R.id.activity_main)
+    RelativeLayout activityMain;
 //    @BindView(R.id.ll_dots)
 //    LinearLayout llDots;
 
-    private ImageView[] imageViews;
     private MyViewPagerAdapter myViewPagerAdapter;
-    private ArrayList<IconModel> iconModels;
     private GridViewAdapter mAdapter;
     private ArrayList<GridView> array;
     private static final float APP_PAGE_SIZE = 16.0f;
-    private List<TDDept> list_dept = LoadActivity.list_dept;
-
 
 
     @Override
@@ -73,13 +83,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
     public void initView() {
 //        getData();
-        /*rrayList<Fragment> fragments = new ArrayList<>(2);  //添加两个fragment或者更多
-        FirstFragment fragment1 = new FirstFragment();
-        SecondFragment fragment2 = new SecondFragment();
-        SecondFragment fragment3 = new SecondFragment();
-        fragments.add(fragment1);
-        fragments.add(fragment2);
-        fragments.add(fragment3);*/
         final int PageCount = (int) Math.ceil(appContext.list_dept.size() / APP_PAGE_SIZE);
         array = new ArrayList<GridView>();
         for (int i = 0; i < PageCount; i++) {
@@ -121,14 +124,17 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
             }
         });
+
+
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
 
-    public void getData() {
+    /*public void getData() {
         //初始化数据
         iconModels = new ArrayList<IconModel>();
         IconModel zhaoshangju = new IconModel(R.mipmap.zhaoshangju, "招商局");
@@ -169,7 +175,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
         iconModels.add(sifaju2);
         iconModels.add(fagaiwei2);
-    }
+    }*/
 
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -180,14 +186,27 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     };
 
     public void getTime() {
-        Date date=new Date();
+        Date date = new Date();
         String a = DateUtil.date2Str(date, DateUtil.FORMAT_HM);
         String b = DateUtil.getWeekOfDate(date);
-        String c=DateUtil.date2Str(date,DateUtil.FORMAT_YMD);
+        String c = DateUtil.date2Str(date, DateUtil.FORMAT_YMD);
         tvDate.setText(c);
-        tvTime.setText(a+"   "+b);
+        tvTime.setText(a + "   " + b);
     }
 
 
-
+    @OnClick({R.id.tabGuideButton, R.id.tabMapButton, R.id.tabConsultButton, R.id.tabEvaluationButton})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tabGuideButton:
+                nextActivity(DeptListActivity.class);
+                break;
+            case R.id.tabMapButton:
+                break;
+            case R.id.tabConsultButton:
+                break;
+            case R.id.tabEvaluationButton:
+                break;
+        }
+    }
 }

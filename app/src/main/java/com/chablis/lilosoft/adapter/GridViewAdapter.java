@@ -2,6 +2,7 @@ package com.chablis.lilosoft.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chablis.lilosoft.activity.DeptListActivity;
+import com.chablis.lilosoft.activity.MainActivity;
 import com.chablis.lilosoft.activity.TableListActivity;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.TDDept;
@@ -35,6 +38,7 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     public GridViewAdapter(Context context,List<TDDept> data,int page) {
+        Log.d("GridViewAdapter", "context:" + context);
         this.context = context;
         mInflater = LayoutInflater.from(context);
         mList=new ArrayList<TDDept>();
@@ -91,10 +95,14 @@ public class GridViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //i为0开始的下标
-                Intent intent=new Intent(context, TableListActivity.class);
-                intent.putExtra("position",i);
-                context.startActivity(intent);
+                if (context instanceof MainActivity) {
+                    //i为0开始的下标
+                    Intent intent = new Intent(context, TableListActivity.class);
+                    intent.putExtra("position", i);
+                    context.startActivity(intent);
+                }else if(context instanceof DeptListActivity){
+
+                }
             }
         });
 

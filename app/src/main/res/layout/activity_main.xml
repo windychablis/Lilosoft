@@ -61,7 +61,7 @@
             android:text="@string/tab_guide" />
 
         <RadioButton
-            android:id="@+id/tabPrintButton"
+            android:id="@+id/tabMapButton"
             style="@style/MainTabButton"
             android:drawableTop="@mipmap/icon_map"
             android:text="@string/tab_map" />
@@ -90,9 +90,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/tabIndicators"
-        android:layout_below="@+id/rl_top"
-        android:layout_marginTop="10dp">
+        android:layout_above="@+id/tabIndicators"
+        android:layout_below="@id/rl_top"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!--  圆点指示器  -->
         <com.chablis.lilosoft.widget.RoundNavigationIndicator

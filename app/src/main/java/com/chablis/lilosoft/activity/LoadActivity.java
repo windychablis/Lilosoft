@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,17 +86,17 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 }.execute();*//*
     }*/
 
-
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if(Global.dbExists(this, dbConfig.DB_NAME)){
+    protected void onStart() {
+        super.onStart();
+        if(!Global.dbExists(this, dbConfig.DB_NAME)){
             //第一次进入
             mHandler.sendEmptyMessageDelayed(2, 1000);
         }else{
             LoadToMainActivity();
         }
     }
+
 
     public void FristLoad(){
         pop = Global.createPopupWindow(this, R.layout.dialog_frist_load, R.id.btn_Cancel);
@@ -220,6 +221,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
                     FristLoad();
                     break;
                 case 7:
+                    if (mypDialog.isShowing())
                     mypDialog.dismiss();
                     break;
 
@@ -255,4 +257,11 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 
     }
 
+    @Override
+    protected void onDestroy() {
+        if (mypDialog!=null&&mypDialog.isShowing()) {
+            mypDialog.dismiss();
+        }
+        super.onDestroy();
+    }
 }

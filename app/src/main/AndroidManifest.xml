@@ -18,14 +18,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
-        <activity android:name=".activity.TableListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.TableDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.LoadActivity"
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity
+            android:name=".activity.TableListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TableDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoadActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.DeptListActivity"></activity>
     </application>
 
 </manifest>
