@@ -34,7 +34,7 @@
             android:gravity="center"
             android:text="公共场所许可"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="36sp" />
 
         <ImageButton
             android:id="@+id/ib_print"

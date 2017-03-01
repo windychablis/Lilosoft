@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,6 +19,12 @@ android {
         }
     }
     productFlavors {
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jni']     //设置目标的so存放路径
+            jni.srcDirs = [] //disable automatic ndk-build call
+        }
     }
 }
 
@@ -33,6 +40,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.0'
-    compile files('libs/commons-io-2.4.jar')
-    compile files('libs/ksoap2-android-assembly-2.6.4-jar-with-dependencies.jar')
+//    compile files('libs/commons-io-2.4.jar')
+//    compile files('libs/ksoap2-android-assembly-2.6.4-jar-with-dependencies.jar')
+//    compile files('libs/BaiduLBS_Android.jar')
 }

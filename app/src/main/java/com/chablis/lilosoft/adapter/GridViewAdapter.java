@@ -1,8 +1,8 @@
 package com.chablis.lilosoft.adapter;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.DeptListActivity;
 import com.chablis.lilosoft.activity.MainActivity;
 import com.chablis.lilosoft.activity.TableListActivity;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.TDDept;
-import com.chablis.lilosoft.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     public GridViewAdapter(Context context,List<TDDept> data,int page) {
-        Log.d("GridViewAdapter", "context:" + context);
         this.context = context;
         mInflater = LayoutInflater.from(context);
         mList=new ArrayList<TDDept>();
