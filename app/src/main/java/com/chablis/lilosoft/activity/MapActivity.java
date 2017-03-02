@@ -2,6 +2,8 @@ package com.chablis.lilosoft.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -12,18 +14,20 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
+    private SlidingMenu menu;
     public LocationClient mLocationClient = null;
     public MyLocationListener myLocationListner =
             new MyLocationListener();
@@ -31,7 +35,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     private boolean isFirstIn = true;
 
     @BindView(R.id.bmapView)
-    MapView bmapView;
+    TextureMapView bmapView;
 
 
     public void initMap() {
@@ -47,7 +51,22 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         option.setCoorType("bd09ll");// 设置坐标类型,返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
         option.setScanSpan(1000 * 30);//设置扫描间隔，单位是毫秒
         mLocationClient.setLocOption(option);
+    }
 
+    public void initMenu() {
+        menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.RIGHT);
+        // 设置触摸屏幕的模式
+        menu.setTouchModeAbove(SlidingMenu.RIGHT);
+        // 设置滑动菜单视图的宽度
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置渐入渐出效果的值
+//        menu.setFadeDegree(0.35f);
+//        menu.setShadowDrawable(R.drawable.shadow);
+//        menu.setShadowWidthRes(R.dimen.shadow_width);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        // 为侧滑菜单设置布局
+        menu.setMenu(R.layout.menu_map);
 
     }
 
@@ -57,12 +76,14 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
         initMap();
+        initMenu();
         mLocationClient.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("MapActivity", "des");
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         bmapView.onDestroy();
         // 退出时销毁定位
@@ -91,10 +112,18 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
     }
 
-    @OnClick(R.id.tv_back)
-    public void onClick() {
-        this.finish();
+    @OnClick({R.id.tv_back, R.id.iv_menu})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_back:
+                this.finish();
+                break;
+            case R.id.iv_menu:
+                menu.toggle();
+                break;
+        }
     }
+
 
     public class MyLocationListener implements BDLocationListener {
 
