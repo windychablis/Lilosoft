@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="slidingmenu_offset">300dp</dimen>
     <dimen name="shadow_width">8dp</dimen>
+    <dimen name="bladeview_fontsize">20sp</dimen>
 </resources>
