@@ -145,7 +145,7 @@ public class BladeView extends View {
         public void run() {
             // TODO Auto-generated method stub
             if (mPopupWindow != null) {
-                mPopupWindow.dismiss();
+//                mPopupWindow.dismiss();
             }
         }
     };
@@ -161,7 +161,7 @@ public class BladeView extends View {
     private void performItemClicked(int item) {
         if (mOnItemClickListener != null) {
             mOnItemClickListener.onItemClick(b[item]);
-            showPopup(item);
+//            showPopup(item);
         }
     }
 
