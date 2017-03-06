@@ -10,4 +10,8 @@
 
     <color name="color_nav">#2189ff</color>
     <color name="color_letter">#f04e4e</color>
+    <color name="color_btn_ques">#ffe222</color>
+
+    <color name="color_sansansan">#333</color>
+    <color name="color_liuliuliu">#666</color>
 </resources>

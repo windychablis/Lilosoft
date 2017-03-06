@@ -73,7 +73,7 @@
             android:text="@string/tab_consult" />
 
         <RadioButton
-            android:id="@+id/tabEvaluationButton"
+            android:id="@+id/tabAppointmentButton"
             style="@style/MainTabButton"
             android:drawableTop="@mipmap/icon_appointment"
             android:text="@string/tab_appointment" />

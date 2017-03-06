@@ -51,8 +51,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     RadioButton tabMapButton;
     @BindView(R.id.tabConsultButton)
     RadioButton tabConsultButton;
-    @BindView(R.id.tabEvaluationButton)
-    RadioButton tabEvaluationButton;
+    @BindView(R.id.tabAppointmentButton)
+    RadioButton tabAppointmentButton;
     @BindView(R.id.activity_main)
     RelativeLayout activityMain;
 //    @BindView(R.id.ll_dots)
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     }
 
 
-    @OnClick({R.id.tabGuideButton, R.id.tabMapButton, R.id.tabConsultButton, R.id.tabEvaluationButton})
+    @OnClick({R.id.tabGuideButton, R.id.tabMapButton, R.id.tabConsultButton, R.id.tabAppointmentButton})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tabGuideButton:
@@ -205,8 +205,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(MapActivity.class);
                 break;
             case R.id.tabConsultButton:
+                nextActivity(QuestionnaireActivity.class);
                 break;
-            case R.id.tabEvaluationButton:
+            case R.id.tabAppointmentButton:
+                nextActivity(DeptListActivity.class);
                 break;
         }
     }

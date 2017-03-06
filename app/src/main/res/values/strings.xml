@@ -4,9 +4,13 @@
     <string name="tab_guide">服务指南</string>
     <string name="tab_map">地图导航</string>
     <string name="tab_consult">问卷调查</string>
+    <string name="btn_consult">提交问卷</string>
     <!--<string name="tab_print">打印</string>-->
     <string name="tab_appointment">预约办事</string>
     <!--<string name="tab_evaluation">评价</string>-->
+
+    <string name="string_questionnaire_text">我们诚邀您对我们的服务进行评价，请按下面内容反馈您的意
+见，感谢您的支持！</string>
 
     <string name="string_back">返回</string>
 
