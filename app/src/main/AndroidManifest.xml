@@ -38,6 +38,7 @@
 
         <activity
             android:name=".activity.TableListActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TableDetailActivity"
