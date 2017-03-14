@@ -298,4 +298,113 @@ public class WebUtil {
         return null;
     }
 
+
+    /**
+     * 获取问卷调查列表
+     */
+    public static String getAllQuestionnaire(){
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListAllIndagate");
+        request.addProperty("areacode", Global.areacode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListAllIndagate",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("Indagate").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * 获取问卷的问题列表
+     * @param id 问卷的id
+     * @return
+     */
+    public static String getQuestion(String id){
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListVoteConfigByIndagateID");
+        request.addProperty("id", id);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListVoteConfigByIndagateID",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("VoteConfig").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * 根据问题id获取答案列表
+     * @param id   问题的id
+     * @return
+     */
+    public static String getAnswer(String id){
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListVoteByCID");
+        request.addProperty("id", id);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListVoteByCID",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONObject("Vote").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

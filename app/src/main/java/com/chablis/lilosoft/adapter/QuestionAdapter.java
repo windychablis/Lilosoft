@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.model.Question;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 public class QuestionAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater = null;
-    private ArrayList<Object> data;
+    private ArrayList<Question> data;
 
-    public QuestionAdapter(Context context, ArrayList<Object> data) {
+    public QuestionAdapter(Context context, ArrayList<Question> data) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.data = data;
@@ -32,12 +33,12 @@ public class QuestionAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return data.size();
     }
 
     @Override
-    public QuestionAdapter getItem(int position) {
-        return null;
+    public Object getItem(int i) {
+        return data.get(i);
     }
 
     @Override
@@ -48,6 +49,7 @@ public class QuestionAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
+        Question question= (Question) getItem(position);
         if (convertView == null) {
             holder = new Holder();
             convertView = mInflater.inflate(R.layout.item_questionnaire, parent,
@@ -63,6 +65,7 @@ public class QuestionAdapter extends BaseAdapter {
         }
         String no = position + 1 + "";
         holder.tv_no.setText(no);
+        holder.tv_question.setText(question.getVote_title());
         holder.radio_a.setText("A、环境不错");
         holder.radio_b.setText("B、环境不错");
         holder.radio_c.setText("C、环境不错");

@@ -21,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 部门列表界面
+ */
 public class DeptListActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
     @BindView(R.id.indicator)
     RoundNavigationIndicator indicator;

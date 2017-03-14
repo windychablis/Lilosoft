@@ -29,6 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 表单列表和问卷列表
+ */
 public class TableListActivity extends BaseActivity {
 
     @BindView(R.id.indicator)

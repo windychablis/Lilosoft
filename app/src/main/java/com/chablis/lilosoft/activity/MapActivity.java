@@ -36,6 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 地图导航界面
+ */
 public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
     private SlidingMenu menu;
     public LocationClient mLocationClient = null;

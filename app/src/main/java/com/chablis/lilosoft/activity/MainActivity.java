@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(MapActivity.class);
                 break;
             case R.id.tabConsultButton:
-                nextActivity(QuestionnaireActivity.class);
+                nextActivity(QuestionnaireListActivity.class);
                 break;
             case R.id.tabAppointmentButton:
                 nextActivity(DeptListActivity.class);

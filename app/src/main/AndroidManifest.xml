@@ -38,8 +38,8 @@
 
         <activity
             android:name=".activity.TableListActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.TableDetailActivity"
             android:screenOrientation="portrait" />
@@ -64,7 +64,10 @@
         <activity
             android:name=".activity.MapActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuestionnaireActivity"></activity>
+        <activity android:name=".activity.QuestionnaireActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.QuestionnaireListActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

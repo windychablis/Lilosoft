@@ -26,6 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 调单材料界面
+ */
 public class TableDetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_back)
