@@ -27,6 +27,7 @@ public class Global {
     public static String areacode = "110105000000";
 
     public static String webUrl = "http://192.168.1.107:9003/SPService.svc";
+//    public static String webUrl = "http://10.180.227.251:9003/SPService.svc";
 
     public static String backup = "backup";
 

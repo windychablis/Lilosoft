@@ -3,6 +3,7 @@ package com.chablis.lilosoft.activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -10,6 +11,7 @@ import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.QuestionAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
+import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.Question;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
@@ -22,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 /**
  * 问卷调查界面
  */
@@ -31,7 +34,8 @@ public class QuestionnaireActivity extends BaseActivity implements BaseFragment.
     ListView listview;
 
     private QuestionAdapter mAdapter;
-    private ArrayList<Question> data;
+    private ArrayList<Question> questions;
+    private ArrayList<Answer> answers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class QuestionnaireActivity extends BaseActivity implements BaseFragment.
     }
 
     public void initView() {
-        getData();
+        getQuestionData();
     }
 
     @Override
@@ -57,11 +61,15 @@ public class QuestionnaireActivity extends BaseActivity implements BaseFragment.
                 this.finish();
                 break;
             case R.id.btn_OK:
+                if(mAdapter!=null){
+                   mAdapter.submit();
+                }
                 break;
         }
     }
 
-    public void getData() {
+
+    public void getQuestionData() {
         final String id = getIntent().getStringExtra("id");
         new AsyncTask<String, Integer, String>() {
             @Override
@@ -75,11 +83,30 @@ public class QuestionnaireActivity extends BaseActivity implements BaseFragment.
                 Type type = new TypeToken<ArrayList<Question>>() {
                 }.getType();
                 Gson gson = new Gson();
-                data = gson.fromJson(s, type);
-                mAdapter = new QuestionAdapter(mActivity, data);
-                listview.setAdapter(mAdapter);
+                questions = gson.fromJson(s, type);
+                getAnswerData(questions);
+
             }
 
         }.execute();
     }
+
+    public void getAnswerData(final ArrayList<Question> questions){
+        new AsyncTask<String, Integer, ArrayList<Question>>() {
+
+            @Override
+            protected ArrayList<Question> doInBackground(String... params) {
+                return WebUtil.getAnswer(questions);
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Question> questions) {
+                super.onPostExecute(questions);
+                mAdapter=new QuestionAdapter(mActivity,questions);
+                listview.setAdapter(mAdapter);
+            }
+        }.execute();
+
+    }
+
 }

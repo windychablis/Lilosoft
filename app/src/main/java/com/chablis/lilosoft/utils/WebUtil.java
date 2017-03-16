@@ -1,9 +1,13 @@
 package com.chablis.lilosoft.utils;
+
 import android.content.Context;
 
 import com.chablis.lilosoft.base.Global;
+import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.ImageUrls;
+import com.chablis.lilosoft.model.Question;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -12,9 +16,11 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.lang.reflect.Type;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class WebUtil {
@@ -55,6 +61,7 @@ public class WebUtil {
 
     /**
      * 获取部门信息
+     *
      * @param areacode
      * @return
      */
@@ -66,7 +73,8 @@ public class WebUtil {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
 
-        envelope.dotNet = true;envelope.bodyOut = request;
+        envelope.dotNet = true;
+        envelope.bodyOut = request;
         HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
         trans.debug = true;
         try {
@@ -90,6 +98,7 @@ public class WebUtil {
 
     /**
      * 获取表单信息
+     *
      * @param areacode
      * @return
      */
@@ -126,6 +135,7 @@ public class WebUtil {
 
     /**
      * 获取材料信息
+     *
      * @param areacode
      * @return
      */
@@ -160,6 +170,7 @@ public class WebUtil {
 
     /**
      * 填单台发布类型
+     *
      * @return
      */
     public String GetTDPublish() {
@@ -193,6 +204,7 @@ public class WebUtil {
 
     /**
      * 获取终端信息
+     *
      * @param context
      * @return
      */
@@ -256,6 +268,7 @@ public class WebUtil {
 
     /**
      * 获取屏保图片
+     *
      * @return
      */
     public String[] getImageURL() {
@@ -302,7 +315,7 @@ public class WebUtil {
     /**
      * 获取问卷调查列表
      */
-    public static String getAllQuestionnaire(){
+    public static String getAllQuestionnaire() {
         SoapObject request = new SoapObject("http://tempuri.org/",
                 "ListAllIndagate");
         request.addProperty("areacode", Global.areacode);
@@ -318,7 +331,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -336,10 +350,11 @@ public class WebUtil {
 
     /**
      * 获取问卷的问题列表
+     *
      * @param id 问卷的id
      * @return
      */
-    public static String getQuestion(String id){
+    public static String getQuestion(String id) {
         SoapObject request = new SoapObject("http://tempuri.org/",
                 "ListVoteConfigByIndagateID");
         request.addProperty("id", id);
@@ -355,7 +370,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -373,13 +389,55 @@ public class WebUtil {
 
     /**
      * 根据问题id获取答案列表
-     * @param id   问题的id
+     *
+     * @param id 问题的id
      * @return
      */
-    public static String getAnswer(String id){
+    public static ArrayList<Question> getAnswer(ArrayList<Question> questions) {
+        for (Question question : questions) {
+            SoapObject request = new SoapObject("http://tempuri.org/",
+                    "ListVoteByCID");
+            request.addProperty("id", question.getVote_c_id());
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.setOutputSoapObject(request);
+            envelope.bodyOut = request;
+            envelope.dotNet = true;
+            HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+            trans.debug = true;
+            try {
+                trans.call("http://tempuri.org/ISPService/ListVoteByCID",
+                        envelope);
+                SoapObject result = (SoapObject) envelope.bodyIn;
+                int count = result.getPropertyCount();
+                if (count > 0) {
+                    SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                    String jsonVal = (String) object.toString();
+                    JSONObject jsonO = new JSONObject(jsonVal);
+                    String json = jsonO.getJSONArray("Vote").toString();
+
+                    Type type = new TypeToken<ArrayList<Answer>>() {
+                    }.getType();
+                    Gson gson = new Gson();
+                    ArrayList<Answer> answers = gson.fromJson(json, type);
+                    question.setAnswers(answers);
+                }
+            } catch (Exception e) {
+                CommonUtil.saveLog("error", e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return questions;
+    }
+
+
+    /**
+     * 提交问卷
+     */
+    public static boolean updateQuestionnaire(String ids) {
         SoapObject request = new SoapObject("http://tempuri.org/",
-                "ListVoteByCID");
-        request.addProperty("id", id);
+                "UpdateVoteResultByID");
+        request.addProperty("voteid", ids);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
@@ -388,23 +446,20 @@ public class WebUtil {
         HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
         trans.debug = true;
         try {
-            trans.call("http://tempuri.org/ISPService/ListVoteByCID",
+            trans.call("http://tempuri.org/ISPService/UpdateVoteResultByID",
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            if (count > 0) {
-                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
-                String jsonVal = (String) object.toString();
-                JSONObject jsonO = new JSONObject(jsonVal);
-                String json = jsonO.getJSONObject("Vote").toString();
-                return json;
+            boolean flag = result.getProperty(0).toString().contains("true");
+            if (count > 0 && flag) {
+                return true;
             }
         } catch (Exception e) {
             CommonUtil.saveLog("error", e.getMessage());
             e.printStackTrace();
         }
-
-        return null;
+        return false;
     }
+
 
 }

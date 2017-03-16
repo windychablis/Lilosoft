@@ -71,49 +71,50 @@ public class QuestionnaireListActivity extends BaseActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Type type = new TypeToken<ArrayList<Questionnaire>>()
-                {}.getType();
-                Gson gson=new Gson();
-                data=gson.fromJson(s,type);
-                Log.d("QuestionnaireListActivi", data.toString());
-                final int PageCount = (int) Math.ceil(data.size() / APP_PAGE_SIZE);
-                array = new ArrayList<GridView>();
-                for (int i = 0; i < PageCount; i++) {
-                    mAdapter = new QuestionnaireListAdapter(mActivity, data, i);
-                    GridView gridView = new GridView(mActivity);
-                    gridView.setAdapter(mAdapter);
-                    gridView.setNumColumns(3);
-                    gridView.setGravity(Gravity.CENTER);
-                    gridView.setVerticalSpacing(25);
-                    gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-                    gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                    array.add(gridView);
+                if(s!=null){
+                    Type type = new TypeToken<ArrayList<Questionnaire>>()
+                    {}.getType();
+                    Gson gson=new Gson();
+                    data=gson.fromJson(s,type);
+                    final int PageCount = (int) Math.ceil(data.size() / APP_PAGE_SIZE);
+                    array = new ArrayList<GridView>();
+                    for (int i = 0; i < PageCount; i++) {
+                        mAdapter = new QuestionnaireListAdapter(mActivity, data, i);
+                        GridView gridView = new GridView(mActivity);
+                        gridView.setAdapter(mAdapter);
+                        gridView.setNumColumns(3);
+                        gridView.setGravity(Gravity.CENTER);
+                        gridView.setVerticalSpacing(25);
+                        gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+                        gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                        array.add(gridView);
+                    }
+
+                    //初始化圆点导航指示器
+                    indicator.setLenght(PageCount);
+                    indicator.setSelected(0);
+                    indicator.draw();
+                    myViewPagerAdapter = new MyViewPagerAdapter(mActivity, array);
+                    viewPager.setAdapter(myViewPagerAdapter);
+                    viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+                            //根据viewpager的改变修正圆点导航指示器
+                            indicator.setSelected(position);
+                            indicator.draw();
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
                 }
-
-                //初始化圆点导航指示器
-                indicator.setLenght(PageCount);
-                indicator.setSelected(0);
-                indicator.draw();
-                myViewPagerAdapter = new MyViewPagerAdapter(mActivity, array);
-                viewPager.setAdapter(myViewPagerAdapter);
-                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                    }
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        //根据viewpager的改变修正圆点导航指示器
-                        indicator.setSelected(position);
-                        indicator.draw();
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-
-                    }
-                });
             }
         }.execute();
     }

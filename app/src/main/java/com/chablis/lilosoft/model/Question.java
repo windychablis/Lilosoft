@@ -1,5 +1,7 @@
 package com.chablis.lilosoft.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by chablis on 2017/3/13.
  */
@@ -16,6 +18,8 @@ public class Question {
     private String vote_title;
     private String select_type;
     private String indagate_id;
+
+    private ArrayList<Answer> answers;
 
     public String getVote_c_id() {
         return vote_c_id;
@@ -47,5 +51,26 @@ public class Question {
 
     public void setIndagate_id(String indagate_id) {
         this.indagate_id = indagate_id;
+    }
+
+
+
+    public ArrayList<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(ArrayList<Answer> answers) {
+        this.answers = answers;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "vote_c_id='" + vote_c_id + '\'' +
+                ", vote_title='" + vote_title + '\'' +
+                ", select_type='" + select_type + '\'' +
+                ", indagate_id='" + indagate_id + '\'' +
+                ", answers=" + answers +
+                '}';
     }
 }
