@@ -24,6 +24,8 @@ public class AppContext extends Application {
     public String tdURL;
     public String formURL;
 
+    public int TAB=0;
+
     @Override
     public void onCreate() {
         super.onCreate();

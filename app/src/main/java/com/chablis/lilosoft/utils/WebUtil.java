@@ -1,6 +1,7 @@
 package com.chablis.lilosoft.utils;
 
 import android.content.Context;
+import android.util.Xml;
 
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.Answer;
@@ -15,13 +16,19 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParser;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebUtil {
 
@@ -462,4 +469,42 @@ public class WebUtil {
     }
 
 
+    public static Map<String, String> getVersion(String urlStr) {
+        Map<String, String> result = null;
+        try {
+            URL urlxml = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) urlxml
+                    .openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            int code = conn.getResponseCode();
+            if (code == 200) {
+                XmlPullParser parser = Xml.newPullParser();
+                InputStream in = conn.getInputStream();
+                parser.setInput(in, "UTF-8");
+                int type = parser.getEventType();
+                result = new HashMap<String, String>();
+                while (type != XmlPullParser.END_DOCUMENT) {
+                    switch (type) {
+                        case XmlPullParser.START_TAG:
+                            if ("version".equals(parser.getName())) {
+                                result.put("version", parser.nextText());
+                            } else if ("url".equals(parser.getName())) {
+                                result.put("url", parser.nextText());
+                            } else if ("name".equals(parser.getName())) {
+                                result.put("name", parser.nextText());
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    type = parser.next();
+                }
+            }
+        } catch (Exception e) {
+            // String strErr = e.getMessage();
+            // e.printStackTrace();
+        }
+        return result;
+    }
 }

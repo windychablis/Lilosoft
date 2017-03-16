@@ -1,11 +1,14 @@
 package com.chablis.lilosoft.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridView;
@@ -20,9 +23,11 @@ import com.chablis.lilosoft.adapter.GridViewAdapter;
 import com.chablis.lilosoft.adapter.MyViewPagerAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
+import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.IconModel;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.utils.DateUtil;
+import com.chablis.lilosoft.utils.UpdateManager;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 
 import java.util.ArrayList;
@@ -69,6 +74,14 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        String ip=getSharedPreferences("newegov", Context.MODE_PRIVATE).getString("ip","").split(":")[0];
+        Log.d("MainActivity", ip);
+        //检查更新
+        UpdateManager manager = new UpdateManager(this);
+        manager.checkUpdate(Global.updateUrl);
+
+
         initView();
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, 1000);
@@ -199,6 +212,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tabGuideButton:
+                mActivity.appContext.TAB=0;
                 nextActivity(DeptListActivity.class);
                 break;
             case R.id.tabMapButton:
@@ -208,6 +222,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(QuestionnaireListActivity.class);
                 break;
             case R.id.tabAppointmentButton:
+                mActivity.appContext.TAB=1;
                 nextActivity(DeptListActivity.class);
                 break;
         }

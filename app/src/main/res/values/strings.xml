@@ -27,7 +27,8 @@
     <string name="prompt_user">用户名</string>
     <string name="prompt_area">区域码</string>
     <string name="prompt_pwd">密码</string>
-    <string name="prompt_ip">IP:端口</string>
+    <string name="prompt_ip">接口服务IP:端口</string>
+    <string name="update_ip">自动更新IP:端口</string>
     <string name="update_ok">确定</string>
     <string name="update_cancel">取消</string>
     <string name="update_btn_text">更新</string>

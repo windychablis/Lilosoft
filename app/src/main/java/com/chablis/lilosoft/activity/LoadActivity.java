@@ -102,10 +102,12 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         pop = Global.createPopupWindow(this, R.layout.dialog_frist_load, R.id.btn_Cancel);
         final EditText et_area = (EditText) pop.getContentView().findViewById(R.id.et_area);
         final EditText et_ip = (EditText) pop.getContentView().findViewById(R.id.et_ip);
+        final EditText et_update = (EditText) pop.getContentView().findViewById(R.id.et_update);
         Button btn_OK = (Button) pop.getContentView().findViewById(R.id.btn_OK);
 
         et_area.setText(sp.getString("areacode", ""));
         et_ip.setText(sp.getString("ip", ""));
+        et_ip.setText(sp.getString("update_ip", ""));
 
         btn_OK.setOnClickListener(new View.OnClickListener() {
 
@@ -114,9 +116,11 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
                 // TODO Auto-generated method stub
                 Global.areacode = et_area.getText().toString();
                 Global.setWebUrl(et_ip.getText().toString());
+                Global.setUpdateUrl(et_update.getText().toString());
 
                 editor.putString("areacode", et_area.getText().toString());
                 editor.putString("ip", et_ip.getText().toString());
+                editor.putString("update_ip", et_ip.getText().toString());
                 editor.commit();
 
                 UpdateUtil updateUtil = new UpdateUtil(LoadActivity.this);

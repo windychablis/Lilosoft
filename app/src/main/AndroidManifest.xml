@@ -64,9 +64,13 @@
         <activity
             android:name=".activity.MapActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuestionnaireActivity"
+        <activity
+            android:name=".activity.QuestionnaireActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuestionnaireListActivity"
+        <activity
+            android:name=".activity.QuestionnaireListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.AppointmentActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 
