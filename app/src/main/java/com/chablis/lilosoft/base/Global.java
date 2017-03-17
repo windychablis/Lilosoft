@@ -29,7 +29,7 @@ public class Global {
     public static String webUrl = "http://192.168.1.107:9003/SPService.svc";
 //    public static String webUrl = "http://10.180.227.251:9003/SPService.svc";
 
-    public static String updateUrl = "http://192.168.1.107:9003/SPService.svc";
+    public static String updateUrl = "http://192.168.1.107:9002/tdconfig.xmc";
 
     public static String backup = "backup";
 
@@ -38,7 +38,7 @@ public class Global {
     }
 
     public static void setUpdateUrl(String ip) {
-        updateUrl = "http://" + ip + "/config.xml";
+        updateUrl = "http://" + ip + "/tdconfig.xml";
     }
 
     public static void setAreacode(Context context, String areacode) {
