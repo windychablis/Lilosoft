@@ -1,6 +1,7 @@
 package com.chablis.lilosoft.activity;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,20 +13,31 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.chablis.lilosoft.R;
-import com.chablis.lilosoft.adapter.FriendsAdapter;
+import com.chablis.lilosoft.adapter.MapAddressAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
+import com.chablis.lilosoft.base.Global;
+import com.chablis.lilosoft.model.MapAddress;
+import com.chablis.lilosoft.utils.ComparatorList;
+import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.BladeView;
 import com.chablis.lilosoft.widget.PinnedHeaderListView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,8 +65,9 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     private static final String FORMAT = "^[a-z,A-Z].*$";
     private PinnedHeaderListView mListView;
     private BladeView mLetter;
-    private FriendsAdapter mAdapter;
+    private MapAddressAdapter mAdapter;
     private String[] datas;
+    ArrayList<MapAddress> mapAddresses;
     // 首字母集
     private List<String> mSections;
     // 根据首字母存放数据
@@ -77,6 +90,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         option.setCoorType("bd09ll");// 设置坐标类型,返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
         option.setScanSpan(1000 * 30);//设置扫描间隔，单位是毫秒
         mLocationClient.setLocOption(option);
+
     }
 
     public void initMenu() {
@@ -107,7 +121,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 }
             }
         });
-        mAdapter = new FriendsAdapter(this, datas, mSections, mPositions);
+        mAdapter = new MapAddressAdapter(this, mapAddresses, mSections, mPositions);
         mListView.setAdapter(mAdapter);
         mListView.setOnScrollListener(mAdapter);
         mListView.setPinnedHeaderView(LayoutInflater.from(this).inflate(
@@ -116,42 +130,48 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
 
     private void initData() {
-        datas = getResources().getStringArray(R.array.countries);
+//        datas = getResources().getStringArray(R.array.countries);
         mSections = new ArrayList<String>();
         mMap = new HashMap<String, List<String>>();
         mPositions = new ArrayList<Integer>();
         mIndexer = new HashMap<String, Integer>();
 
-        for (int i = 0; i < datas.length; i++) {
-            String firstName = datas[i].substring(0, 1);
+        for (int i = 0; i < mapAddresses.size(); i++) {
+            MapAddress address = mapAddresses.get(i);
+            String firstName = address.getChina_initial().substring(0, 1);
             if (firstName.matches(FORMAT)) {
                 if (mSections.contains(firstName)) {
-                    mMap.get(firstName).add(datas[i]);
+                    mMap.get(firstName).add(address.getArea_name());
                 } else {
                     mSections.add(firstName);
                     List<String> list = new ArrayList<String>();
-                    list.add(datas[i]);
+                    list.add(address.getArea_name());
                     mMap.put(firstName, list);
                 }
             } else {
                 if (mSections.contains("#")) {
-                    mMap.get("#").add(datas[i]);
+                    mMap.get("#").add(address.getArea_name());
                 } else {
                     mSections.add("#");
                     List<String> list = new ArrayList<String>();
-                    list.add(datas[i]);
+                    list.add(address.getArea_name());
                     mMap.put("#", list);
                 }
             }
         }
 
         Collections.sort(mSections);
+        ComparatorList.sort(mapAddresses);
+        Log.d("MapActivity", "mMap:" + mMap);
         int position = 0;
         for (int i = 0; i < mSections.size(); i++) {
             mIndexer.put(mSections.get(i), position);// 存入map中，key为首字母字符串，value为首字母在listview中位置
             mPositions.add(position);// 首字母在listview中位置，存入list中
             position += mMap.get(mSections.get(i)).size();// 计算下一个首字母在listview的位置
         }
+        Log.d("MapActivity", "mPositions:" + mPositions);
+        Log.d("MapActivity", "mSections:" + mSections);
+
     }
 
 
@@ -160,8 +180,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
+        getData();
         initMap();
-        initMenu();
         mLocationClient.start();
     }
 
@@ -330,5 +350,106 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         }
     }
 
+
+    public void getData() {
+        new AsyncTask<String, Integer, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                return WebUtil.getMapData(Global.areacode);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Type type = new TypeToken<ArrayList<MapAddress>>() {
+                }.getType();
+                Gson gson = new Gson();
+                mapAddresses = gson.fromJson(s, type);
+                Log.d("MapActivity", mapAddresses.toString());
+                initMenu();
+            }
+        }.execute();
+    }
+
+    public void serchMap(double lat,double lng) {
+        baiduMap.clear();
+        //定义Maker坐标点
+        LatLng point = new LatLng(lat, lng);
+        //构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromResource(R.mipmap.dingwei);
+        //构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions()
+                .position(point)
+                .icon(bitmap);
+        //在地图上添加Marker，并显示
+        baiduMap.addOverlay(option);
+
+//        //设定中心点坐标
+//        //定义地图状态
+//        MapStatus mMapStatus = new MapStatus.Builder()
+//                //要移动的点
+//                .target(point)
+//                //放大地图到20倍
+//                .zoom(20)
+//                .build();
+//        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+//
+//        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+//        //改变地图状态
+//        baiduMap.setMapStatus(mMapStatusUpdate);
+
+        //描述地图状态将要发生的变化,通过当前经纬度来使地图显示到该位置
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
+        //改变地图状态
+        baiduMap.setMapStatus(msu);
+
+        menu.toggle();
+    }
+
+
+//    public void getAddressInfo(){
+//        //新建编码查询对象
+//        GeoCoder geocode = GeoCoder.newInstance();
+//        //新建查询对象要查询的条件
+//        ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(ll);
+//        // 发起反地理编码请求
+//        geocode.reverseGeoCode(options);
+//        //设置查询结果监听者
+//        geocode.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+//
+//            /**
+//             * 反地理编码查询结果回调函数
+//             * @param result  反地理编码查询结果
+//             */
+//            @Override
+//            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+//                    return;
+//                }
+//                if (result != null && result.error == SearchResult.ERRORNO.NO_ERROR) {
+//
+//                    //得到位置
+//                    address = result.getAddress();
+//
+//                    System.out.println("得到位置" + address);
+//
+//
+//                }
+//            }
+//
+//            /**
+//             * 地理编码查询结果回调函数
+//             * @param result  地理编码查询结果
+//             */
+//            @Override
+//            public void onGetGeoCodeResult(GeoCodeResult result) {
+//
+//
+//
+//            }
+//        });
+//    }
 
 }

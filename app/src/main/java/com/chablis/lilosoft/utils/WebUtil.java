@@ -1,6 +1,7 @@
 package com.chablis.lilosoft.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Xml;
 
 import com.chablis.lilosoft.base.Global;
@@ -506,5 +507,40 @@ public class WebUtil {
             // e.printStackTrace();
         }
         return result;
+    }
+
+
+    /**
+     * 获取地图区划数据
+     */
+    public static String getMapData(String areacode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "GetMapXYByAreaCode");
+        request.addProperty("areacode", areacode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/GetMapXYByAreaCode",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("true");
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("Map").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

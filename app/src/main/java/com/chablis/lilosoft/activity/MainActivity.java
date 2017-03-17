@@ -76,7 +76,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         ButterKnife.bind(this);
 
         String ip=getSharedPreferences("newegov", Context.MODE_PRIVATE).getString("ip","").split(":")[0];
-        Log.d("MainActivity", ip);
         //检查更新
         UpdateManager manager = new UpdateManager(this);
         manager.checkUpdate(Global.updateUrl);
