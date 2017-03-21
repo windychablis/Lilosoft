@@ -1,11 +1,22 @@
 package com.chablis.lilosoft.activity;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -15,14 +26,27 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.search.share.LocationShareURLOption;
+import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
+import com.baidu.mapapi.search.share.PoiDetailShareURLOption;
+import com.baidu.mapapi.search.share.ShareUrlResult;
+import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MapAddressAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
@@ -43,6 +67,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +77,7 @@ import butterknife.OnClick;
 /**
  * 地图导航界面
  */
-public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
+public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener,OnGetShareUrlResultListener {
     private SlidingMenu menu;
     public LocationClient mLocationClient = null;
     public MyLocationListener myLocationListner =
@@ -76,6 +102,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     private List<Integer> mPositions;
     // 首字母对应的位置
     private Map<String, Integer> mIndexer;
+
+    private String [] currentAddressInfo=new String[2];
 
     public void initMap() {
         baiduMap = bmapView.getMap();
@@ -108,7 +136,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         // 为侧滑菜单设置布局
         menu.setMenu(R.layout.menu_map);
 
-        initData();
         // TODO Auto-generated method stub
         mListView = (PinnedHeaderListView) findViewById(R.id.pinnedListView);
         mLetter = (BladeView) findViewById(R.id.friends_myletterlistview);
@@ -121,11 +148,14 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 }
             }
         });
-        mAdapter = new MapAddressAdapter(this, mapAddresses, mSections, mPositions);
-        mListView.setAdapter(mAdapter);
-        mListView.setOnScrollListener(mAdapter);
-        mListView.setPinnedHeaderView(LayoutInflater.from(this).inflate(
-                R.layout.listview_head, mListView, false));
+        if (mapAddresses!=null) {
+            initData();
+            mAdapter = new MapAddressAdapter(this, mapAddresses, mSections, mPositions);
+            mListView.setAdapter(mAdapter);
+            mListView.setOnScrollListener(mAdapter);
+            mListView.setPinnedHeaderView(LayoutInflater.from(this).inflate(
+                    R.layout.listview_head, mListView, false));
+        }
     }
 
 
@@ -162,15 +192,12 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
         Collections.sort(mSections);
         ComparatorList.sort(mapAddresses);
-        Log.d("MapActivity", "mMap:" + mMap);
         int position = 0;
         for (int i = 0; i < mSections.size(); i++) {
             mIndexer.put(mSections.get(i), position);// 存入map中，key为首字母字符串，value为首字母在listview中位置
             mPositions.add(position);// 首字母在listview中位置，存入list中
             position += mMap.get(mSections.get(i)).size();// 计算下一个首字母在listview的位置
         }
-        Log.d("MapActivity", "mPositions:" + mPositions);
-        Log.d("MapActivity", "mSections:" + mSections);
 
     }
 
@@ -227,6 +254,21 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 menu.toggle();
                 break;
         }
+    }
+
+    @Override
+    public void onGetPoiDetailShareUrlResult(ShareUrlResult shareUrlResult) {
+
+    }
+
+    @Override
+    public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
+        Log.d("MapActivity", shareUrlResult.getUrl());
+    }
+
+    @Override
+    public void onGetRouteShareUrlResult(ShareUrlResult shareUrlResult) {
+
     }
 
 
@@ -366,7 +408,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 }.getType();
                 Gson gson = new Gson();
                 mapAddresses = gson.fromJson(s, type);
-                Log.d("MapActivity", mapAddresses.toString());
                 initMenu();
             }
         }.execute();
@@ -375,7 +416,10 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     public void serchMap(double lat,double lng) {
         baiduMap.clear();
         //定义Maker坐标点
-        LatLng point = new LatLng(lat, lng);
+        final LatLng point = new LatLng(lat, lng);
+
+        //获取坐标的地理信息
+        getAddressInfo(point);
         //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory
                 .fromResource(R.mipmap.dingwei);
@@ -384,7 +428,38 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 .position(point)
                 .icon(bitmap);
         //在地图上添加Marker，并显示
-        baiduMap.addOverlay(option);
+//        baiduMap.addOverlay(option);
+        Marker marker = (Marker) (baiduMap.addOverlay(option));
+        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                View popupWindow=getLayoutInflater().inflate(R.layout.map_address_info,null);
+                TextView address= (TextView) popupWindow.findViewById(R.id.tv_address);
+                final EditText phone= (EditText) popupWindow.findViewById(R.id.et_phone);
+                Button btn= (Button) popupWindow.findViewById(R.id.btn_send);
+                address.setText(currentAddressInfo[0]);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String str=phone.getText().toString();
+                        if(isMobileNO(str)) {
+                            Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                PopupWindow infoPopupWindow=new PopupWindow(popupWindow, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                infoPopupWindow.setFocusable(true);
+                infoPopupWindow.setOutsideTouchable(true);
+                infoPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+                infoPopupWindow.showAtLocation(bmapView, Gravity.CENTER, 0, -160);
+                //让地图以备点击的覆盖物为中心
+                MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(point);
+                baiduMap.setMapStatus(status);
+                return true;
+            }
+        });
 
 //        //设定中心点坐标
 //        //定义地图状态
@@ -406,50 +481,86 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         baiduMap.setMapStatus(msu);
 
         menu.toggle();
+
+
     }
 
 
-//    public void getAddressInfo(){
-//        //新建编码查询对象
-//        GeoCoder geocode = GeoCoder.newInstance();
-//        //新建查询对象要查询的条件
-//        ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(ll);
-//        // 发起反地理编码请求
-//        geocode.reverseGeoCode(options);
-//        //设置查询结果监听者
-//        geocode.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-//
-//            /**
-//             * 反地理编码查询结果回调函数
-//             * @param result  反地理编码查询结果
-//             */
-//            @Override
-//            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-//                    return;
-//                }
-//                if (result != null && result.error == SearchResult.ERRORNO.NO_ERROR) {
-//
-//                    //得到位置
-//                    address = result.getAddress();
-//
-//                    System.out.println("得到位置" + address);
-//
-//
-//                }
-//            }
-//
-//            /**
-//             * 地理编码查询结果回调函数
-//             * @param result  地理编码查询结果
-//             */
-//            @Override
-//            public void onGetGeoCodeResult(GeoCodeResult result) {
-//
-//
-//
-//            }
-//        });
-//    }
+    /**
+     * 根据经纬度获取位置信息
+     */
+    public void getAddressInfo(final LatLng latLng){
+        ShareUrlSearch mShareUrlSearch = null;
+        mShareUrlSearch = ShareUrlSearch.newInstance();
+        mShareUrlSearch.setOnGetShareUrlResultListener(this);
+
+
+        //新建编码查询对象
+        GeoCoder geocode = GeoCoder.newInstance();
+        //新建查询对象要查询的条件
+        ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(latLng);
+        // 发起反地理编码请求
+        geocode.reverseGeoCode(options);
+        //设置查询结果监听者
+        final ShareUrlSearch finalMShareUrlSearch = mShareUrlSearch;
+        geocode.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+
+
+            @Override
+            public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+
+            }
+
+            /**
+             * 反地理编码查询结果回调函数
+             * @param reverseGeoCodeResult  反地理编码查询结果
+             */
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+                if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+                    return;
+                }
+                if (reverseGeoCodeResult != null && reverseGeoCodeResult.error == SearchResult.ERRORNO.NO_ERROR) {
+
+                    //得到位置
+                    String address = reverseGeoCodeResult.getAddress();
+                    finalMShareUrlSearch.requestLocationShareUrl(new LocationShareURLOption().location(latLng).name(address).snippet(reverseGeoCodeResult.getSematicDescription()));
+
+                    Log.d("MapActivity", "reverseGeoCodeResult:" + reverseGeoCodeResult.getAddress());
+                    Log.d("MapActivity", reverseGeoCodeResult.getSematicDescription());
+                    currentAddressInfo[0]=reverseGeoCodeResult.getAddress();
+                    currentAddressInfo[1]=reverseGeoCodeResult.getSematicDescription();
+                }
+            }
+        });
+    }
+
+    public void getShareUrl(){
+        ShareUrlSearch mShareUrlSearch = null;
+        mShareUrlSearch = ShareUrlSearch.newInstance();
+        mShareUrlSearch.setOnGetShareUrlResultListener(new OnGetShareUrlResultListener() {
+            @Override
+            public void onGetPoiDetailShareUrlResult(ShareUrlResult shareUrlResult) {
+            }
+
+            @Override
+            public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
+
+            }
+
+            @Override
+            public void onGetRouteShareUrlResult(ShareUrlResult shareUrlResult) {
+
+            }
+        });
+
+    }
+
+    public static boolean isMobileNO(String mobiles) {
+        Pattern p = Pattern
+                .compile("^((13[0-9])|(15[^4,\\D])|(14[57])|(17[0-9])|(18[0-9]))\\d{8}$");
+        Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
 
 }

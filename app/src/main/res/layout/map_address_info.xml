@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/map_address_info"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingBottom="40dp"
+    android:paddingRight="30dp">
+
+
+    <ImageView
+        android:id="@+id/iv_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/location_lan" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/iv_flag"
+        android:maxWidth="400dp"
+        android:gravity="center|left"
+        android:textColor="@color/color_sansansan"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_address"
+        android:layout_below="@id/tv_address"
+        android:layout_marginTop="10dp"
+        android:text="发送到手机短信"
+        android:textColor="@color/color_sansansan"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_alignLeft="@id/tv_send"
+        android:layout_below="@id/tv_send"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/phone"
+        android:background="@mipmap/phone_bj"
+        android:paddingLeft="20dp"
+        android:imeOptions="actionDone"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:drawablePadding="10dp"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_alignLeft="@id/et_phone"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="免费发送到手机"
+        android:layout_below="@id/et_phone"
+        android:background="@mipmap/fasong"
+        android:layout_width="240dp"
+        android:layout_height="50dp" />
+
+
+</RelativeLayout>
