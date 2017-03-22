@@ -1,8 +1,5 @@
 package com.chablis.lilosoft.activity;
 
-import android.app.AlertDialog;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,7 +22,6 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -44,7 +39,6 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.share.LocationShareURLOption;
 import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
-import com.baidu.mapapi.search.share.PoiDetailShareURLOption;
 import com.baidu.mapapi.search.share.ShareUrlResult;
 import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.chablis.lilosoft.R;
@@ -77,7 +71,7 @@ import butterknife.OnClick;
 /**
  * 地图导航界面
  */
-public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener,OnGetShareUrlResultListener {
+public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, OnGetShareUrlResultListener {
     private SlidingMenu menu;
     public LocationClient mLocationClient = null;
     public MyLocationListener myLocationListner =
@@ -103,7 +97,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     // 首字母对应的位置
     private Map<String, Integer> mIndexer;
 
-    private String [] currentAddressInfo=new String[2];
+    private String[] currentAddressInfo = new String[2];
 
     public void initMap() {
         baiduMap = bmapView.getMap();
@@ -148,7 +142,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 }
             }
         });
-        if (mapAddresses!=null) {
+        if (mapAddresses != null) {
             initData();
             mAdapter = new MapAddressAdapter(this, mapAddresses, mSections, mPositions);
             mListView.setAdapter(mAdapter);
@@ -413,7 +407,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         }.execute();
     }
 
-    public void serchMap(double lat,double lng) {
+    public void serchMap(double lat, double lng) {
         baiduMap.clear();
         //定义Maker坐标点
         final LatLng point = new LatLng(lat, lng);
@@ -433,23 +427,23 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                View popupWindow=getLayoutInflater().inflate(R.layout.map_address_info,null);
-                TextView address= (TextView) popupWindow.findViewById(R.id.tv_address);
-                final EditText phone= (EditText) popupWindow.findViewById(R.id.et_phone);
-                Button btn= (Button) popupWindow.findViewById(R.id.btn_send);
+                View popupWindow = getLayoutInflater().inflate(R.layout.map_address_info, null);
+                TextView address = (TextView) popupWindow.findViewById(R.id.tv_address);
+                final EditText phone = (EditText) popupWindow.findViewById(R.id.et_phone);
+                Button btn = (Button) popupWindow.findViewById(R.id.btn_send);
                 address.setText(currentAddressInfo[0]);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String str=phone.getText().toString();
-                        if(isMobileNO(str)) {
+                        String str = phone.getText().toString();
+                        if (isMobileNO(str)) {
                             Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-                PopupWindow infoPopupWindow=new PopupWindow(popupWindow, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                PopupWindow infoPopupWindow = new PopupWindow(popupWindow, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 infoPopupWindow.setFocusable(true);
                 infoPopupWindow.setOutsideTouchable(true);
                 infoPopupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -489,7 +483,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     /**
      * 根据经纬度获取位置信息
      */
-    public void getAddressInfo(final LatLng latLng){
+    public void getAddressInfo(final LatLng latLng) {
         ShareUrlSearch mShareUrlSearch = null;
         mShareUrlSearch = ShareUrlSearch.newInstance();
         mShareUrlSearch.setOnGetShareUrlResultListener(this);
@@ -528,33 +522,13 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
                     Log.d("MapActivity", "reverseGeoCodeResult:" + reverseGeoCodeResult.getAddress());
                     Log.d("MapActivity", reverseGeoCodeResult.getSematicDescription());
-                    currentAddressInfo[0]=reverseGeoCodeResult.getAddress();
-                    currentAddressInfo[1]=reverseGeoCodeResult.getSematicDescription();
+                    currentAddressInfo[0] = reverseGeoCodeResult.getAddress();
+                    currentAddressInfo[1] = reverseGeoCodeResult.getSematicDescription();
                 }
             }
         });
     }
 
-    public void getShareUrl(){
-        ShareUrlSearch mShareUrlSearch = null;
-        mShareUrlSearch = ShareUrlSearch.newInstance();
-        mShareUrlSearch.setOnGetShareUrlResultListener(new OnGetShareUrlResultListener() {
-            @Override
-            public void onGetPoiDetailShareUrlResult(ShareUrlResult shareUrlResult) {
-            }
-
-            @Override
-            public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
-
-            }
-
-            @Override
-            public void onGetRouteShareUrlResult(ShareUrlResult shareUrlResult) {
-
-            }
-        });
-
-    }
 
     public static boolean isMobileNO(String mobiles) {
         Pattern p = Pattern
