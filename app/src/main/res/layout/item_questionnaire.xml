@@ -20,19 +20,21 @@
         android:id="@+id/tv_question"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/tv_no"
         android:gravity="center"
         android:text="政务中心服务怎么样"
         android:textColor="@color/color_sansansan"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_question"
         android:layout_marginLeft="70dp"
-        android:background="@color/color_letter" />
+        android:background="@color/color_letter"
+        android:id="@+id/textView2" />
 
     <RadioGroup
         android:id="@+id/radio_group"

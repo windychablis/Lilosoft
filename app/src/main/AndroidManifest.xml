@@ -70,8 +70,13 @@
         <activity
             android:name=".activity.QuestionnaireListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.AppointmentActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.AppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AffairActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MatterListActivity"></activity>
     </application>
 
 </manifest>

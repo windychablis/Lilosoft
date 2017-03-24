@@ -83,4 +83,18 @@ public class TDDept {
 		AREA_CODE = aREA_CODE;
 	}
 
+	@Override
+	public String toString() {
+		return "TDDept{" +
+				"DEPT_ID='" + DEPT_ID + '\'' +
+				", DEPT_NAME='" + DEPT_NAME + '\'' +
+				", ICO_PATH='" + ICO_PATH + '\'' +
+				", DIR_URL='" + DIR_URL + '\'' +
+				", FLOORNUM=" + FLOORNUM +
+				", AREA='" + AREA + '\'' +
+				", IS_SHOW=" + IS_SHOW +
+				", IS_ORDER=" + IS_ORDER +
+				", AREA_CODE='" + AREA_CODE + '\'' +
+				'}';
+	}
 }

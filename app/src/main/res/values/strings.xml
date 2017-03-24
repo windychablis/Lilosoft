@@ -53,4 +53,7 @@
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
     <string name="title_activity_tabs">TabsActivity</string>
+
+    <string name="title_appointment">在线预约</string>
+    <string name="string_appointment_info">预约人信息</string>
 </resources>

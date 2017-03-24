@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 边框颜色值 -->
+    <item android:top="30dp">   <!-- 第二层蓝色界面,蓝色下移80dp，显示绿色上面的圆角-->
+        <shape>      <!--为了方便看效果用80dp，实际10dp足够-->
+            <solid
+                android:color="#dbdbdb"></solid>
+        </shape>
+    </item>
+    <item android:bottom="30dp">   <!--上层绿色界面，绿色上移80dp，显示出蓝色背景下面的直角-->
+        <shape>
+            <solid android:color="#dbdbdb"></solid>
+            <corners android:radius="10dp"></corners>
+        </shape>
+    </item>
+</layer-list>

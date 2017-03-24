@@ -3,6 +3,7 @@ package com.chablis.lilosoft.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.activity.AffairActivity;
 import com.chablis.lilosoft.activity.AppointmentActivity;
 import com.chablis.lilosoft.activity.DeptListActivity;
 import com.chablis.lilosoft.activity.MainActivity;
+import com.chablis.lilosoft.activity.MatterListActivity;
 import com.chablis.lilosoft.activity.TableListActivity;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.TDDept;
@@ -101,14 +104,18 @@ public class GridViewAdapter extends BaseAdapter {
                     intent.putExtra("position", i);
                     context.startActivity(intent);
                 } else if (context instanceof DeptListActivity) {
-                    if (((DeptListActivity) context).appContext.TAB == 0) {
-                        //TODO 办事指南
-
-                    } else if (((DeptListActivity) context).appContext.TAB == 1) {
-                        //TODO 预约办事
-                        Intent intent = new Intent(context, AppointmentActivity.class);
-                        context.startActivity(intent);
-                    }
+//                    if (((DeptListActivity) context).appContext.TAB == 0) {
+//                        //TODO 办事指南
+//                        Intent intent = new Intent(context, AffairActivity.class);
+//                        context.startActivity(intent);
+//                    } else if (((DeptListActivity) context).appContext.TAB == 1) {
+//                        //TODO 预约办事
+//                        Intent intent = new Intent(context, AppointmentActivity.class);
+//                        context.startActivity(intent);
+//                    }
+                    Intent intent = new Intent(context, MatterListActivity.class);
+                    intent.putExtra("position", i);
+                    context.startActivity(intent);
                 }
             }
         });
