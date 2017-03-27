@@ -210,6 +210,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -243,6 +244,7 @@
 
 
     <Button
+        android:id="@+id/btn_OK"
         android:text="提交预约"
         android:textSize="30dp"
         android:paddingLeft="20dp"

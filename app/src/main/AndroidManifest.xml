@@ -76,7 +76,11 @@
         <activity
             android:name=".activity.AffairActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MatterListActivity"></activity>
+        <activity android:name=".activity.MatterListActivity" />
+        <activity
+            android:name=".activity.AppointmentTimeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

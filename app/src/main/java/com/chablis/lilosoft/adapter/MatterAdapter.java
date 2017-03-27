@@ -120,7 +120,6 @@ public class MatterAdapter extends BaseExpandableListAdapter {
                 public void onClick(View v) {
                     Intent intent=new Intent(context,AppointmentActivity.class);
                     context.startActivity(intent);
-
                 }
             });
         }
