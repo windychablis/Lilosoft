@@ -1,5 +1,6 @@
 package com.chablis.lilosoft.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
@@ -8,7 +9,15 @@ import android.widget.TextView;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MatterAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
-import com.chablis.lilosoft.model.TDDept;
+import com.chablis.lilosoft.model.Affair;
+import com.chablis.lilosoft.model.AffairItem;
+import com.chablis.lilosoft.model.Dept;
+import com.chablis.lilosoft.utils.WebUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,16 +38,60 @@ public class MatterListActivity extends BaseActivity {
         setContentView(R.layout.activity_matter_list);
         ButterKnife.bind(this);
 
-        int position = getIntent().getIntExtra("position", 0);
-        TDDept dept=appContext.list_dept.get(position);
+        Dept dept = (Dept) getIntent().getSerializableExtra("dept");
+        tvTitle.setText(dept.getDept_name());
         Log.d("MatterListActivity", "dept:" + dept);
-        mAdapter=new MatterAdapter(mActivity,null,null);
-        listview.setAdapter(mAdapter);
+        getData(dept.getDept_id());
 
     }
 
     @OnClick(R.id.tv_back)
     public void onClick() {
         this.finish();
+    }
+
+    //根据部门id获取事项大项列表
+    public void getData(final String deptId) {
+        new AsyncTask<String, Integer, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                return WebUtil.getAffairList(deptId);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Type type = new TypeToken<ArrayList<Affair>>() {
+                }.getType();
+                Gson gson = new Gson();
+                ArrayList<Affair> affairs = gson.fromJson(s, type);
+                getItemData(affairs);
+            }
+        }.execute();
+    }
+
+    //根据部门id获取事项小项列表
+    public void getItemData(final ArrayList<Affair> affairs) {
+        new AsyncTask<String, Integer, ArrayList<Affair>>() {
+
+
+            @Override
+            protected ArrayList<Affair> doInBackground(String... params) {
+                return WebUtil.getAffairItemList(affairs);
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Affair> arrayLists) {
+                super.onPostExecute(arrayLists);
+                Log.d("MatterListActivity", "arrayLists.size():" + arrayLists.size());
+                initView(affairs);
+            }
+        }.execute();
+    }
+
+    public void initView(ArrayList<Affair> affairs) {
+        mAdapter = new MatterAdapter(mActivity, affairs);
+        listview.setAdapter(mAdapter);
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.chablis.lilosoft.base.Global;
+import com.chablis.lilosoft.model.Affair;
+import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.ImageUrls;
 import com.chablis.lilosoft.model.Question;
@@ -398,7 +400,7 @@ public class WebUtil {
     /**
      * 根据问题id获取答案列表
      *
-     * @param id 问题的id
+     * @param questions 问题实体
      * @return
      */
     public static ArrayList<Question> getAnswer(ArrayList<Question> questions) {
@@ -535,6 +537,149 @@ public class WebUtil {
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
                 String json = jsonO.getJSONArray("Map").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取部门数据
+     */
+    public static String getDeptList(String areacode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListAllDeptToAndroid");
+        request.addProperty("areacode", areacode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListAllDeptToAndroid",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("true");
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("Dept").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取事项大项列表数据
+     */
+    public static String getAffairList(String deptId) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListProjectItemByDeptID");
+        request.addProperty("deptid", deptId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListProjectItemByDeptID",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("true");
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("ProjectItem").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取事项小项列表数据
+     */
+    public static ArrayList<Affair> getAffairItemList(ArrayList<Affair> affairs) {
+        ArrayList<ArrayList<AffairItem>> list=new ArrayList<ArrayList<AffairItem>>();
+        for (Affair affair : affairs) {
+            SoapObject request = new SoapObject("http://tempuri.org/",
+                    "ListProjectByProjectItemNo");
+            request.addProperty("itemno", affair.getItem_no());
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.setOutputSoapObject(request);
+            envelope.bodyOut = request;
+            envelope.dotNet = true;
+            HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+            trans.debug = true;
+            try {
+                trans.call("http://tempuri.org/ISPService/ListProjectByProjectItemNo",
+                        envelope);
+                SoapObject result = (SoapObject) envelope.bodyIn;
+                int count = result.getPropertyCount();
+                if (count > 0) {
+                    SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                    String jsonVal = (String) object.toString();
+                    JSONObject jsonO = new JSONObject(jsonVal);
+                    String json = jsonO.getJSONArray("Project").toString();
+
+                    Type type = new TypeToken<ArrayList<AffairItem>>() {
+                    }.getType();
+                    Gson gson = new Gson();
+                    ArrayList<AffairItem> affairItems = gson.fromJson(json, type);
+                    affair.setAffairItems(affairItems);
+                }
+            } catch (Exception e) {
+                CommonUtil.saveLog("error", e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return affairs;
+    }
+
+    /**
+     * 获取事项办理材料数据
+     */
+    public static String getMaterialList(String id) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListProjectSummaryByProjectIDToAndroid");
+        request.addProperty("projectid", id);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListProjectSummaryByProjectIDToAndroid",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("true");
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONObject("ProjectSummary").toString();
                 return json;
             }
         } catch (Exception e) {
