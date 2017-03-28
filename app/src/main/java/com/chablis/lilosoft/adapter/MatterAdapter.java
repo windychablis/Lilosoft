@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.activity.AffairActivity;
 import com.chablis.lilosoft.activity.AppointmentActivity;
+import com.chablis.lilosoft.activity.MatterListActivity;
 
 import java.util.ArrayList;
 
@@ -118,8 +120,15 @@ public class MatterAdapter extends BaseExpandableListAdapter {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context,AppointmentActivity.class);
-                    context.startActivity(intent);
+                    if (((MatterListActivity) context).appContext.TAB == 0) {
+                        //TODO 办事指南
+                        Intent intent = new Intent(context, AffairActivity.class);
+                        context.startActivity(intent);
+                    } else if (((MatterListActivity) context).appContext.TAB == 1) {
+                        //TODO 预约办事
+                        Intent intent = new Intent(context, AppointmentActivity.class);
+                        context.startActivity(intent);
+                    }
                 }
             });
         }

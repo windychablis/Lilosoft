@@ -26,15 +26,18 @@ public class AppointmentActivity extends BaseActivity {
 
     @OnClick({R.id.tv_back, R.id.ll_date, R.id.btn_OK})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.tv_back:
                 this.finish();
                 break;
             case R.id.ll_date:
-                Intent intent=new Intent(mActivity,AppointmentTimeActivity.class);
+                intent=new Intent(mActivity,AppointmentTimeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_OK:
+                intent=new Intent(mActivity,AppointmentInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

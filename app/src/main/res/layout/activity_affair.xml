@@ -1,9 +1,453 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chablis.lilosoft.activity.AffairActivity">
+    android:background="@mipmap/bj"
+    android:orientation="vertical"
+    tools:context="com.chablis.lilosoft.activity.AppointmentActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/nav_top"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/color_nav"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="16dp"
+            android:padding="20dp"
+            android:text="@string/string_back"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/title_appointment"
+            android:textColor="@color/white"
+            android:textSize="36sp" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_tab"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/nav_top"
+        android:background="@color/white"
+        android:checkedButton="@+id/rb1"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="基本资料"
+            android:textColor="@color/c_affair_selector"
+            android:textSize="28sp" />
+
+        <TextView
+            android:background="@color/color_jiujiujiu"
+            android:gravity="center_vertical"
+            android:layout_width="0.5dp"
+            android:layout_height="40dp" />
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="办理材料"
+            android:textColor="@color/c_affair_selector"
+            android:textSize="28sp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="742dp"
+        android:layout_height="969dp"
+        android:layout_above="@+id/btn_OK"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/zhinan_bj"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="因私出入境中介服务机构资格认定因私出入境中介服务机构资格认定"
+            android:textColor="@color/color_sansansan"
+            android:textSize="28sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/ants_line"
+            android:layerType="software" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务机构"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/fwjg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="公安局"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/fwjg"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line1"
+                    android:text="审批类型"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/splx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line1"
+                    android:text="非行政许可审批"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/splx"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line2"
+                    android:text="事项编号"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/sxbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line2"
+                    android:text="4200000-0111"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/sxbh"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line3"
+                    android:text="办理地点"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/bldd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line3"
+                    android:text="江汉区政府"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/bldd"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line4"
+                    android:text="承诺期限"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/cnqx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line4"
+                    android:text="3个工作日"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/cnqx"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_sfbz"
+                    android:layout_below="@id/line5"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/sfbz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收费标准"
+                        android:textColor="@color/color_sansansan"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/expand_01" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/expandtv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_sfbz"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/string_appointment_prompt"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/line6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/expandtv1"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line6"
+                    android:text="咨询电话"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/zxdh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line6"
+                    android:text="0711-335667"
+                    android:textColor="@color/color_nav"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line7"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/zxdh"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_splc"
+                    android:layout_below="@id/line7"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审批流程"
+                        android:textColor="@color/color_sansansan"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/expand_01" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/expandtv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_splc"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="asdasdsdf"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/line8"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/expandtv2"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line8"
+                    android:text="受理时间"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/slsj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/line8"
+                    android:text="09:00-12:00 14:00-17:00"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/line9"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_below="@id/slsj"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_jiujiujiu" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_xsyj"
+                    android:layout_below="@id/line9"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审批流程"
+                        android:textColor="@color/color_sansansan"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/expand_01" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/expandtv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_xsyj"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="asdasdsdf"
+                    android:textColor="@color/color_jiujiujiu"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_OK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/d_btn_ques"
+        android:paddingBottom="12dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="12dp"
+        android:text="完成"
+        android:textColor="@color/color_letter"
+        android:textSize="30dp" />
+
+</RelativeLayout>

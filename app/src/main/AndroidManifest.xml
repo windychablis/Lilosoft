@@ -79,8 +79,9 @@
         <activity android:name=".activity.MatterListActivity" />
         <activity
             android:name=".activity.AppointmentTimeActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity android:name=".activity.AppointmentInfoActivity"></activity>
     </application>
 
 </manifest>

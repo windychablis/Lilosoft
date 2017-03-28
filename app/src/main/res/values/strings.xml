@@ -56,4 +56,6 @@
 
     <string name="title_appointment">在线预约</string>
     <string name="string_appointment_info">预约人信息</string>
+    <string name="string_appointment_detail">预约详情</string>
+    <string name="string_appointment_prompt">提示：请在预约当天到中心办理业务，如果未能即使到中心办理预约业务，请及时取消预约业务，如有超过3次预约业务未到中心办理及取消预约的用户，我们将会视您为不诚信用户，会影响您以后在中心办理其他业务和预约业务，给您带来的不便敬请谅解</string>
 </resources>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bj"
+    android:orientation="vertical"
+    tools:context="com.chablis.lilosoft.activity.AppointmentActivity">
+
+    <RelativeLayout
+        android:id="@+id/nav_top"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/color_nav"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="16dp"
+            android:padding="20dp"
+            android:text="@string/string_back"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/title_appointment"
+            android:textColor="@color/white"
+            android:textSize="36sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/nav_top"
+        android:layout_marginTop="16dp"
+        android:background="@mipmap/zxyy_bj"
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp"
+        android:paddingBottom="70dp"
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp"
+        android:paddingTop="70dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="因私出入境中介服务机构资格认定因私出入境中介服务机构资格认定"
+            android:textColor="@color/color_sansansan"
+            android:textSize="28sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/ants_line"
+            android:layerType="software" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="32dp"
+            android:drawableLeft="@mipmap/yuanjiao"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/string_appointment_detail"
+            android:textColor="@color/color_sansansan"
+            android:textSize="26sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="姓名"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:text="手机号码"
+                android:textSize="24sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:textSize="28sp"
+                android:text="王小二"
+                android:textColor="@color/color_sansansan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="15812345678"
+                android:textSize="28sp"
+                android:textColor="@color/color_sansansan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:text="身份证"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="420110199903012233"
+            android:textSize="28sp"
+            android:textColor="@color/color_sansansan"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="预约部门"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:text="预约时间"
+                android:textSize="24sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:textSize="28sp"
+                android:text="公安分局"
+                android:textColor="@color/color_sansansan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="2017-03-18"
+                android:textSize="28sp"
+                android:textColor="@color/color_sansansan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:text="预约地点"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="西城区XXX街道XXX社区"
+            android:textSize="28sp"
+            android:textColor="@color/color_sansansan"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/string_appointment_prompt"
+            android:layout_marginTop="60dp"
+            android:textSize="20sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_OK"
+        android:text="完成"
+        android:textSize="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/d_btn_ques"
+        android:textColor="@color/color_letter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
