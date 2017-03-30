@@ -3,6 +3,7 @@ package com.chablis.lilosoft.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class MatterAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 1;
+        return getGroup(groupPosition).getAffairItems()==null?0:1;
     }
 
     @Override
@@ -90,13 +91,15 @@ public class MatterAdapter extends BaseExpandableListAdapter {
         if (isExpanded) {
             linearLayout.setBackgroundResource(R.drawable.d_bg_matter_group_selected);
             groupHolder.expand_flag.setBackgroundResource(R.mipmap.expand_02);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            linearLayout.setPadding(20,0,20,0);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 70);
             layoutParams.setMargins(0, 0, 0, 0);
             linearLayout.setLayoutParams(layoutParams);
         } else {
             linearLayout.setBackgroundResource(R.drawable.d_bg_matter_group);
             groupHolder.expand_flag.setBackgroundResource(R.mipmap.expand_01);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            linearLayout.setPadding(20,0,20,0);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 70);
             layoutParams.setMargins(0, 0, 0, 30);
             linearLayout.setLayoutParams(layoutParams);
         }
@@ -108,6 +111,8 @@ public class MatterAdapter extends BaseExpandableListAdapter {
         Resources resources = context.getResources();
 //        ArrayList<AffairItem> arrayList = getChild(groupPosition, childPosition);
         ArrayList<AffairItem> arrayList=gData.get(groupPosition).getAffairItems();
+        Log.d("MatterAdapter", "arrayList:" + arrayList);
+
         convertView = LayoutInflater.from(context).inflate(
                 R.layout.item_matter_item, parent, false);
         LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.ll_item);

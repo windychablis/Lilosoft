@@ -1,20 +1,28 @@
 package com.chablis.lilosoft.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.adapter.MaterialAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Material;
+import com.chablis.lilosoft.model.Material2;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,8 +68,16 @@ public class AffairActivity extends BaseActivity {
     TextView expandtv3;
     @BindView(R.id.tv_affair_name)
     TextView tvAffairName;
+    @BindView(R.id.listview)
+    ListView listview;
+    @BindView(R.id.ll_content1)
+    LinearLayout llContent1;
+    @BindView(R.id.ll_content2)
+    LinearLayout llContent2;
 
     private AffairItem affairItem;
+
+    private MaterialAdapter mAdapter;
 
 
     @Override
@@ -74,7 +90,7 @@ public class AffairActivity extends BaseActivity {
         getData(affairItem.getProject_id());
     }
 
-    @OnClick({R.id.tv_back, R.id.rl_sfbz, R.id.rl_splc, R.id.rl_xsyj, R.id.btn_OK})
+    @OnClick({R.id.tv_back, R.id.rl_sfbz, R.id.rl_splc, R.id.rl_xsyj, R.id.btn_OK, R.id.rb1, R.id.rb2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
@@ -108,13 +124,22 @@ public class AffairActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_OK:
+                Intent intent=new Intent(mActivity,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+
+            case R.id.rb1:
+                llContent1.setVisibility(View.VISIBLE);
+                llContent2.setVisibility(View.GONE);
+                break;
+            case R.id.rb2:
+                llContent1.setVisibility(View.GONE);
+                llContent2.setVisibility(View.VISIBLE);
                 break;
         }
     }
 
-    @OnClick(R.id.tv_back)
-    public void onViewClicked() {
-    }
 
     public void getData(final String id) {
         new AsyncTask<String, Integer, String>() {
@@ -130,28 +155,59 @@ public class AffairActivity extends BaseActivity {
                 super.onPostExecute(s);
                 Gson gson = new Gson();
                 Material material = gson.fromJson(s, Material.class);
-                initView(material);
+                if (material!=null){
+                    initView(material);
+                }
             }
         }.execute();
+
+        new AsyncTask<String, Integer, String>() {
+
+
+            @Override
+            protected String doInBackground(String... params) {
+                return WebUtil.getMaterialList2(id);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Type type = new TypeToken<ArrayList<Material2>>() {
+                }.getType();
+                Gson gson = new Gson();
+                ArrayList<Material2> material2s = gson.fromJson(s, type);
+                if (material2s!=null) {
+                    initView2(material2s);
+                }
+            }
+        }.execute();
+    }
+
+    private void initView2(ArrayList<Material2> materials) {
+        if (materials != null) {
+            mAdapter = new MaterialAdapter(mActivity, materials);
+            listview.setAdapter(mAdapter);
+        }
     }
 
     private void initView(Material material) {
 
         fwjg.setText(material.getAccept_name());
-        if (affairItem.getProject_type().equals("01")){
+        if (affairItem.getProject_type().equals("01")) {
             splx.setText("行政许可审批");
-        }else if (affairItem.getProject_type().equals("02")){
+        } else if (affairItem.getProject_type().equals("02")) {
             splx.setText("非行政许可审批");
-        }else if (affairItem.getProject_type().equals("03")){
+        } else if (affairItem.getProject_type().equals("03")) {
             splx.setText("服务类审批");
         }
         sxbh.setText(affairItem.getProject_no());
         bldd.setText(material.getAccept_name());
-        cnqx.setText(material.getPromise_days());
+        cnqx.setText(material.getPromise_desc());
         expandtv1.setText(material.getCharge_standard());
         zxdh.setText(material.getView_consulting_mode());
         expandtv2.setText(material.getProcess());
         expandtv3.setText(material.getFoundation());
 
     }
+
 }

@@ -6,19 +6,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.GridView;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.DeptAdapter;
-import com.chablis.lilosoft.adapter.GridViewAdapter;
 import com.chablis.lilosoft.adapter.MyViewPagerAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.Dept;
-import com.chablis.lilosoft.model.MapAddress;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 import com.google.gson.Gson;
@@ -127,12 +124,13 @@ public class DeptListActivity extends BaseActivity implements BaseFragment.OnFra
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.d("DeptListActivity", s);
                 Type type = new TypeToken<ArrayList<Dept>>() {
                 }.getType();
                 Gson gson = new Gson();
                 ArrayList<Dept> depts = gson.fromJson(s, type);
-                initView(depts);
+                if (depts != null) {
+                    initView(depts);
+                }
             }
         }.execute();
     }

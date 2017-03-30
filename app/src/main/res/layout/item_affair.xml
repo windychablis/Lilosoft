@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="22dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:paddingTop="30dp"
+        android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="枪支弹药"
+            android:textColor="@color/color_sansansan"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/expand_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/expand_01"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_expand"
+        android:visibility="gone"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_top">
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="材料详情要求："
+            android:textColor="@color/color_liuliuliu"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv1"
+            android:lineSpacingMultiplier="1.5"
+            android:text="asdasdasfdsadf"
+            android:textColor="@color/color_liuliuliu"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv2"
+            android:layout_marginTop="20dp"
+            android:text="必要性："
+            android:textColor="@color/color_liuliuliu"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv2"
+            android:layout_below="@id/tv2"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/tv3"
+            android:lineSpacingMultiplier="1.5"
+            android:text="vbbbbbbb"
+            android:textColor="@color/color_liuliuliu"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:background="@color/color_jiujiujiu"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rl_expand" />
+</RelativeLayout>

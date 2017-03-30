@@ -66,7 +66,9 @@ public class MatterListActivity extends BaseActivity {
                 }.getType();
                 Gson gson = new Gson();
                 ArrayList<Affair> affairs = gson.fromJson(s, type);
-                getItemData(affairs);
+                if (affairs != null) {
+                    getItemData(affairs);
+                }
             }
         }.execute();
     }
@@ -93,5 +95,16 @@ public class MatterListActivity extends BaseActivity {
     public void initView(ArrayList<Affair> affairs) {
         mAdapter = new MatterAdapter(mActivity, affairs);
         listview.setAdapter(mAdapter);
+        listview.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                int count = listview.getExpandableListAdapter().getGroupCount();
+                for (int j = 0; j < count; j++) {
+                    if (j != groupPosition) {
+                        listview.collapseGroup(j);
+                    }
+                }
+            }
+        });
     }
 }

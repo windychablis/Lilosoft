@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId 'com.chablis.lilosoft'
         minSdkVersion 17
-        targetSdkVersion 21
+        targetSdkVersion 17
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -46,5 +46,4 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
-
 }

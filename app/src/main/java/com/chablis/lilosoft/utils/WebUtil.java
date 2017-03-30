@@ -565,8 +565,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            boolean flag = result.getProperty(0).toString().contains("true");
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -599,8 +599,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            boolean flag = result.getProperty(0).toString().contains("true");
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -635,7 +635,8 @@ public class WebUtil {
                         envelope);
                 SoapObject result = (SoapObject) envelope.bodyIn;
                 int count = result.getPropertyCount();
-                if (count > 0) {
+                boolean flag = result.getProperty(0).toString().contains("anyType{}");
+                if (count > 0 && !flag) {
                     SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                     String jsonVal = (String) object.toString();
                     JSONObject jsonO = new JSONObject(jsonVal);
@@ -674,12 +675,46 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            boolean flag = result.getProperty(0).toString().contains("true");
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
                 String json = jsonO.getJSONObject("ProjectSummary").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取事项办理材料数据
+     */
+    public static String getMaterialList2(String id) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListMaterialsByProjectIDToAndroid");
+        request.addProperty("projectid", id);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListMaterialsByProjectIDToAndroid",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("ProjectMaterials").toString();
                 return json;
             }
         } catch (Exception e) {
