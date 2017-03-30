@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.GridViewAdapter;
@@ -221,8 +222,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(QuestionnaireListActivity.class);
                 break;
             case R.id.tabAppointmentButton:
-                mActivity.appContext.TAB=1;
-                nextActivity(DeptListActivity.class);
+//                mActivity.appContext.TAB=1;
+//                nextActivity(DeptListActivity.class);
+                Toast.makeText(mActivity, "尽请期待", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
