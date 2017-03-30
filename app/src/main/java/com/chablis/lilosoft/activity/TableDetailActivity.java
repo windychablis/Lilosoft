@@ -1,12 +1,13 @@
 package com.chablis.lilosoft.activity;
+
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
@@ -17,6 +18,7 @@ import com.chablis.lilosoft.db.SQL2VOHelper;
 import com.chablis.lilosoft.db.dbConfig;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.model.TDMaterials;
+import com.chablis.lilosoft.widget.HackyViewPager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * 调单材料界面
@@ -37,9 +40,9 @@ public class TableDetailActivity extends BaseActivity {
     ImageButton ibPrint;
     List<TDMaterials> edlist;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    HackyViewPager viewPager;
 
-    private ArrayList<ImageView> imageViews;
+    private ArrayList<Drawable> PhotoViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,20 +79,24 @@ public class TableDetailActivity extends BaseActivity {
 
         ExampleInfoAdp.close();
         LayoutInflater inflater = getLayoutInflater();
-        imageViews = new ArrayList<ImageView>();
+        PhotoViews = new ArrayList<Drawable>();
         for (int i = 0; i < edlist.size(); i++) {
-            ImageView imageView = (ImageView) inflater.inflate(R.layout.image_item, null);
+//            View view = inflater.inflate(R.layout.image_item, null);
+//            PhotoView PhotoView= (PhotoView) view.findViewById(R.id.photoView);
             File file = new File(Global.getAppFileAbsolutePath(this,
                     appContext.tdURL + File.separator + appContext.formURL + File.separator + edlist.get(i).getDIR_URL() + File.separator + edlist.get(i).PIC_PATH));
 
             if (file.exists()) {
-                imageView.setImageDrawable(new BitmapDrawable(Global
+//                PhotoView.setImageDrawable(new BitmapDrawable(Global
+//                        .loadBigImage(Global.getAppFileAbsolutePath(this,
+//                                appContext.tdURL + File.separator + appContext.formURL + File.separator + edlist.get(i).getDIR_URL() + File.separator + edlist.get(i).PIC_PATH))));
+                PhotoViews.add(new BitmapDrawable(Global
                         .loadBigImage(Global.getAppFileAbsolutePath(this,
                                 appContext.tdURL + File.separator + appContext.formURL + File.separator + edlist.get(i).getDIR_URL() + File.separator + edlist.get(i).PIC_PATH))));
             }
-            imageViews.add(imageView);
+//            PhotoViews.add(PhotoView);
         }
-        MyViewPagerAdapter myViewPagerAdapter=new MyViewPagerAdapter(imageViews);
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(PhotoViews);
         viewPager.setAdapter(myViewPagerAdapter);
 
     }
@@ -100,16 +107,16 @@ public class TableDetailActivity extends BaseActivity {
         this.finish();
     }
 
-    class MyViewPagerAdapter extends PagerAdapter{
-        private ArrayList<ImageView> mImageViews;
+    class MyViewPagerAdapter extends PagerAdapter {
+        private ArrayList<Drawable> mPhotoViews;
 
-        public MyViewPagerAdapter(ArrayList<ImageView> mImageViews) {
-            this.mImageViews = mImageViews;
+        public MyViewPagerAdapter(ArrayList<Drawable> mPhotoViews) {
+            this.mPhotoViews = mPhotoViews;
         }
 
         @Override
         public int getCount() {
-            return mImageViews.size();
+            return mPhotoViews.size();
         }
 
         @Override
@@ -118,21 +125,20 @@ public class TableDetailActivity extends BaseActivity {
         }
 
         @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewPager)container).removeView(mImageViews.get(position % mImageViews.size()));
-
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            container.removeView((View) object);
         }
 
-        /**
-         * 载入图片进去，用当前的position 除以 图片数组长度取余数是关键
-         */
         @Override
-        public Object instantiateItem(View container, int position) {
-            ((ViewPager)container).addView(mImageViews.get(position % mImageViews.size()), 0);
-            return mImageViews.get(position % mImageViews.size());
+        public Object instantiateItem(ViewGroup container, int position) {
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate(R.layout.image_item, null);
+            PhotoView photoView= (PhotoView) view.findViewById(R.id.photoView);
+            photoView.setImageDrawable(mPhotoViews.get(position));
+            container.addView(view);
+            return view;
         }
-
-
     }
 
 }

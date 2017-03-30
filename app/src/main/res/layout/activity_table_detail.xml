@@ -46,10 +46,12 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.chablis.lilosoft.widget.HackyViewPager
         android:id="@+id/viewPager"
         android:layout_marginTop="48dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content">
+
+    </com.chablis.lilosoft.widget.HackyViewPager>
 
 </LinearLayout>

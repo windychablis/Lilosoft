@@ -531,8 +531,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            boolean flag = result.getProperty(0).toString().contains("true");
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
