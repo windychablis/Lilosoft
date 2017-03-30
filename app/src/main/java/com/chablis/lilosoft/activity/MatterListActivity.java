@@ -12,6 +12,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.Affair;
 import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Dept;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,6 +69,8 @@ public class MatterListActivity extends BaseActivity {
                 ArrayList<Affair> affairs = gson.fromJson(s, type);
                 if (affairs != null) {
                     getItemData(affairs);
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
                 }
             }
         }.execute();

@@ -16,6 +16,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.Dept;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 import com.google.gson.Gson;
@@ -130,6 +131,8 @@ public class DeptListActivity extends BaseActivity implements BaseFragment.OnFra
                 ArrayList<Dept> depts = gson.fromJson(s, type);
                 if (depts != null) {
                     initView(depts);
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
                 }
             }
         }.execute();

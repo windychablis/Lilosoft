@@ -15,6 +15,7 @@ import com.chablis.lilosoft.adapter.MyViewPagerAdapter;
 import com.chablis.lilosoft.adapter.QuestionnaireListAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.Questionnaire;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 import com.google.gson.Gson;
@@ -114,6 +115,8 @@ public class QuestionnaireListActivity extends BaseActivity {
 
                         }
                     });
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
                 }
             }
         }.execute();

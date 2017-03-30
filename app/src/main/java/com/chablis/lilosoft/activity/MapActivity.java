@@ -48,6 +48,7 @@ import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.MapAddress;
 import com.chablis.lilosoft.utils.ComparatorList;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.BladeView;
 import com.chablis.lilosoft.widget.PinnedHeaderListView;
@@ -149,6 +150,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
             mListView.setOnScrollListener(mAdapter);
             mListView.setPinnedHeaderView(LayoutInflater.from(this).inflate(
                     R.layout.listview_head, mListView, false));
+        }else{
+            ToastUtils.showToast(mActivity,"暂无数据");
         }
     }
 
@@ -287,7 +290,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 //改变地图状态
                 baiduMap.setMapStatus(msu);
                 isFirstIn = false;
-                Toast.makeText(MapActivity.this, location.getAddrStr(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapActivity.this, location.getAddrStr(), Toast.LENGTH_SHORT).show();
             }
 
             /*//获取定位结果
@@ -437,9 +440,11 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                     public void onClick(View v) {
                         String str = phone.getText().toString();
                         if (isMobileNO(str)) {
-                            Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showToast(mActivity,"发送成功");
                         } else {
-                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showToast(mActivity,"请输入正确的手机号码");
                         }
                     }
                 });

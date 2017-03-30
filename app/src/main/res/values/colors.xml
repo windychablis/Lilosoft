@@ -6,6 +6,7 @@
     <color name="color_title">#1f8aff</color>
     <color name="transparent">#00000000</color>
     <color name="sixty_transparent">#60ffffff</color>
+    <color name="eighty_transparent">#80ffffff</color>
     <color name="white">#ffffff</color>
 
     <color name="color_nav">#2189ff</color>

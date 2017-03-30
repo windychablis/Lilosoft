@@ -91,7 +91,8 @@ public class UpdateManager
 			showDownloadDialog();
 		} else
 		{
-			Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
+//			Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
+			ToastUtils.showToast(mContext,"已经是最新版本");
 		}
 	}
 

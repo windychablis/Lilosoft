@@ -104,11 +104,13 @@ public class PromptManager {
 	}
 
 	public static void showToast(Context context, String msg) {
-		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+		ToastUtils.showToast(context,msg);
 	}
 
 	public static void showToast(Context context, int msgResId) {
-		Toast.makeText(context, msgResId, Toast.LENGTH_LONG).show();
+//		Toast.makeText(context, msgResId, Toast.LENGTH_LONG).show();
+		ToastUtils.showToast(context,String.valueOf(msgResId));
 	}
 
 	// 当测试阶段时true
@@ -122,7 +124,8 @@ public class PromptManager {
 	 */
 	public static void showToastTest(Context context, String msg) {
 		if (isShow) {
-			Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//			Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+			ToastUtils.showToast(context,msg);
 		}
 	}
 }

@@ -22,6 +22,7 @@ import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.QuestionnaireActivity;
 import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.Question;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -250,7 +251,8 @@ public class QuestionAdapter extends BaseAdapter {
                 super.onPostExecute(aBoolean);
                 Log.d("QuestionAdapter", "aBoolean:" + aBoolean);
                 if(aBoolean){
-                    Toast.makeText(context, "问卷提交成功", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "问卷提交成功", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(context,"问卷提交成功");
                     ((QuestionnaireActivity)context).finish();
                 }
             }

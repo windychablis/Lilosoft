@@ -17,6 +17,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Material;
 import com.chablis.lilosoft.model.Material2;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -157,6 +158,8 @@ public class AffairActivity extends BaseActivity {
                 Material material = gson.fromJson(s, Material.class);
                 if (material!=null){
                     initView(material);
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
                 }
             }
         }.execute();
@@ -178,6 +181,8 @@ public class AffairActivity extends BaseActivity {
                 ArrayList<Material2> material2s = gson.fromJson(s, type);
                 if (material2s!=null) {
                     initView2(material2s);
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
                 }
             }
         }.execute();

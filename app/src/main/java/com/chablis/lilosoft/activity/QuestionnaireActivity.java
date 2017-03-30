@@ -13,6 +13,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.Question;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,7 +85,11 @@ public class QuestionnaireActivity extends BaseActivity implements BaseFragment.
                 }.getType();
                 Gson gson = new Gson();
                 questions = gson.fromJson(s, type);
-                getAnswerData(questions);
+                if (questions!=null) {
+                    getAnswerData(questions);
+                }else{
+                    ToastUtils.showToast(mActivity,"暂无数据");
+                }
 
             }
 

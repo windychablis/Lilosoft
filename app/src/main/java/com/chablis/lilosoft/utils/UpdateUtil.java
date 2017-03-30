@@ -103,13 +103,13 @@ public class UpdateUtil {
 					break;
 				case ERROR:
 					//退出程序
-					PromptManager.showToast(mContext, "程序出现错误");
+					ToastUtils.showToast(mContext, "程序出现错误");
 					android.os.Process.killProcess(android.os.Process.myPid());
 					break;
 				case SEND_TOAST:
 					PromptManager.closeProgressDialog();
 					String note = msg.obj.toString();
-					PromptManager.showToast(mContext, note);
+					ToastUtils.showToast(mContext, note);
 					new Thread(new Runnable() {
 
 						@Override
@@ -303,7 +303,7 @@ public class UpdateUtil {
 	};
 
 	public void starUpdate(){
-		PromptManager.showToast(mContext, "准备更新");
+		ToastUtils.showToast(mContext, "准备更新");
 		if(mContext instanceof LoadActivity){
 			PromptManager.showProgressDialog(mContext, "正在备份文件");
 			new BackupThread().start();
@@ -439,7 +439,7 @@ public class UpdateUtil {
 					is.close();
 				}
 			} catch (Exception e) {
-				PromptManager.showToast(mContext, "无法获取数据，请检测网络情况，区域码，ip是否填写正确");
+				ToastUtils.showToast(mContext, "无法获取数据，请检测网络情况，区域码，ip是否填写正确");
 				Message msg = Message.obtain();
 				msg.what = ERROR;
 				mHandler.sendMessageDelayed(msg, 3000);
