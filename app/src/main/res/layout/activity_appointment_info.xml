@@ -51,6 +51,7 @@
         android:paddingTop="70dp">
 
         <TextView
+            android:id="@+id/tv_affair"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -112,20 +113,24 @@
             android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="28sp"
                 android:text="王小二"
                 android:textColor="@color/color_sansansan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textSize="28sp" />
+
             <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="15812345678"
-                android:textSize="28sp"
                 android:textColor="@color/color_sansansan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textSize="28sp" />
         </LinearLayout>
 
         <TextView
@@ -138,14 +143,15 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="420110199903012233"
-            android:textSize="28sp"
-            android:textColor="@color/color_sansansan"
-            android:layout_marginTop="24dp"
+            android:id="@+id/tv_idcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="24dp"
+            android:text="420110199903012233"
+            android:textColor="@color/color_sansansan"
+            android:textSize="28sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -178,19 +184,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_dept"
                 android:layout_weight="1"
                 android:textSize="28sp"
                 android:text="公安分局"
                 android:textColor="@color/color_sansansan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
+
             <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="2017-03-18"
-                android:textSize="28sp"
                 android:textColor="@color/color_sansansan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textSize="28sp" />
         </LinearLayout>
 
         <TextView
@@ -203,7 +212,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="西城区XXX街道XXX社区"
+            android:text="朝阳区政务中心"
             android:textSize="28sp"
             android:textColor="@color/color_sansansan"
             android:layout_marginTop="24dp"

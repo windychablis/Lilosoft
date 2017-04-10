@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by chabli on 2016/1/5.
  */
 public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDateAdapter.ViewHolder>{
-    private List<String> data;
+    private List<HashMap> data;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
     private int layoutPosition;
@@ -45,11 +46,11 @@ public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDate
         }
     }
 
-    public AppointmentDateAdapter(List<String> data) {
+    public AppointmentDateAdapter(List<HashMap> data) {
         this.data = data;
     }
 
-    public AppointmentDateAdapter(Context mContext, List<String> data) {
+    public AppointmentDateAdapter(Context mContext, List<HashMap> data) {
         this.data = data;
         this.mContext=mContext;
     }
@@ -63,7 +64,7 @@ public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDate
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.tv.setText(data.get(position));
+        holder.tv.setText(data.get(position).get("datas").toString());
         holder.tv.setTag(data.get(position));
         /*holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override

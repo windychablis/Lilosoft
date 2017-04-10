@@ -1,7 +1,6 @@
 package com.chablis.lilosoft.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Xml;
 
 import com.chablis.lilosoft.base.Global;
@@ -547,7 +546,7 @@ public class WebUtil {
     }
 
     /**
-     * 获取部门数据
+     * 获取办事指南部门数据
      */
     public static String getDeptList(String areacode) {
         SoapObject request = new SoapObject("http://tempuri.org/",
@@ -571,6 +570,40 @@ public class WebUtil {
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
                 String json = jsonO.getJSONArray("Dept").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取预约部门数据
+     */
+    public static String getAppointmentDeptList(String areacode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListSubscribeDeptByAreaCode");
+        request.addProperty("areacode", areacode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListSubscribeDeptByAreaCode",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("dept").toString();
                 return json;
             }
         } catch (Exception e) {
@@ -605,6 +638,41 @@ public class WebUtil {
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
                 String json = jsonO.getJSONArray("ProjectItem").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * 获取预约事项大项列表数据
+     */
+    public static String getAppointmentAffairList(String deptId) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListSubscribeProjectItemByDeptID");
+        request.addProperty("deptid", deptId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListSubscribeProjectItemByDeptID",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("Project").toString();
                 return json;
             }
         } catch (Exception e) {
@@ -715,6 +783,157 @@ public class WebUtil {
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
                 String json = jsonO.getJSONArray("ProjectMaterials").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取预约时间
+     */
+    public static String getAppointmentTime(String areacode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListSubscribeTimeToMode3");
+        request.addProperty("areacode", areacode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListSubscribeTimeToMode3",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                String json = jsonO.getJSONArray("SubscribeDate").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取预约时间
+     */
+    public static String getAppointmentData(String time,String projectno,String areacode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ListSubscribeDataToMode3");
+        request.addProperty("stime", time);
+        request.addProperty("projectno", projectno);
+        request.addProperty("areacode", areacode);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ListSubscribeDataToMode3",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String json = (String) object.toString();
+//                JSONObject jsonO = new JSONObject(jsonVal);
+//                String json = jsonO.getJSONArray("SubscribeDate").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 验证票码是否存在
+     */
+    public static String existsTicketCode(String ticketcode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "ExistsTicketCode");
+        request.addProperty("ticketcode", ticketcode);
+        request.addProperty("areacode", Global.areacode);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/ExistsTicketCode",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String json = (String) object.toString();
+//                JSONObject jsonO = new JSONObject(jsonVal);
+//                String json = jsonO.getJSONArray("SubscribeDate").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 添加预约
+     */
+    public static String AddAppointment(String projectno,String date,String time,String idcard,String name,String mobile,String ticketcode) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "AddSubscribeToMode3");
+        request.addProperty("type", 5);
+        request.addProperty("prmid", "");
+        request.addProperty("projectid", projectno);
+        request.addProperty("orderdate", date);
+        request.addProperty("ordertime", time);
+        request.addProperty("idcard", idcard);
+        request.addProperty("username", name);
+        request.addProperty("mobile", mobile);
+        request.addProperty("ticketcode", ticketcode);
+        request.addProperty("areacode", Global.areacode);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/AddSubscribeToMode3",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String json = (String) object.toString();
+//                JSONObject jsonO = new JSONObject(jsonVal);
+//                String json = jsonO.getJSONArray("SubscribeDate").toString();
                 return json;
             }
         } catch (Exception e) {

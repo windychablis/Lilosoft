@@ -7,6 +7,7 @@ import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.chablis.lilosoft.model.ClientInfo;
+import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.R;
@@ -23,6 +24,7 @@ public class AppContext extends Application {
     public TDForm[] temp;
     public String tdURL;
     public String formURL;
+    public Dept dept;
 
     public int TAB=0;
 

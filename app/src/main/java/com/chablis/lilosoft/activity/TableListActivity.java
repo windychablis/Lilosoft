@@ -42,6 +42,8 @@ public class TableListActivity extends BaseActivity {
     TextView tvBack;
     @BindView(R.id.et_search)
     EditText etSearch;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private MyViewPagerAdapter myViewPagerAdapter;
     private GridViewTableListAdapter mAdapter;
@@ -139,6 +141,7 @@ public class TableListActivity extends BaseActivity {
     public void getData() {
         int position = getIntent().getIntExtra("position", 0);
         appContext.tdURL = appContext.list_dept.get(position).getDIR_URL();
+        tvTitle.setText(appContext.list_dept.get(position).getDEPT_NAME());
         exampleArray = appContext.TDFormList.get(position);
         appContext.temp = exampleArray;
         Log.d("TableListActivity", "position:" + exampleArray);

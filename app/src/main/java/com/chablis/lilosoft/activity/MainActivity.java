@@ -223,10 +223,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(QuestionnaireListActivity.class);
                 break;
             case R.id.tabAppointmentButton:
-//                mActivity.appContext.TAB=1;
-//                nextActivity(DeptListActivity.class);
-//                Toast.makeText(mActivity, "尽请期待", Toast.LENGTH_SHORT).show();
-                ToastUtils.showToast(mActivity,"尽请期待");
+                mActivity.appContext.TAB=1;
+                nextActivity(DeptListActivity.class);
+//                ToastUtils.showToast(mActivity,"尽请期待");
                 break;
         }
     }

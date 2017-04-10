@@ -2,6 +2,8 @@ package com.chablis.lilosoft.utils;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.os.Environment;
 
@@ -30,5 +32,19 @@ public class CommonUtil {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static boolean isMobileNO(String mobiles) {
+		Pattern p = Pattern
+				.compile("^((13[0-9])|(15[^4,\\D])|(14[57])|(17[0-9])|(18[0-9]))\\d{8}$");
+		Matcher m = p.matcher(mobiles);
+		return m.matches();
+	}
+
+	public static boolean isIdCardNO(String idcard) {
+		Pattern p = Pattern
+				.compile("^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$");
+		Matcher m = p.matcher(idcard);
+		return m.matches();
 	}
 }

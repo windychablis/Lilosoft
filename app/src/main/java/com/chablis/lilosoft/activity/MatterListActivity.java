@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MatterAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
+import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.Affair;
 import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Dept;
@@ -42,6 +43,7 @@ public class MatterListActivity extends BaseActivity {
         Dept dept = (Dept) getIntent().getSerializableExtra("dept");
         tvTitle.setText(dept.getDept_name());
         Log.d("MatterListActivity", "dept:" + dept);
+        appContext.dept=dept;
         getData(dept.getDept_id());
 
     }
@@ -57,12 +59,19 @@ public class MatterListActivity extends BaseActivity {
 
             @Override
             protected String doInBackground(String... params) {
-                return WebUtil.getAffairList(deptId);
+
+                if (mActivity.appContext.TAB == 0) {
+                    return WebUtil.getAffairList(deptId);
+                } else if (mActivity.appContext.TAB == 1) {
+                    return WebUtil.getAppointmentAffairList(deptId);
+                }
+                return null;
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+                Log.d("MatterListActivity", s);
                 Type type = new TypeToken<ArrayList<Affair>>() {
                 }.getType();
                 Gson gson = new Gson();

@@ -84,8 +84,8 @@
         android:layout_above="@+id/btn_OK"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/zhinan_bj"
-        android:visibility="visible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_affair_name"
@@ -117,12 +117,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="28dp"
-                android:paddingBottom="50dp">
+                android:paddingBottom="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,7 +136,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="公安局"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp" />
 
@@ -163,7 +162,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/line1"
-                    android:text="非行政许可审批"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp" />
 
@@ -190,7 +188,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/line2"
-                    android:text="4200000-0111"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp" />
 
@@ -215,9 +212,8 @@
                     android:id="@+id/bldd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/line3"
-                    android:text="江汉区政府"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/line3"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp" />
 
@@ -241,14 +237,13 @@
 
                 <TextView
                     android:id="@+id/cnqx"
-                    android:layout_toRightOf="@id/cnqx1"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/line4"
-                    android:text="3个工作日"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/cnqx1"
+                    android:gravity="right"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp" />
 
@@ -295,7 +290,6 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="@string/string_appointment_prompt"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp"
                     android:visibility="gone" />
@@ -319,14 +313,12 @@
 
                 <TextView
                     android:id="@+id/zxdh"
-                    android:layout_toRightOf="@id/zxdh1"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/line6"
-                    android:text="0711-335667"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/line6"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
                     android:textColor="@color/color_nav"
                     android:textSize="24sp" />
 
@@ -371,7 +363,6 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="asdasdsdf"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp"
                     android:visibility="gone" />
@@ -445,7 +436,6 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="asdasdsdf"
                     android:textColor="@color/color_jiujiujiu"
                     android:textSize="24sp"
                     android:visibility="gone" />
@@ -467,13 +457,13 @@
 
         <ListView
             android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="30dp"
-            android:padding="10dp"
             android:divider="@null"
             android:listSelector="@color/transparent"
-            android:scrollbars="none"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:padding="10dp"
+            android:scrollbars="none">
 
         </ListView>
     </LinearLayout>

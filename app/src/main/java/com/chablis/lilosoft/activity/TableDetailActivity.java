@@ -41,6 +41,8 @@ public class TableDetailActivity extends BaseActivity {
     List<TDMaterials> edlist;
     @BindView(R.id.viewPager)
     HackyViewPager viewPager;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private ArrayList<Drawable> PhotoViews;
 
@@ -65,6 +67,7 @@ public class TableDetailActivity extends BaseActivity {
     public void getData() {
         int position = getIntent().getIntExtra("position", 0);
         TDForm edpo = appContext.temp[position];
+        tvTitle.setText(edpo.getFORM_NAME());
         appContext.formURL = appContext.temp[position].getDIR_URL();
         DatabaseAdapter ExampleInfoAdp = new DatabaseAdapter(
                 this, dbConfig.DB_NAME, dbConfig.DB_VERSION,
@@ -134,7 +137,7 @@ public class TableDetailActivity extends BaseActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.image_item, null);
-            PhotoView photoView= (PhotoView) view.findViewById(R.id.photoView);
+            PhotoView photoView = (PhotoView) view.findViewById(R.id.photoView);
             photoView.setImageDrawable(mPhotoViews.get(position));
             container.addView(view);
             return view;

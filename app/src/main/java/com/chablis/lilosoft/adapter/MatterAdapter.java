@@ -82,11 +82,21 @@ public class MatterAdapter extends BaseExpandableListAdapter {
             groupHolder = new ViewHolderGroup();
             groupHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             groupHolder.expand_flag = (ImageView) convertView.findViewById(R.id.expand_flag);
+            groupHolder.iv_img= (ImageView) convertView.findViewById(R.id.iv_img);
             convertView.setTag(groupHolder);
         } else {
             groupHolder = (ViewHolderGroup) convertView.getTag();
         }
         groupHolder.tv_name.setText(affair.getItem_name());
+
+        if (((MatterListActivity) context).appContext.TAB == 0){
+            //TODO 办事指南
+            groupHolder.iv_img.setImageResource(R.mipmap.ban);
+        }else if (((MatterListActivity) context).appContext.TAB == 1) {
+            //TODO 预约办事
+            groupHolder.iv_img.setImageResource(R.mipmap.yu_icon);
+        }
+
         LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.ll_group);
         if (isExpanded) {
             linearLayout.setBackgroundResource(R.drawable.d_bg_matter_group_selected);
@@ -138,6 +148,7 @@ public class MatterAdapter extends BaseExpandableListAdapter {
                     } else if (((MatterListActivity) context).appContext.TAB == 1) {
                         //TODO 预约办事
                         Intent intent = new Intent(context, AppointmentActivity.class);
+                        intent.putExtra("appointment",affairItem);
                         context.startActivity(intent);
                     }
                 }
@@ -154,5 +165,6 @@ public class MatterAdapter extends BaseExpandableListAdapter {
     private static class ViewHolderGroup {
         private TextView tv_name;
         private ImageView expand_flag;
+        private ImageView iv_img;
     }
 }

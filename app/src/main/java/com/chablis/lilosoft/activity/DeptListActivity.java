@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.GridView;
 
@@ -117,7 +118,7 @@ public class DeptListActivity extends BaseActivity implements BaseFragment.OnFra
                 if (mActivity.appContext.TAB == 0) {
                     return WebUtil.getDeptList(Global.areacode);
                 } else if (mActivity.appContext.TAB == 1) {
-                    return null;
+                    return WebUtil.getAppointmentDeptList(Global.areacode);
                 }
                 return null;
             }
