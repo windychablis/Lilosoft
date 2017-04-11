@@ -28,6 +28,9 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:paddingRight="20dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="因私出入境中介服务机构资格认定"
             android:textColor="@color/color_sansansan"
             android:textSize="24sp" />

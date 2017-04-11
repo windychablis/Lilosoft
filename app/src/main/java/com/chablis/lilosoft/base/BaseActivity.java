@@ -1,8 +1,8 @@
 package com.chablis.lilosoft.base;
+
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
@@ -25,11 +25,11 @@ public class BaseActivity extends FragmentActivity {
         appContext= (AppContext) AppContext.get();
         mActivity=this;
         mFragmentManager = getSupportFragmentManager();
-//        _window = getWindow();
-//        WindowManager.LayoutParams params = _window.getAttributes();
-//        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
-//        _window.setAttributes(params);
-//        unlock();
+        _window = getWindow();
+        WindowManager.LayoutParams params = _window.getAttributes();
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
+        _window.setAttributes(params);
+        unlock();
 
 
     }

@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.GridViewAdapter;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.model.IconModel;
-import com.chablis.lilosoft.R;
 
 import java.util.ArrayList;
 

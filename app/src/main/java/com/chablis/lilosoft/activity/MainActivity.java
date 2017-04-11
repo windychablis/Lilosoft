@@ -1,23 +1,19 @@
 package com.chablis.lilosoft.activity;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.GridViewAdapter;
@@ -25,16 +21,12 @@ import com.chablis.lilosoft.adapter.MyViewPagerAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
-import com.chablis.lilosoft.model.IconModel;
-import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.utils.DateUtil;
-import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.UpdateManager;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,7 +1,6 @@
 package com.chablis.lilosoft.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
-import com.chablis.lilosoft.activity.DeptListActivity;
-import com.chablis.lilosoft.activity.MatterListActivity;
-import com.chablis.lilosoft.base.BaseActivity;
-import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.Material2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

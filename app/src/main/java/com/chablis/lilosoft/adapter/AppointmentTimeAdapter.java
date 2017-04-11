@@ -1,9 +1,6 @@
 package com.chablis.lilosoft.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.AppointmentTimeActivity;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.AppointmentTime;
-import com.chablis.lilosoft.utils.ToastUtils;
 
 import java.util.ArrayList;
 

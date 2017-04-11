@@ -1,11 +1,12 @@
 package com.chablis.lilosoft.utils;
+
+import android.os.Environment;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.os.Environment;
 
 public class CommonUtil {
 

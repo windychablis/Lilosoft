@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.QuestionnaireActivity;
-import com.chablis.lilosoft.activity.TableDetailActivity;
 import com.chablis.lilosoft.model.Questionnaire;
 
 import java.util.ArrayList;

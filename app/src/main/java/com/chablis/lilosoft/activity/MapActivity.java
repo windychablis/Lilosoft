@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -99,6 +98,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     private Map<String, Integer> mIndexer;
 
     private String[] currentAddressInfo = new String[2];
+
+    private String msgUrl="";
 
     public void initMap() {
         baiduMap = bmapView.getMap();
@@ -248,6 +249,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 this.finish();
                 break;
             case R.id.iv_menu:
+                //TODO
+                if (menu!=null)
                 menu.toggle();
                 break;
         }
@@ -261,6 +264,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     @Override
     public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
         Log.d("MapActivity", shareUrlResult.getUrl());
+        msgUrl=shareUrlResult.getUrl();
     }
 
     @Override
@@ -401,11 +405,13 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Type type = new TypeToken<ArrayList<MapAddress>>() {
-                }.getType();
-                Gson gson = new Gson();
-                mapAddresses = gson.fromJson(s, type);
-                initMenu();
+                if (s!=null) {
+                    Type type = new TypeToken<ArrayList<MapAddress>>() {
+                    }.getType();
+                    Gson gson = new Gson();
+                    mapAddresses = gson.fromJson(s, type);
+                    initMenu();
+                }
             }
         }.execute();
     }
@@ -441,10 +447,11 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                         String str = phone.getText().toString();
                         if (isMobileNO(str)) {
 //                            Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
-                            ToastUtils.showToast(mActivity,"发送成功");
+                            String content=currentAddressInfo[0]+"，点击："+msgUrl+"\n查看位置线路、团购优惠、靠谱评论、周边探索";
+                            sendMessage(str,content);
                         } else {
 //                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-                            ToastUtils.showToast(mActivity,"请输入正确的手机号码");
+                            ToastUtils.showToast(mActivity,"请输入正确的手机号码",ToastUtils.BLACK);
                         }
                     }
                 });
@@ -532,6 +539,27 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 }
             }
         });
+    }
+
+    public void sendMessage(final String mobile, final String content){
+        new AsyncTask<String, Integer, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(String... params) {
+                return WebUtil.sendMessage(mobile, content);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean s) {
+                super.onPostExecute(s);
+                if (s) {
+                    ToastUtils.showToast(mActivity,"发送成功",ToastUtils.BLACK);
+                }else{
+                    ToastUtils.showToast(mActivity,"发送失败",ToastUtils.BLACK);
+                }
+
+            }
+        }.execute();
     }
 
 

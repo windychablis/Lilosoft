@@ -1,13 +1,14 @@
 package com.chablis.lilosoft.db;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
  * 通过SQL语句查询出结果并封闭到VO里

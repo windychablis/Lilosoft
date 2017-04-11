@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.QuestionnaireActivity;
@@ -24,10 +23,7 @@ import com.chablis.lilosoft.model.Answer;
 import com.chablis.lilosoft.model.Question;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

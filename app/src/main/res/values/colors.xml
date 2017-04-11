@@ -7,6 +7,7 @@
     <color name="transparent">#00000000</color>
     <color name="sixty_transparent">#60ffffff</color>
     <color name="eighty_transparent">#80ffffff</color>
+    <color name="eighty_000000">#80000000</color>
     <color name="white">#ffffff</color>
 
     <color name="color_nav">#2189ff</color>

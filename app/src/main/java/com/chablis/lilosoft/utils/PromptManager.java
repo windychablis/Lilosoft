@@ -1,12 +1,13 @@
 package com.chablis.lilosoft.utils;
+
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
-import android.widget.Toast;
+import android.content.Intent;
+
 import com.chablis.lilosoft.R;
 
 /**

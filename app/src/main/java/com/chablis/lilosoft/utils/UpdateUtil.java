@@ -1,4 +1,5 @@
 package com.chablis.lilosoft.utils;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.LoadActivity;
 import com.chablis.lilosoft.activity.MainActivity;
 import com.chablis.lilosoft.base.Global;
@@ -31,7 +33,6 @@ import com.chablis.lilosoft.model.TDMaterials;
 import com.chablis.lilosoft.model.TDPublish;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.chablis.lilosoft.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

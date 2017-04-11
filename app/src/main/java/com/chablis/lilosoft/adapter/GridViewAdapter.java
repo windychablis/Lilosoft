@@ -3,7 +3,6 @@ package com.chablis.lilosoft.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
-import com.chablis.lilosoft.activity.AffairActivity;
-import com.chablis.lilosoft.activity.AppointmentActivity;
 import com.chablis.lilosoft.activity.DeptListActivity;
 import com.chablis.lilosoft.activity.MainActivity;
 import com.chablis.lilosoft.activity.MatterListActivity;

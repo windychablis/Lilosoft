@@ -15,7 +15,6 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 

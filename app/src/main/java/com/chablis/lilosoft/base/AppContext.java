@@ -6,11 +6,11 @@ package com.chablis.lilosoft.base;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.model.ClientInfo;
 import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
-import com.chablis.lilosoft.R;
 
 import java.util.ArrayList;
 import java.util.List;

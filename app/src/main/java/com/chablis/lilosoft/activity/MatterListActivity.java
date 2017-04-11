@@ -9,9 +9,7 @@ import android.widget.TextView;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MatterAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
-import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.Affair;
-import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
@@ -71,7 +69,6 @@ public class MatterListActivity extends BaseActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.d("MatterListActivity", s);
                 Type type = new TypeToken<ArrayList<Affair>>() {
                 }.getType();
                 Gson gson = new Gson();

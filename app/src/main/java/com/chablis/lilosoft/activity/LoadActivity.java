@@ -8,12 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
@@ -25,7 +25,6 @@ import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.utils.SoundPoolUtil;
 import com.chablis.lilosoft.utils.UpdateUtil;
-import com.chablis.lilosoft.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,11 +55,15 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 
         String ip = sp.getString("ip", "");
         String areacode = sp.getString("areacode", "");
+        String update_ip=sp.getString("update_ip","");
         if(!TextUtils.isEmpty(ip)){
             Global.setWebUrl(ip);
         }
         if(!TextUtils.isEmpty(ip)){
             Global.areacode = areacode;
+        }
+        if(!TextUtils.isEmpty(ip)){
+            Global.setUpdateUrl(update_ip);
         }
     }
 
@@ -107,7 +110,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 
         et_area.setText(sp.getString("areacode", ""));
         et_ip.setText(sp.getString("ip", ""));
-        et_ip.setText(sp.getString("update_ip", ""));
+        et_update.setText(sp.getString("update_ip", ""));
 
         btn_OK.setOnClickListener(new View.OnClickListener() {
 
@@ -120,7 +123,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 
                 editor.putString("areacode", et_area.getText().toString());
                 editor.putString("ip", et_ip.getText().toString());
-                editor.putString("update_ip", et_ip.getText().toString());
+                editor.putString("update_ip", et_update.getText().toString());
                 editor.commit();
 
                 UpdateUtil updateUtil = new UpdateUtil(LoadActivity.this);

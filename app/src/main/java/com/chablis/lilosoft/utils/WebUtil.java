@@ -686,7 +686,7 @@ public class WebUtil {
      * 获取事项小项列表数据
      */
     public static ArrayList<Affair> getAffairItemList(ArrayList<Affair> affairs) {
-        ArrayList<ArrayList<AffairItem>> list=new ArrayList<ArrayList<AffairItem>>();
+        ArrayList<ArrayList<AffairItem>> list = new ArrayList<ArrayList<AffairItem>>();
         for (Affair affair : affairs) {
             SoapObject request = new SoapObject("http://tempuri.org/",
                     "ListProjectByProjectItemNo");
@@ -829,7 +829,7 @@ public class WebUtil {
     /**
      * 获取预约时间
      */
-    public static String getAppointmentData(String time,String projectno,String areacode) {
+    public static String getAppointmentData(String time, String projectno, String areacode) {
         SoapObject request = new SoapObject("http://tempuri.org/",
                 "ListSubscribeDataToMode3");
         request.addProperty("stime", time);
@@ -902,7 +902,7 @@ public class WebUtil {
     /**
      * 添加预约
      */
-    public static String AddAppointment(String projectno,String date,String time,String idcard,String name,String mobile,String ticketcode) {
+    public static String AddAppointment(String projectno, String date, String time, String idcard, String name, String mobile, String ticketcode) {
         SoapObject request = new SoapObject("http://tempuri.org/",
                 "AddSubscribeToMode3");
         request.addProperty("type", 5);
@@ -941,5 +941,41 @@ public class WebUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 添加预约
+     */
+    public static boolean sendMessage(String mobile, String content) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "SendSMSToAndroid");
+        request.addProperty("mobile", mobile);
+        request.addProperty("content", content);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/SendSMSToAndroid",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                JSONObject jsonO = new JSONObject(jsonVal);
+                boolean success = jsonO.getBoolean("success");
+                return success;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 }

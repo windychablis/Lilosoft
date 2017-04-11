@@ -1,4 +1,5 @@
 package com.chablis.lilosoft.adapter;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,9 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.TableDetailActivity;
 import com.chablis.lilosoft.model.TDForm;
-import com.chablis.lilosoft.R;
 
 import java.util.ArrayList;
 import java.util.List;

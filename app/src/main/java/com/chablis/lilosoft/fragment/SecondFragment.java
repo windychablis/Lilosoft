@@ -1,4 +1,5 @@
 package com.chablis.lilosoft.fragment;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.base.BaseFragment;
 
 
 public class SecondFragment extends BaseFragment {

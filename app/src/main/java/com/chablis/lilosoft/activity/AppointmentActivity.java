@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
@@ -73,19 +72,23 @@ public class AppointmentActivity extends BaseActivity {
                 idcard = etIdcard.getText().toString();
                 mobile = etMobile.getText().toString();
                 if (name.equals("")) {
-                    Toast.makeText(mActivity, "姓名不能为空!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mActivity, "姓名不能为空!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(mActivity, "姓名不能为空!",ToastUtils.BLACK);
                     return;
                 }
                 if (mobile.equals("") || !CommonUtil.isMobileNO(mobile)) {
-                    Toast.makeText(mActivity, "无效的电话号码!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mActivity, "无效的电话号码!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(mActivity, "无效的电话号码!",ToastUtils.BLACK);
                     return;
                 }
                 if (idcard.equals("") || !CommonUtil.isIdCardNO(idcard)) {
-                    Toast.makeText(mActivity, "无效的身份证号码!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mActivity, "无效的身份证号码!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(mActivity, "无效的身份证号码!",ToastUtils.BLACK);
                     return;
                 }
                 if (date.equals("") || time.equals("")) {
-                    Toast.makeText(mActivity, "请选择预约时间!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mActivity, "请选择预约时间!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(mActivity, "请选择预约时间!",ToastUtils.BLACK);
                     return;
                 }
 
