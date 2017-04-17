@@ -214,22 +214,32 @@ public class QuestionAdapter extends BaseAdapter {
      * 提交问卷
      */
     public void submit() {
-//        Log.d("QuestionAdapter", "ids:" + ids_rb.toString());
-        String ids="";
+        String ids = "";
         Iterator iter = ids_cb.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
             String val = (String) entry.getValue();
-            ids+=val+",";
+            ids += val + ",";
         }
-        ids=ids.substring(0,ids.length()-1);
+        if (!ids.equals("")) {
+            ids = ids.substring(0, ids.length() - 1);
 
-        Iterator iter2 = ids_rb.entrySet().iterator();
-        while (iter2.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter2.next();
-            String val = (String) entry.getValue();
-            ids+=","+val;
+            Iterator iter2 = ids_rb.entrySet().iterator();
+            while (iter2.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter2.next();
+                String val = (String) entry.getValue();
+                ids += "," + val;
+            }
+        } else {
+            Iterator iter2 = ids_rb.entrySet().iterator();
+            while (iter2.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter2.next();
+                String val = (String) entry.getValue();
+                ids += val + ",";
+            }
+            ids = ids.substring(0, ids.length() - 1);
         }
+        Log.d("QuestionAdapter", ids);
         updateQuestionnaire(ids);
     }
 

@@ -3,6 +3,7 @@
 
     <string name="tab_guide">服务指南</string>
     <string name="tab_map">地图导航</string>
+    <string name="tab_scan">扫一扫</string>
     <string name="tab_consult">问卷调查</string>
     <string name="btn_consult">提交问卷</string>
     <!--<string name="tab_print">打印</string>-->

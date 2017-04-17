@@ -51,6 +51,7 @@
         android:id="@+id/tabIndicators"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -65,6 +66,12 @@
             style="@style/MainTabButton"
             android:drawableTop="@mipmap/icon_map"
             android:text="@string/tab_map" />
+
+        <RadioButton
+            android:id="@+id/tabScanButton"
+            style="@style/MainTabButton"
+            android:drawableTop="@mipmap/icon_scan"
+            android:text="@string/tab_scan" />
 
         <RadioButton
             android:id="@+id/tabConsultButton"

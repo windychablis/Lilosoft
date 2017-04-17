@@ -1,6 +1,25 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'chablis'
+            keyPassword 'chablis'
+            storeFile file('/Users/chablis/Documents/key/debug.jks')
+            storePassword 'chablis'
+        }
+        release {
+            keyAlias 'dbkey'
+            keyPassword 'lilo123'
+            storeFile file('/Users/chablis/Documents/key/DBScreenKey')
+            storePassword 'lilo123'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -11,14 +30,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        signingConfig signingConfigs.debug
+        versionNameSuffix '-debug'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
-    }
-    productFlavors {
+        debug {
+            debuggable true
+            jniDebuggable false
+            signingConfig signingConfigs.debug
+        }
     }
     sourceSets {
         main {
@@ -26,6 +51,21 @@ android {
             jni.srcDirs = [] //disable automatic ndk-build call
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                //这里修改apk文件名
+//                def fileName = outputFile.name.replace("app","${defaultConfig.versionName}_${releaseTime() }")
+//                output.outputFile = new File(outputFile.parent, fileName)
+//            }
+//        }
+//    }
 }
 
 dependencies {

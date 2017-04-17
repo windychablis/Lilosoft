@@ -25,11 +25,11 @@ public class BaseActivity extends FragmentActivity {
         appContext= (AppContext) AppContext.get();
         mActivity=this;
         mFragmentManager = getSupportFragmentManager();
-        _window = getWindow();
-        WindowManager.LayoutParams params = _window.getAttributes();
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
-        _window.setAttributes(params);
-        unlock();
+//        _window = getWindow();
+//        WindowManager.LayoutParams params = _window.getAttributes();
+//        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
+//        _window.setAttributes(params);
+//        unlock();
 
 
     }

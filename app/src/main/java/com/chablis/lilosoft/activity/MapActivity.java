@@ -99,7 +99,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
     private String[] currentAddressInfo = new String[2];
 
-    private String msgUrl="";
+    private String msgUrl = "";
 
     public void initMap() {
         baiduMap = bmapView.getMap();
@@ -110,6 +110,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         mLocationClient = new LocationClient(appContext);
         mLocationClient.registerLocationListener(myLocationListner);
         LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setOpenGps(true);//打开GPS
         option.setCoorType("bd09ll");// 设置坐标类型,返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
         option.setScanSpan(1000 * 30);//设置扫描间隔，单位是毫秒
@@ -151,8 +152,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
             mListView.setOnScrollListener(mAdapter);
             mListView.setPinnedHeaderView(LayoutInflater.from(this).inflate(
                     R.layout.listview_head, mListView, false));
-        }else{
-            ToastUtils.showToast(mActivity,"暂无数据");
+        } else {
+            ToastUtils.showToast(mActivity, "暂无数据");
         }
     }
 
@@ -250,8 +251,8 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 break;
             case R.id.iv_menu:
                 //TODO
-                if (menu!=null)
-                menu.toggle();
+                if (menu != null)
+                    menu.toggle();
                 break;
         }
     }
@@ -264,7 +265,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     @Override
     public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
         Log.d("MapActivity", shareUrlResult.getUrl());
-        msgUrl=shareUrlResult.getUrl();
+        msgUrl = shareUrlResult.getUrl();
     }
 
     @Override
@@ -405,7 +406,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if (s!=null) {
+                if (s != null) {
                     Type type = new TypeToken<ArrayList<MapAddress>>() {
                     }.getType();
                     Gson gson = new Gson();
@@ -447,11 +448,11 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                         String str = phone.getText().toString();
                         if (isMobileNO(str)) {
 //                            Toast.makeText(MapActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
-                            String content=currentAddressInfo[0]+"，点击："+msgUrl+"\n查看位置线路、团购优惠、靠谱评论、周边探索";
-                            sendMessage(str,content);
+                            String content = currentAddressInfo[0] + "，点击：" + msgUrl + "\n查看位置线路、团购优惠、靠谱评论、周边探索";
+                            sendMessage(str, content);
                         } else {
 //                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-                            ToastUtils.showToast(mActivity,"请输入正确的手机号码",ToastUtils.BLACK);
+                            ToastUtils.showToast(mActivity, "请输入正确的手机号码", ToastUtils.BLACK);
                         }
                     }
                 });
@@ -541,7 +542,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         });
     }
 
-    public void sendMessage(final String mobile, final String content){
+    public void sendMessage(final String mobile, final String content) {
         new AsyncTask<String, Integer, Boolean>() {
 
             @Override
@@ -553,9 +554,9 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
             protected void onPostExecute(Boolean s) {
                 super.onPostExecute(s);
                 if (s) {
-                    ToastUtils.showToast(mActivity,"发送成功",ToastUtils.BLACK);
-                }else{
-                    ToastUtils.showToast(mActivity,"发送失败",ToastUtils.BLACK);
+                    ToastUtils.showToast(mActivity, "发送成功", ToastUtils.BLACK);
+                } else {
+                    ToastUtils.showToast(mActivity, "发送失败", ToastUtils.BLACK);
                 }
 
             }
