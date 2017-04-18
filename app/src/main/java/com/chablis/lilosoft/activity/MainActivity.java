@@ -201,7 +201,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     }
 
 
-    @OnClick({R.id.tabGuideButton, R.id.tabMapButton, R.id.tabConsultButton, R.id.tabAppointmentButton})
+    @OnClick({R.id.tabGuideButton, R.id.tabMapButton,R.id.tabScanButton ,R.id.tabConsultButton, R.id.tabAppointmentButton})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tabGuideButton:
@@ -210,6 +210,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 break;
             case R.id.tabMapButton:
                 nextActivity(MapActivity.class);
+                break;
+            case R.id.tabScanButton:
+                nextActivity(ScanActivity.class);
                 break;
             case R.id.tabConsultButton:
                 nextActivity(QuestionnaireListActivity.class);
