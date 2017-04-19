@@ -1,6 +1,7 @@
 package com.chablis.lilosoft.activity;
 
 import android.hardware.Camera;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -8,6 +9,14 @@ import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
+import com.chablis.lilosoft.base.Global;
+import com.chablis.lilosoft.model.MapAddress;
+import com.chablis.lilosoft.utils.WebUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,8 +69,9 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     public void onScanQRCodeSuccess(String result) {
         Log.i(TAG, "result:" + result);
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        vibrate();
-        mQRCodeView.startSpot();
+//        vibrate();
+//        mQRCodeView.startSpot();
+        getData(result);
     }
 
     @Override
@@ -72,5 +82,27 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     @OnClick(R.id.tv_back)
     public void onViewClicked() {
         this.finish();
+    }
+
+    public void getData(final String id){
+        new AsyncTask<String, Integer, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                return WebUtil.getAffairByQRCode(id);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (s != null) {
+                    Type type = new TypeToken<ArrayList<MapAddress>>() {
+                    }.getType();
+                    Gson gson = new Gson();
+//                    mapAddresses = gson.fromJson(s, type);
+//                    initMenu();
+                }
+            }
+        }.execute();
     }
 }

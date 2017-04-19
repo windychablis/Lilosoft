@@ -1,6 +1,7 @@
 package com.chablis.lilosoft.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Xml;
 
 import com.chablis.lilosoft.base.Global;
@@ -977,5 +978,48 @@ public class WebUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 根据扫描的二维码获取事项列表或是办事指南
+     */
+    public static String getAffairByQRCode(String id) {
+        SoapObject request = new SoapObject("http://tempuri.org/",
+                "GetProjectInfoByQueueID");
+        request.addProperty("id", id);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        envelope.dotNet = true;
+        HttpTransportSE trans = new HttpTransportSE(Global.webUrl);
+        trans.debug = true;
+        try {
+            trans.call("http://tempuri.org/ISPService/GetProjectInfoByQueueID",
+                    envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String json = (String) object.toString();
+                JSONObject jsonO = new JSONObject(json);
+                if (jsonO.has("ProjectItem")){
+                    Log.d("WebUtil", "jsonO.get(ProjectItem):" + jsonO.get("ProjectItem"));
+                }else if (jsonO.has("ProjectSummary")){
+                    Log.d("WebUtil", "jsonO.get(ProjectSummary):" + jsonO.get("ProjectSummary")+"aa");
+                }
+
+
+
+//                String json = jsonO.getJSONArray("SubscribeDate").toString();
+                return json;
+            }
+        } catch (Exception e) {
+            CommonUtil.saveLog("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }
