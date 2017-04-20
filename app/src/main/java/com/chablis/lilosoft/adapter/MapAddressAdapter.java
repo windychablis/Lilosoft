@@ -91,6 +91,7 @@ public class MapAddressAdapter extends BaseAdapter implements SectionIndexer,
                     double lat = Double.parseDouble(p[1]);
                     double lng = Double.parseDouble(p[0]);
                     ((MapActivity) mContext).serchMap(lat, lng);
+                    ((MapActivity) mContext).mapToggle();
                 }
             }
         });

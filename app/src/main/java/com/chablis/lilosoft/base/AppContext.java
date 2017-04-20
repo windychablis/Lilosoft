@@ -5,7 +5,6 @@ package com.chablis.lilosoft.base;
 
 import android.app.Application;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.model.ClientInfo;
 import com.chablis.lilosoft.model.Dept;
@@ -33,7 +32,6 @@ public class AppContext extends Application {
         super.onCreate();
         sInstance = this;
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
-        SDKInitializer.initialize(this);
         // 初始化服务地址
 //        Global.WebServerUrl = getResources().getString(R.string.WebServerUrl);
         Global.AppFileRootPath = getResources().getString(

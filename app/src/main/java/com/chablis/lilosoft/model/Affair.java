@@ -157,6 +157,7 @@ public class Affair implements Serializable {
                 ", create_time='" + create_time + '\'' +
                 ", version=" + version +
                 ", is_public='" + is_public + '\'' +
+                ", affairItems=" + affairItems +
                 '}';
     }
 }

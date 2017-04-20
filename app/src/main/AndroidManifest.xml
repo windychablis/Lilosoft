@@ -38,8 +38,8 @@
         <activity android:name=".activity.MainActivity" />
 
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="XhTRRpFyw1IfOSyn6wfDp263d3xPaRU6" />
+            android:name="com.amap.api.v2.apikey"
+            android:value="c701faa980dbd457e72bf3d4ada0fdaf" />
 
         <activity
             android:name=".activity.TableListActivity"

@@ -54,7 +54,7 @@ public class MatterAdapter extends BaseExpandableListAdapter {
 
     @Override
     public ArrayList<AffairItem> getChild(int groupPosition, int childPosition) {
-        return iData.get(groupPosition);
+        return gData.get(groupPosition).getAffairItems();
     }
 
     @Override

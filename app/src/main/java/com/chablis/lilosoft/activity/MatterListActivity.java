@@ -3,6 +3,7 @@ package com.chablis.lilosoft.activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MatterAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.Affair;
+import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
@@ -101,7 +103,7 @@ public class MatterListActivity extends BaseActivity {
         }.execute();
     }
 
-    public void initView(ArrayList<Affair> affairs) {
+    public void initView(final ArrayList<Affair> affairs) {
         mAdapter = new MatterAdapter(mActivity, affairs);
         listview.setAdapter(mAdapter);
         listview.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -112,6 +114,18 @@ public class MatterListActivity extends BaseActivity {
                     if (j != groupPosition) {
                         listview.collapseGroup(j);
                     }
+                }
+            }
+        });
+
+        listview.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                ArrayList<AffairItem> temp=mAdapter.getChild(groupPosition,0);
+                if (temp==null){
+                    return  true;
+                }else {
+                    return false;
                 }
             }
         });
