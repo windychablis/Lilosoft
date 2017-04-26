@@ -16,6 +16,7 @@ import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.adapter.MaterialAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.AffairItem;
+import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.Material;
 import com.chablis.lilosoft.model.Material2;
 import com.chablis.lilosoft.utils.ToastUtils;
@@ -95,10 +96,20 @@ public class AffairActivity extends BaseActivity {
         from = intent.getStringExtra("from");
         if (from != null) {
             btnOK.setText("预约");
+            Material material = (Material) intent.getSerializableExtra("material");
+            affairItem = new AffairItem();
+            affairItem.setProject_type(material.getProject_type());
+            affairItem.setProject_name(material.getProject_name());
+            affairItem.setProject_no(material.getProject_no());
+            affairItem.setProject_id(material.getProject_id());
+            appContext.dept=new Dept();
+            appContext.dept.setDept_name(material.getDeptname());
+            getData(affairItem.getProject_id());
+        } else {
+            affairItem = (AffairItem) intent.getSerializableExtra("affair_item");
+            tvAffairName.setText(affairItem.getProject_name());
+            getData(affairItem.getProject_id());
         }
-        affairItem = (AffairItem) intent.getSerializableExtra("affair_item");
-        tvAffairName.setText(affairItem.getProject_name());
-        getData(affairItem.getProject_id());
     }
 
     @OnClick({R.id.tv_back, R.id.rl_sfbz, R.id.rl_splc, R.id.rl_xsyj, R.id.btn_OK, R.id.rb1, R.id.rb2})
@@ -137,7 +148,9 @@ public class AffairActivity extends BaseActivity {
             case R.id.btn_OK:
                 if (from != null) {
                     //TODO 进入预约界面
-
+                    Intent intent = new Intent(mActivity, AppointmentActivity.class);
+                    intent.putExtra("appointment",affairItem);
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(mActivity, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -203,6 +216,31 @@ public class AffairActivity extends BaseActivity {
         }.execute();
     }
 
+//    public void getMaterrial2(final String id){
+//        new AsyncTask<String, Integer, String>() {
+//
+//
+//            @Override
+//            protected String doInBackground(String... params) {
+//                return WebUtil.getMaterialList2(id);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(String s) {
+//                super.onPostExecute(s);
+//                Type type = new TypeToken<ArrayList<Material2>>() {
+//                }.getType();
+//                Gson gson = new Gson();
+//                ArrayList<Material2> material2s = gson.fromJson(s, type);
+//                if (material2s != null) {
+//                    initView2(material2s);
+//                } else {
+//                    ToastUtils.showToast(mActivity, "暂无数据");
+//                }
+//            }
+//        }.execute();
+//    }
+
     private void initView2(ArrayList<Material2> materials) {
         if (materials != null) {
             mAdapter = new MaterialAdapter(mActivity, materials);
@@ -220,7 +258,8 @@ public class AffairActivity extends BaseActivity {
         } else if (affairItem.getProject_type().equals("03")) {
             splx.setText("服务类审批");
         }
-        sxbh.setText(affairItem.getProject_no());
+        if (sxbh != null)
+            sxbh.setText(affairItem.getProject_no());
         bldd.setText(material.getAccept_name());
         cnqx.setText(material.getPromise_desc());
         expandtv1.setText(material.getCharge_standard());

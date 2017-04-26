@@ -13,6 +13,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.Affair;
 import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.MapAddress;
+import com.chablis.lilosoft.model.Material;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -106,10 +107,10 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                     } else {
                         //办事指南
                         Gson gson = new Gson();
-                        AffairItem affairItem=gson.fromJson(s[1], AffairItem.class);
+                        Material material=gson.fromJson(s[1], Material.class);
                         Intent intent=new Intent(mActivity,AffairActivity.class);
                         intent.putExtra("from","scan");
-                        intent.putExtra("affair_item",affairItem);
+                        intent.putExtra("material",material);
                         startActivity(intent);
                     }
                 }

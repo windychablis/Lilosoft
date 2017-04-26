@@ -1,10 +1,12 @@
 package com.chablis.lilosoft.model;
 
+import java.io.Serializable;
+
 /**
  * Created by chablis on 2017/3/28.
  */
 
-public class Material {
+public class Material implements Serializable {
     /**
      * summary_id : 7c42132317db4f1694c7f2d602f2f172
      * version : 1
@@ -97,6 +99,10 @@ public class Material {
     private String year_desc;
     private String raccept_name;
     private String accept_num;
+    private String deptname;
+    private String project_type;
+    private String project_name;
+    private String project_no;
 
     @Override
     public String toString() {
@@ -141,6 +147,38 @@ public class Material {
                 ", raccept_name='" + raccept_name + '\'' +
                 ", accept_num='" + accept_num + '\'' +
                 '}';
+    }
+
+    public String getProject_no() {
+        return project_no;
+    }
+
+    public void setProject_no(String project_no) {
+        this.project_no = project_no;
+    }
+
+    public String getProject_type() {
+        return project_type;
+    }
+
+    public void setProject_type(String project_type) {
+        this.project_type = project_type;
+    }
+
+    public String getProject_name() {
+        return project_name;
+    }
+
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
+    }
+
+    public String getDeptname() {
+        return deptname;
+    }
+
+    public void setDeptname(String deptname) {
+        this.deptname = deptname;
     }
 
     public String getSummary_id() {
