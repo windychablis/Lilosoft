@@ -61,10 +61,6 @@
             android:name=".activity.DeptListActivity"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
 
         <activity
             android:name=".activity.MapActivity"
@@ -77,6 +73,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AppointmentActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AffairActivity"

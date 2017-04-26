@@ -1,5 +1,6 @@
 package com.chablis.lilosoft.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 事项列表
+ */
 public class MatterListActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
@@ -39,12 +43,25 @@ public class MatterListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matter_list);
         ButterKnife.bind(this);
-
-        Dept dept = (Dept) getIntent().getSerializableExtra("dept");
-        tvTitle.setText(dept.getDept_name());
-        Log.d("MatterListActivity", "dept:" + dept);
-        appContext.dept=dept;
-        getData(dept.getDept_id());
+        Intent intent=getIntent();
+        String json=intent.getStringExtra("affairs");
+        if (json==null) {
+            Dept dept = (Dept) intent.getSerializableExtra("dept");
+            tvTitle.setText(dept.getDept_name());
+            Log.d("MatterListActivity", "dept:" + dept);
+            appContext.dept = dept;
+            getData(dept.getDept_id());
+        }else{
+            Type type = new TypeToken<ArrayList<Affair>>() {
+            }.getType();
+            Gson gson = new Gson();
+            ArrayList<Affair> affairs = gson.fromJson(json, type);
+            if (affairs != null) {
+                getItemData(affairs);
+            }else{
+                ToastUtils.showToast(mActivity,"暂无数据");
+            }
+        }
 
     }
 

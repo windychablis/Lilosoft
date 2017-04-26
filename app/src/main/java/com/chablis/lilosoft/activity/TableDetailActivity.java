@@ -18,6 +18,7 @@ import com.chablis.lilosoft.db.SQL2VOHelper;
 import com.chablis.lilosoft.db.dbConfig;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.model.TDMaterials;
+import com.chablis.lilosoft.utils.CommonUtil;
 import com.chablis.lilosoft.widget.HackyViewPager;
 
 import java.io.File;
@@ -114,6 +115,7 @@ public class TableDetailActivity extends BaseActivity {
         private ArrayList<Drawable> mPhotoViews;
 
         public MyViewPagerAdapter(ArrayList<Drawable> mPhotoViews) {
+            CommonUtil.saveLog("error", mPhotoViews.toString());
             this.mPhotoViews = mPhotoViews;
         }
 
@@ -129,7 +131,7 @@ public class TableDetailActivity extends BaseActivity {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
+//            super.destroyItem(container, position, object);
             container.removeView((View) object);
         }
 

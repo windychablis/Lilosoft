@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -75,10 +76,14 @@ public class AffairActivity extends BaseActivity {
     LinearLayout llContent1;
     @BindView(R.id.ll_content2)
     LinearLayout llContent2;
+    @BindView(R.id.btn_OK)
+    Button btnOK;
 
     private AffairItem affairItem;
 
     private MaterialAdapter mAdapter;
+
+    private String from;
 
 
     @Override
@@ -86,7 +91,12 @@ public class AffairActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affair);
         ButterKnife.bind(this);
-        affairItem = (AffairItem) getIntent().getSerializableExtra("affair_item");
+        Intent intent = getIntent();
+        from = intent.getStringExtra("from");
+        if (from != null) {
+            btnOK.setText("预约");
+        }
+        affairItem = (AffairItem) intent.getSerializableExtra("affair_item");
         tvAffairName.setText(affairItem.getProject_name());
         getData(affairItem.getProject_id());
     }
@@ -125,9 +135,14 @@ public class AffairActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_OK:
-                Intent intent=new Intent(mActivity,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                if (from != null) {
+                    //TODO 进入预约界面
+
+                } else {
+                    Intent intent = new Intent(mActivity, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 break;
 
             case R.id.rb1:
@@ -156,10 +171,10 @@ public class AffairActivity extends BaseActivity {
                 super.onPostExecute(s);
                 Gson gson = new Gson();
                 Material material = gson.fromJson(s, Material.class);
-                if (material!=null){
+                if (material != null) {
                     initView(material);
-                }else{
-                    ToastUtils.showToast(mActivity,"暂无数据");
+                } else {
+                    ToastUtils.showToast(mActivity, "暂无数据");
                 }
             }
         }.execute();
@@ -179,10 +194,10 @@ public class AffairActivity extends BaseActivity {
                 }.getType();
                 Gson gson = new Gson();
                 ArrayList<Material2> material2s = gson.fromJson(s, type);
-                if (material2s!=null) {
+                if (material2s != null) {
                     initView2(material2s);
-                }else{
-                    ToastUtils.showToast(mActivity,"暂无数据");
+                } else {
+                    ToastUtils.showToast(mActivity, "暂无数据");
                 }
             }
         }.execute();

@@ -945,7 +945,7 @@ public class WebUtil {
     }
 
     /**
-     * 添加预约
+     * 发送短信
      */
     public static boolean sendMessage(String mobile, String content) {
         SoapObject request = new SoapObject("http://tempuri.org/",
@@ -983,7 +983,7 @@ public class WebUtil {
     /**
      * 根据扫描的二维码获取事项列表或是办事指南
      */
-    public static String getAffairByQRCode(String id) {
+    public static String[] getAffairByQRCode(String id) {
         SoapObject request = new SoapObject("http://tempuri.org/",
                 "GetProjectInfoByQueueID");
         request.addProperty("id", id);
@@ -1005,16 +1005,18 @@ public class WebUtil {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String json = (String) object.toString();
                 JSONObject jsonO = new JSONObject(json);
+                String [] str=new String[2];
                 if (jsonO.has("ProjectItem")){
                     Log.d("WebUtil", "jsonO.get(ProjectItem):" + jsonO.get("ProjectItem"));
+                    str[0]="0";
+                    str[1]=jsonO.getString("ProjectItem");
+
                 }else if (jsonO.has("ProjectSummary")){
-                    Log.d("WebUtil", "jsonO.get(ProjectSummary):" + jsonO.get("ProjectSummary")+"aa");
+                    Log.d("WebUtil", "jsonO.get(ProjectSummary):" + jsonO.get("ProjectSummary"));
+                    str[0]="1";
+                    str[1]=jsonO.getString("ProjectSummary");
                 }
-
-
-
-//                String json = jsonO.getJSONArray("SubscribeDate").toString();
-                return json;
+                return str;
             }
         } catch (Exception e) {
             CommonUtil.saveLog("error", e.getMessage());

@@ -1,5 +1,6 @@
 package com.chablis.lilosoft.activity;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,7 +10,8 @@ import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
-import com.chablis.lilosoft.base.Global;
+import com.chablis.lilosoft.model.Affair;
+import com.chablis.lilosoft.model.AffairItem;
 import com.chablis.lilosoft.model.MapAddress;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
@@ -22,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
@@ -36,6 +37,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
         setContentView(R.layout.activity_scan);
         ButterKnife.bind(this);
         mQRCodeView.setDelegate(this);
+        getData("2");
     }
 
     @Override
@@ -84,23 +86,32 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
         this.finish();
     }
 
-    public void getData(final String id){
-        new AsyncTask<String, Integer, String>() {
+    public void getData(final String id) {
+        new AsyncTask<String, Integer, String[]>() {
 
             @Override
-            protected String doInBackground(String... params) {
+            protected String[] doInBackground(String... params) {
                 return WebUtil.getAffairByQRCode(id);
             }
 
             @Override
-            protected void onPostExecute(String s) {
+            protected void onPostExecute(String[] s) {
                 super.onPostExecute(s);
                 if (s != null) {
-                    Type type = new TypeToken<ArrayList<MapAddress>>() {
-                    }.getType();
-                    Gson gson = new Gson();
-//                    mapAddresses = gson.fromJson(s, type);
-//                    initMenu();
+                    if (s[0].equals("0")) {
+                        //事项列表
+                        Intent intent=new Intent(mActivity,MatterListActivity.class);
+                        intent.putExtra("affairs",s[1]);
+                        startActivity(intent);
+                    } else {
+                        //办事指南
+                        Gson gson = new Gson();
+                        AffairItem affairItem=gson.fromJson(s[1], AffairItem.class);
+                        Intent intent=new Intent(mActivity,AffairActivity.class);
+                        intent.putExtra("from","scan");
+                        intent.putExtra("affair_item",affairItem);
+                        startActivity(intent);
+                    }
                 }
             }
         }.execute();
