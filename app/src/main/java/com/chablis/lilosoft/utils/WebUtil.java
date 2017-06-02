@@ -604,7 +604,7 @@ public class WebUtil {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
-                String json = jsonO.getJSONArray("dept").toString();
+                String json = jsonO.getJSONArray("Dept").toString();
                 return json;
             }
         } catch (Exception e) {
