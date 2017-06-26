@@ -22,7 +22,8 @@
             android:drawableLeft="@mipmap/installing"
             android:drawablePadding="8dp"
             android:text="基本信息"
-            android:textColor="@color/color_sansansan" />
+            android:textColor="@color/color_sansansan"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView6"
@@ -81,8 +82,8 @@
                 android:id="@+id/tv2_1"
                 style="@style/s_table_text"
                 android:layout_height="wrap_content"
-                android:background="@color/color_eee"
                 android:layout_below="@id/tv1"
+                android:background="@color/color_eee"
                 android:text="终端区划"
                 app:layout_widthPercent="22%" />
 
@@ -221,7 +222,7 @@
             <View
                 android:id="@+id/line_left1"
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv5_1"
                 android:layout_toRightOf="@id/tv1"
                 android:background="@color/color_bfbfbf" />
@@ -229,7 +230,7 @@
             <View
                 android:id="@+id/line_left2"
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv3_1"
                 android:layout_toRightOf="@id/tv2"
                 android:background="@color/color_bfbfbf" />
@@ -237,7 +238,7 @@
             <View
                 android:id="@+id/line_left3"
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv3_1"
                 android:layout_toRightOf="@id/tv3"
                 android:background="@color/color_bfbfbf" />
@@ -247,7 +248,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
@@ -261,7 +262,8 @@
             android:drawableLeft="@mipmap/maintenance"
             android:drawablePadding="8dp"
             android:text="维护信息"
-            android:textColor="@color/color_sansansan" />
+            android:textColor="@color/color_sansansan"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView7"
@@ -282,6 +284,7 @@
                 android:gravity="center"
                 android:text="大类"
                 android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
                 app:layout_widthPercent="22%" />
 
             <TextView
@@ -291,6 +294,7 @@
                 android:gravity="center"
                 android:text="小类"
                 android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
                 app:layout_widthPercent="28%" />
 
             <TextView
@@ -300,6 +304,7 @@
                 android:gravity="center"
                 android:text="报修时间"
                 android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
                 app:layout_widthPercent="28%" />
 
             <TextView
@@ -309,6 +314,7 @@
                 android:gravity="center"
                 android:text="状态"
                 android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
                 app:layout_widthPercent="22%" />
         </android.support.percent.PercentRelativeLayout>
 
@@ -318,22 +324,6 @@
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
             android:background="@color/color_bfbfbf" />
-
-        <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_nodata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/folder"
-                android:text="暂无记录"
-                android:visibility="gone" />
-
-        </android.support.percent.PercentRelativeLayout>
 
 
     </LinearLayout>

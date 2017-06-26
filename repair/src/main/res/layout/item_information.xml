@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/percentRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bk_bg_content"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="网络故障"
+                android:textColor="@color/color_liuliuliu"
+                android:textSize="12sp"
+                app:layout_widthPercent="20%" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv1"
+                android:gravity="center"
+                android:text="打印机卡纸"
+                android:textColor="@color/color_liuliuliu"
+                android:textSize="12sp"
+                app:layout_widthPercent="35%" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv2"
+                android:gravity="right"
+                android:text="2016-01-01"
+                android:textColor="@color/color_liuliuliu"
+                android:textSize="12sp"
+                app:layout_widthPercent="25%" />
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv3"
+                android:gravity="right"
+                android:text="待维修"
+                android:textColor="@color/color_liuliuliu"
+                android:textSize="12sp"
+                app:layout_widthPercent="20%" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_bfbfbf" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
