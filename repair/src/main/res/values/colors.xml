@@ -4,4 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
+
+    <color name="color_sansansan">#333</color>
+    <color name="color_liuliuliu">#666</color>
+    <color name="color_jiujiujiu">#999</color>
+    <color name="color_ccc">#ccc</color>
+
+    <color name="color_blue_line">#04b0fb</color>
+    <color name="color_bfbfbf">#bfbfbf</color>
+    <color name="color_eee">#eee</color>
 </resources>
