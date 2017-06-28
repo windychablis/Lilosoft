@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chablis.repair.activity.RepairActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bk_bg_1"
+        android:padding="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TextView
+            android:id="@+id/tv_gov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@mipmap/street_view"
+            android:drawablePadding="8dp"
+            android:text="朝阳区政务服务中心" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/right" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bk_bg_3"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/maintenance"
+            android:drawablePadding="8dp"
+            android:text="维护信息"
+            android:textColor="@color/color_sansansan"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ants_line"
+            android:layerType="software" />
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_class1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="大类"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="22%" />
+
+            <TextView
+                android:id="@+id/tv_class2"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class1"
+                android:gravity="center"
+                android:text="小类"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="28%" />
+
+            <TextView
+                android:id="@+id/tv_class3"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class2"
+                android:gravity="center"
+                android:text="报修时间"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="28%" />
+
+            <TextView
+                android:id="@+id/tv_class4"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class3"
+                android:gravity="center"
+                android:text="状态"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="22%" />
+        </android.support.percent.PercentRelativeLayout>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/color_bfbfbf" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

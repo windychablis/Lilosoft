@@ -26,8 +26,8 @@ android {
         applicationId 'com.chablis.lilosoft'
         minSdkVersion 17
         targetSdkVersion 17
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "1.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.debug

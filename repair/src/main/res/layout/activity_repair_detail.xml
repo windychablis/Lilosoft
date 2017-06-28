@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    tools:context="com.chablis.repair.activity.RepairDetailActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/left"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="查询信息"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="0dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="0dp" />
+
+    <com.chablis.repair.widget.SpringScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bk_bg_1"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/installing"
+                    android:drawablePadding="8dp"
+                    android:text="基本信息"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/ants_line"
+                    android:layerType="software" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/d_bg_blue_stroke"
+                    android:padding="1dp">
+
+                    <!--第一行-->
+                    <TextView
+                        android:id="@+id/tv1"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_eee"
+                        android:text="终端型号"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/tv1"
+                        android:text="JH-JH-JH-01"
+                        app:layout_widthPercent="28%" />
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv2"
+                        android:background="@color/color_eee"
+                        android:text="终端类型"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv3"
+                        android:text="取号机"
+                        app:layout_widthPercent="28%" />
+
+
+                    <!--第二行-->
+                    <TextView
+                        android:id="@+id/tv2_1"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv1"
+                        android:background="@color/color_eee"
+                        android:text="终端区划"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv2_2"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2"
+                        android:layout_toRightOf="@id/tv2_1"
+                        android:text="朝阳区"
+                        app:layout_widthPercent="28%" />
+
+                    <TextView
+                        android:id="@+id/tv2_3"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv3"
+                        android:layout_toRightOf="@id/tv2_2"
+                        android:background="@color/color_eee"
+                        android:text="安装时间"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv2_4"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv4"
+                        android:layout_toRightOf="@id/tv2_3"
+                        android:text="2016-01-01"
+                        app:layout_widthPercent="28%" />
+
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/tv1"
+                        android:background="@color/color_bfbfbf" />
+
+                    <!--第三行-->
+                    <TextView
+                        android:id="@+id/tv3_1"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2_1"
+                        android:background="@color/color_eee"
+                        android:text="所在区域"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv3_2"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2_2"
+                        android:layout_toRightOf="@id/tv3_1"
+                        android:text="一楼右"
+                        app:layout_widthPercent="28%" />
+
+                    <TextView
+                        android:id="@+id/tv3_3"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2_3"
+                        android:layout_toRightOf="@id/tv3_2"
+                        android:background="@color/color_eee"
+                        android:text="所在楼层"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv3_4"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2_4"
+                        android:layout_toRightOf="@id/tv3_3"
+                        android:text="二楼"
+                        app:layout_widthPercent="28%" />
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/tv2_1"
+                        android:background="@color/color_bfbfbf" />
+
+                    <!--第四行-->
+                    <TextView
+                        android:id="@+id/tv4_1"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv3_1"
+                        android:background="@color/color_eee"
+                        android:text="网络地址"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv4_2"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv3_2"
+                        android:layout_toRightOf="@id/tv4_1"
+                        android:text="192.168.0.1"
+                        app:layout_widthPercent="78%" />
+
+                    <View
+                        android:id="@+id/line3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/tv3_1"
+                        android:background="@color/color_bfbfbf" />
+
+                    <!--第五行-->
+                    <TextView
+                        android:id="@+id/tv5_1"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv4_1"
+                        android:background="@color/color_eee"
+                        android:text="备注"
+                        app:layout_widthPercent="22%" />
+
+                    <TextView
+                        android:id="@+id/tv5_2"
+                        style="@style/s_table_text"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv4_2"
+                        android:layout_toRightOf="@id/tv5_1"
+                        android:text="测试笔记本电脑"
+                        app:layout_widthPercent="78%" />
+
+                    <View
+                        android:id="@+id/line4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/tv4_1"
+                        android:background="@color/color_bfbfbf" />
+
+                    <View
+                        android:id="@+id/line_left1"
+                        android:layout_width="1dp"
+                        android:layout_height="400dp"
+                        android:layout_alignBottom="@id/tv5_1"
+                        android:layout_toRightOf="@id/tv1"
+                        android:background="@color/color_bfbfbf" />
+
+                    <View
+                        android:id="@+id/line_left2"
+                        android:layout_width="1dp"
+                        android:layout_height="400dp"
+                        android:layout_alignBottom="@id/tv3_1"
+                        android:layout_toRightOf="@id/tv2"
+                        android:background="@color/color_bfbfbf" />
+
+                    <View
+                        android:id="@+id/line_left3"
+                        android:layout_width="1dp"
+                        android:layout_height="400dp"
+                        android:layout_alignBottom="@id/tv3_1"
+                        android:layout_toRightOf="@id/tv3"
+                        android:background="@color/color_bfbfbf" />
+                </android.support.percent.PercentRelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bk_bg_2"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tv_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/settings"
+                    android:drawablePadding="8dp"
+                    android:text="设备问题"
+                    android:textColor="@color/color_sansansan"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_below="@id/tv_title3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/ants_line"
+                    android:layerType="software" />
+
+                <TextView
+                    android:id="@+id/tv_title1"
+                    android:layout_below="@id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:drawableLeft="@mipmap/xq_folder"
+                    android:drawablePadding="8dp"
+                    android:text="标题"
+                    android:textColor="@color/color_sansansan" />
+
+                <TextView
+                    android:id="@+id/tv_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title1"
+                    android:layout_marginBottom="16dp"
+                    android:text="打印机卡纸无法出纸"
+                    android:textColor="@color/color_liuliuliu" />
+
+                <View
+                    android:id="@+id/line5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/tv_title2"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/color_bfbfbf" />
+
+                <TextView
+                    android:id="@+id/tv_divice1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line5"
+                    android:layout_marginBottom="16dp"
+                    android:drawableLeft="@mipmap/help"
+                    android:drawablePadding="8dp"
+                    android:text="问题描述"
+                    android:textColor="@color/color_sansansan" />
+
+                <TextView
+                    android:id="@+id/tv_divice2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_divice1"
+                    android:layout_marginBottom="16dp"
+                    android:text="设备到底有什么问题我也不知道"
+                    android:textColor="@color/color_liuliuliu" />
+
+                <View
+                    android:id="@+id/line6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/tv_divice2"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/color_bfbfbf" />
+
+                <LinearLayout
+                    android:id="@+id/ll_images2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line6"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/bk_bg_5"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tv_answer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:drawableLeft="@mipmap/work"
+                    android:drawablePadding="8dp"
+                    android:text="维修建议"
+                    android:textColor="@color/color_sansansan" />
+
+                <EditText
+                    android:id="@+id/et_propose"
+                    android:layout_below="@id/tv_answer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="请输入相关维修建议"
+                    android:textSize="16sp"
+                    android:background="@null"
+                    android:textColorHint="@color/color_jiujiujiu"
+                    android:textColor="@color/color_jiujiujiu" />
+
+                <View
+                    android:id="@+id/line7"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/et_propose"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/color_bfbfbf" />
+
+                <com.chablis.repair.widget.ImageManagerView
+                    android:id="@+id/image_managerView"
+                    android:layout_below="@id/line7"
+                    app:ch_max_line="1"
+                    app:ch_img_padding="5dp"
+                    app:ch_img_size_one_line="4"
+                    app:ch_img_deletable="true"
+                    app:ch_img_add="@mipmap/iv_add"
+                    app:ch_img_default="@mipmap/iv_default"
+                    app:ch_img_delete="@mipmap/iv_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.chablis.repair.widget.ImageManagerView>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.chablis.repair.widget.SpringScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/d_bg_white_gray_boder"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@mipmap/baoxiu"
+            android:text="报修"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+

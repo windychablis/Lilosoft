@@ -22,6 +22,7 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.utils.DateUtil;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.UpdateManager;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 
@@ -218,9 +219,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(QuestionnaireListActivity.class);
                 break;
             case R.id.tabAppointmentButton:
-                mActivity.appContext.TAB=1;
-                nextActivity(DeptListActivity.class);
-//                ToastUtils.showToast(mActivity,"尽请期待");
+//                mActivity.appContext.TAB=1;
+//                nextActivity(DeptListActivity.class);
+                ToastUtils.showToast(mActivity,"暂未开放");
                 break;
         }
     }

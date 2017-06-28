@@ -1,12 +1,13 @@
-package com.chablis.repair;
+package com.chablis.repair.activity;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.chablis.repair.R;
 import com.chablis.repair.adapter.InformationAdapter;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class InformationActivity extends AppCompatActivity {
+public class RepairActivity extends AppCompatActivity {
+
     private ArrayList data;
 
     @BindView(R.id.list)
@@ -23,7 +25,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information);
+        setContentView(R.layout.activity_repair);
         ButterKnife.bind(this);
         data = new ArrayList();
         for (int i = 0; i < 8; i++) {
@@ -32,7 +34,7 @@ public class InformationActivity extends AppCompatActivity {
 
         list.setAdapter(new InformationAdapter(this, data));
 
-        View header=getLayoutInflater().inflate(R.layout.information_table1,null);
+        View header=getLayoutInflater().inflate(R.layout.repair_table1,null);
         list.addHeaderView(header);
 
         //没有数据

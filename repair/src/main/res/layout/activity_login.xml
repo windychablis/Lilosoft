@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    tools:context="com.chablis.repair.LoginActivity">
+    tools:context="com.chablis.repair.activity.LoginActivity">
     <android.support.constraint.Guideline
         android:id="@+id/line1"
         android:layout_width="wrap_content"

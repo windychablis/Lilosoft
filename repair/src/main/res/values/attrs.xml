@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CHImageBox">
+        <attr name="ch_max_line" format="integer" />
+        <attr name="ch_img_size_one_line" format="integer" />
+        <attr name="ch_img_padding" format="dimension|reference" />
+        <attr name="ch_img_default" format="color|reference" />
+        <attr name="ch_img_delete" format="color|reference" />
+        <attr name="ch_img_add" format="color|reference" />
+        <attr name="ch_img_deletable" format="boolean" />
+        <attr name="ch_left_margin" format="dimension|reference" />
+        <attr name="ch_right_margin" format="dimension|reference" />
+    </declare-styleable>
+</resources>

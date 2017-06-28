@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    tools:context="com.chablis.repair.activity.ReportActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/left"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="添加信息"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bk_bg_1"
+        android:orientation="vertical"
+        android:padding="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@mipmap/work"
+            android:drawablePadding="8dp"
+            android:text="报修信息"
+            android:textColor="@color/color_sansansan" />
+
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/tv_title"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ants_line"
+            android:layerType="software" />
+
+        <TextView
+            android:id="@+id/tv_class1"
+            android:layout_below="@id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="52dp"
+            android:text="大类"
+            android:textColor="@color/color_sansansan" />
+        <TextView
+            android:id="@+id/tv_class2"
+            android:layout_below="@id/line1"
+            android:layout_toRightOf="@id/tv_class1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="52dp"
+            android:text="网络故障"
+            android:textColor="@color/color_sansansan" />
+        <ImageView
+            android:layout_below="@id/line1"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/right"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_class1"
+            android:layout_marginBottom="16dp"
+            android:background="@color/color_bfbfbf" />
+
+        <TextView
+            android:id="@+id/tv_class3"
+            android:layout_below="@id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="52dp"
+            android:text="小类"
+            android:textColor="@color/color_sansansan" />
+        <TextView
+            android:id="@+id/tv_class4"
+            android:layout_below="@id/line2"
+            android:layout_toRightOf="@id/tv_class3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="52dp"
+            android:text="打印机卡纸"
+            android:textColor="@color/color_sansansan" />
+        <ImageView
+            android:layout_below="@id/line2"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/right"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_class3"
+            android:layout_marginBottom="16dp"
+            android:background="@color/color_bfbfbf" />
+
+        <EditText
+            android:id="@+id/tv_title1"
+            android:layout_below="@id/line3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:hint="标题"
+            android:background="@null"
+            android:textColorHint="@color/color_jiujiujiu"
+            android:textColor="@color/color_jiujiujiu" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_title1"
+            android:layout_marginBottom="16dp"
+            android:background="@color/color_bfbfbf" />
+
+        <EditText
+            android:id="@+id/tv_discribe"
+            android:layout_below="@id/line4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="描述以下设备的维护问题"
+            android:textSize="16sp"
+            android:background="@null"
+            android:textColorHint="@color/color_jiujiujiu"
+            android:textColor="@color/color_jiujiujiu" />
+
+        <com.chablis.repair.widget.ImageManagerView
+            android:id="@+id/image_managerView"
+            android:layout_below="@id/tv_discribe"
+            app:ch_max_line="1"
+            app:ch_img_padding="5dp"
+            app:ch_img_size_one_line="4"
+            app:ch_img_deletable="true"
+            app:ch_img_add="@mipmap/iv_add"
+            app:ch_img_default="@mipmap/iv_default"
+            app:ch_img_delete="@mipmap/iv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.chablis.repair.widget.ImageManagerView>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

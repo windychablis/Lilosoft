@@ -13,4 +13,6 @@
     <color name="color_blue_line">#04b0fb</color>
     <color name="color_bfbfbf">#bfbfbf</color>
     <color name="color_eee">#eee</color>
+
+    <color name="colorScan">#62e188</color>
 </resources>
