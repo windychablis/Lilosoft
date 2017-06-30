@@ -23,6 +23,7 @@ import com.chablis.lilosoft.db.dbConfig;
 import com.chablis.lilosoft.model.ClientInfo;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
+import com.chablis.lilosoft.utils.PrefUtils;
 import com.chablis.lilosoft.utils.SoundPoolUtil;
 import com.chablis.lilosoft.utils.UpdateUtil;
 
@@ -37,8 +38,6 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
     public static SoundPoolUtil soundPoolUtil;
     private View activity_view;
     private PopupWindow pop;
-    private SharedPreferences.Editor editor;
-    SharedPreferences sp;
     ProgressDialog mypDialog;
 
     @Override
@@ -50,19 +49,20 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 
         playSoundInit();
 
-        sp = getSharedPreferences("newegov", Context.MODE_PRIVATE);
-        editor = sp.edit();
 
-        String ip = sp.getString("ip", "");
-        String areacode = sp.getString("areacode", "");
-        String update_ip=sp.getString("update_ip","");
+//        String ip = sp.getString("ip", "");
+//        String areacode = sp.getString("areacode", "");
+//        String update_ip=sp.getString("update_ip","");
+        String ip = PrefUtils.getIp();
+        String areacode = PrefUtils.getAreaCode();
+        String update_ip=PrefUtils.getUpdateIp();
         if(!TextUtils.isEmpty(ip)){
             Global.setWebUrl(ip);
         }
-        if(!TextUtils.isEmpty(ip)){
+        if(!TextUtils.isEmpty(areacode)){
             Global.areacode = areacode;
         }
-        if(!TextUtils.isEmpty(ip)){
+        if(!TextUtils.isEmpty(update_ip)){
             Global.setUpdateUrl(update_ip);
         }
     }
@@ -92,12 +92,18 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
     @Override
     protected void onStart() {
         super.onStart();
-        if(!Global.dbExists(this, dbConfig.DB_NAME)){
+        if (!PrefUtils.getCacheLoginState()||!Global.dbExists(this, dbConfig.DB_NAME)){
             //第一次进入
             mHandler.sendEmptyMessageDelayed(2, 1000);
         }else{
             LoadToMainActivity();
         }
+//        if(!Global.dbExists(this, dbConfig.DB_NAME)){
+//            //第一次进入
+//            mHandler.sendEmptyMessageDelayed(2, 1000);
+//        }else{
+//            LoadToMainActivity();
+//        }
     }
 
 
@@ -108,9 +114,12 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         final EditText et_update = (EditText) pop.getContentView().findViewById(R.id.et_update);
         Button btn_OK = (Button) pop.getContentView().findViewById(R.id.btn_OK);
 
-        et_area.setText(sp.getString("areacode", ""));
-        et_ip.setText(sp.getString("ip", ""));
-        et_update.setText(sp.getString("update_ip", ""));
+//        et_area.setText(sp.getString("areacode", ""));
+//        et_ip.setText(sp.getString("ip", ""));
+//        et_update.setText(sp.getString("update_ip", ""));
+        et_area.setText(PrefUtils.getAreaCode());
+        et_ip.setText(PrefUtils.getIp());
+        et_update.setText(PrefUtils.getUpdateIp());
 
         btn_OK.setOnClickListener(new View.OnClickListener() {
 
@@ -120,11 +129,15 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
                 Global.areacode = et_area.getText().toString();
                 Global.setWebUrl(et_ip.getText().toString());
                 Global.setUpdateUrl(et_update.getText().toString());
+                PrefUtils.putCacheLoginState(true);
 
-                editor.putString("areacode", et_area.getText().toString());
-                editor.putString("ip", et_ip.getText().toString());
-                editor.putString("update_ip", et_update.getText().toString());
-                editor.commit();
+//                editor.putString("areacode", et_area.getText().toString());
+//                editor.putString("ip", et_ip.getText().toString());
+//                editor.putString("update_ip", et_update.getText().toString());
+//                editor.commit();
+                PrefUtils.putAreaCode(et_area.getText().toString());
+                PrefUtils.putIp(et_ip.getText().toString());
+                PrefUtils.putUpdateIp(et_update.getText().toString());
 
                 UpdateUtil updateUtil = new UpdateUtil(LoadActivity.this);
                 updateUtil.starUpdate();

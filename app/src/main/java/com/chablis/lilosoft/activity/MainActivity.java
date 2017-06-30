@@ -1,5 +1,6 @@
 package com.chablis.lilosoft.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,8 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,8 +26,10 @@ import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.base.BaseFragment;
 import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.utils.DateUtil;
+import com.chablis.lilosoft.utils.PrefUtils;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.UpdateManager;
+import com.chablis.lilosoft.widget.ExitDialog;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
 
 import java.util.ArrayList;
@@ -32,6 +38,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -70,7 +77,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        String ip=getSharedPreferences("newegov", Context.MODE_PRIVATE).getString("ip","").split(":")[0];
+        String ip = getSharedPreferences("newegov", Context.MODE_PRIVATE).getString("ip", "").split(":")[0];
         //检查更新
         UpdateManager manager = new UpdateManager(this);
         manager.checkUpdate(Global.updateUrl);
@@ -202,11 +209,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     }
 
 
-    @OnClick({R.id.tabGuideButton, R.id.tabMapButton,R.id.tabScanButton ,R.id.tabConsultButton, R.id.tabAppointmentButton})
+    @OnClick({R.id.tabGuideButton, R.id.tabMapButton, R.id.tabScanButton, R.id.tabConsultButton, R.id.tabAppointmentButton})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tabGuideButton:
-                mActivity.appContext.TAB=0;
+                mActivity.appContext.TAB = 0;
                 nextActivity(DeptListActivity.class);
                 break;
             case R.id.tabMapButton:
@@ -221,8 +228,60 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
             case R.id.tabAppointmentButton:
 //                mActivity.appContext.TAB=1;
 //                nextActivity(DeptListActivity.class);
-                ToastUtils.showToast(mActivity,"暂未开放");
+                ToastUtils.showToast(mActivity, "暂未开放");
                 break;
+
         }
     }
+
+
+    @OnLongClick(R.id.exit)
+    public boolean onViewClicked() {
+//        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+//        View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_exit,null);
+//        Button btn1=(Button)view.findViewById(R.id.button1);
+//        Button btn2=(Button)view.findViewById(R.id.button2);
+//        btn1.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                //退出登录
+//                MainActivity.this.finish();
+//                nextActivity(LoadActivity.class);
+//            }
+//        });
+//        btn2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //退出程序
+//                android.os.Process.killProcess(android.os.Process.myPid());   //获取PID
+//                System.exit(0);
+//            }
+//        });
+//
+//        builder.setView(view);
+//        builder.show();
+        ExitDialog dialog=new ExitDialog(this,R.style.Dialog);
+        dialog.show();
+        dialog.setOnButtonClickListener(new ExitDialog.OnButtonClickListener() {
+            @Override
+            public void logoutListener() {
+                Log.d("MainActivity", "退出登录");
+                //退出登录
+                PrefUtils.putCacheLoginState(false);
+                nextActivity(LoadActivity.class);
+                MainActivity.this.finish();
+            }
+
+            @Override
+            public void exitListener() {
+                Log.d("MainActivity", "退出程序");
+                //退出程序
+                android.os.Process.killProcess(android.os.Process.myPid());   //获取PID
+                System.exit(0);
+            }
+        });
+        return  true;
+    }
+
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="50dp"
+    android:paddingBottom="50dp"
+    android:background="@drawable/d_bg_dialog"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="退出登录"
+        android:textSize="22sp"
+        android:background="@drawable/d_bg_dialog_btn"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:text="退出程序"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:background="@drawable/d_bg_dialog_btn" />
+</LinearLayout>
