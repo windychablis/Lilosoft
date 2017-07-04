@@ -86,6 +86,15 @@
         <activity android:name=".activity.AppointmentInfoActivity" />
         <activity android:name=".activity.ScanActivity"
             android:screenOrientation="portrait"/>
+
+        <!-- 向系统注册receiver -->
+        <receiver
+            android:name="com.chablis.lilosoft.base.BootRestartReceiver"
+            >
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

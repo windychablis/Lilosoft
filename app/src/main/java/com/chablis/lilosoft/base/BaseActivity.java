@@ -31,7 +31,7 @@ public class BaseActivity extends FragmentActivity {
 //        _window.setAttributes(params);
 //        unlock();
 
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
