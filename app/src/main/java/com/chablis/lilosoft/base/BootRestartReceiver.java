@@ -1,12 +1,18 @@
 package com.chablis.lilosoft.base;
 
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.chablis.lilosoft.activity.LoadActivity;
+
+import static android.content.Context.KEYGUARD_SERVICE;
+import static android.content.Context.POWER_SERVICE;
 
 /**
  * Created by chablis on 2016/12/3.

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +28,15 @@ import com.chablis.lilosoft.utils.PrefUtils;
 import com.chablis.lilosoft.utils.SoundPoolUtil;
 import com.chablis.lilosoft.utils.UpdateUtil;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
     public static List<TDDept> list_dept;
@@ -48,7 +56,6 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
                 R.string.AppFileRootPath);
 
         playSoundInit();
-
 
 //        String ip = sp.getString("ip", "");
 //        String areacode = sp.getString("areacode", "");
@@ -89,7 +96,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 }.execute();*//*
     }*/
 
-    @Override
+/*    @Override
     protected void onStart() {
         super.onStart();
         if (!PrefUtils.getCacheLoginState()||!Global.dbExists(this, dbConfig.DB_NAME)){
@@ -104,8 +111,21 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 //        }else{
 //            LoadToMainActivity();
 //        }
-    }
+    }*/
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus){
+            return;
+        }
+        if (!PrefUtils.getCacheLoginState()||!Global.dbExists(this, dbConfig.DB_NAME)){
+            //第一次进入
+            mHandler.sendEmptyMessageDelayed(2, 1000);
+        }else{
+            LoadToMainActivity();
+        }
+    }
 
     public void FristLoad(){
         pop = Global.createPopupWindow(this, R.layout.dialog_frist_load, R.id.btn_Cancel);
