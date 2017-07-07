@@ -267,6 +267,7 @@ public class WebUtil {
                     if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
                         //if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet6Address) {
                         String a = inetAddress.getHostAddress().toString();
+                        Log.d("WebUtil", a);
                         return a;
                     }
                 }

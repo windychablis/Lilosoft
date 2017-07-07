@@ -27,6 +27,7 @@ import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.utils.PrefUtils;
 import com.chablis.lilosoft.utils.SoundPoolUtil;
 import com.chablis.lilosoft.utils.UpdateUtil;
+import com.chablis.lilosoft.utils.WebUtil;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -54,7 +55,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         setContentView(R.layout.activity_load);
         Global.AppFileRootPath = getResources().getString(
                 R.string.AppFileRootPath);
-
+        WebUtil.getIPhost(mActivity);
         playSoundInit();
 
 //        String ip = sp.getString("ip", "");
