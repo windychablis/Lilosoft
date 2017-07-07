@@ -3,6 +3,8 @@ package com.chablis.repair.base;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 /**

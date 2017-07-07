@@ -85,14 +85,14 @@ public class SoapUtils {
 
     /**
      * 获取设备信息
-     * @param equipmentId  设备id
+     * @param repairId  设备id
      * @return
      */
-    public static String equipmentRepairList(String equipmentId) {
+    public static String repairDetail(String repairId) {
         SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
-                "queryServiceListByClientType");
+                "queryDepictPicListById");
 
-        request.addProperty("clientType", equipmentId);
+        request.addProperty("mainTainId", repairId);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
@@ -114,4 +114,7 @@ public class SoapUtils {
 
         return null;
     }
+
+
+
 }

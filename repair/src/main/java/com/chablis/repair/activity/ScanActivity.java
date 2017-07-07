@@ -22,7 +22,6 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
     private String info;
-    private String repairList;
     @BindView(R.id.zxingview)
     QRCodeView mQRCodeView;
 
@@ -92,8 +91,9 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
             @Override
             public void onSuccess(String result) {
                 Log.d("QRCodeActivity", result);
-                info=result;
-                getRepairList(num);
+                Intent intent=new Intent(mActivity,InformationActivity.class);
+                intent.putExtra("info",result);
+                startActivity(intent);
             }
 
             @Override
@@ -106,29 +106,5 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
         }).execute();
     }
 
-    /**
-     * 获取设备维护信息
-     */
-    public void getRepairList(final String num) {
-        new SoapAsyncTask(new TaskCallBack() {
-            @Override
-            public String doInBackground() {
-                return SoapUtils.equipmentRepairList(num);
-            }
 
-            @Override
-            public void onSuccess(String result) {
-                repairList=result;
-                Intent intent = new Intent(mActivity, InformationActivity.class);
-                intent.putExtra("info", info);
-                intent.putExtra("list", repairList);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
-    }
 }
