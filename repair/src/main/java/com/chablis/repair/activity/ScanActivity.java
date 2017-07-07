@@ -2,22 +2,27 @@ package com.chablis.repair.activity;
 
 import android.content.Intent;
 import android.hardware.Camera;
-import android.os.AsyncTask;
-import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.chablis.repair.R;
+import com.chablis.repair.base.BaseActivity;
+import com.chablis.repair.base.SoapAsyncTask;
+import com.chablis.repair.base.TaskCallBack;
+import com.chablis.repair.utils.CommonUtil;
+import com.chablis.repair.utils.SoapUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 
-public class ScanActivity extends AppCompatActivity implements QRCodeView.Delegate {
+public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
+    private String info;
+    private String repairList;
     @BindView(R.id.zxingview)
     QRCodeView mQRCodeView;
 
@@ -62,7 +67,7 @@ public class ScanActivity extends AppCompatActivity implements QRCodeView.Delega
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 //        vibrate();
 //        mQRCodeView.startSpot();
-
+        getEquipmentInfo(result);
     }
 
     @Override
@@ -74,5 +79,56 @@ public class ScanActivity extends AppCompatActivity implements QRCodeView.Delega
         this.finish();
     }
 
+    /**
+     * 获取设备信息
+     */
+    public void getEquipmentInfo(final String num) {
+        new SoapAsyncTask(new TaskCallBack() {
+            @Override
+            public String doInBackground() {
+                return SoapUtils.equipmentInfo(num);
+            }
 
+            @Override
+            public void onSuccess(String result) {
+                Log.d("QRCodeActivity", result);
+                info=result;
+                getRepairList(num);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Log.d("ScanActivity", msg);
+                CommonUtil.showToast(mActivity,msg);
+                vibrate();
+                mQRCodeView.startSpot();
+            }
+        }).execute();
+    }
+
+    /**
+     * 获取设备维护信息
+     */
+    public void getRepairList(final String num) {
+        new SoapAsyncTask(new TaskCallBack() {
+            @Override
+            public String doInBackground() {
+                return SoapUtils.equipmentRepairList(num);
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                repairList=result;
+                Intent intent = new Intent(mActivity, InformationActivity.class);
+                intent.putExtra("info", info);
+                intent.putExtra("list", repairList);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+    }
 }

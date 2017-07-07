@@ -43,36 +43,32 @@
 
             <!--第一行-->
             <TextView
-                android:id="@+id/tv1"
+                android:id="@+id/tv_break_type"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:background="@color/color_eee"
                 android:text="终端型号"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tv_describe"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/tv1"
+                android:layout_toEndOf="@+id/tv_break_type"
                 android:text="JH-JH-JH-01"
                 app:layout_widthPercent="28%" />
 
             <TextView
-                android:id="@+id/tv3"
+                android:id="@+id/tv_time"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv2"
+                android:layout_toRightOf="@id/tv_describe"
                 android:background="@color/color_eee"
                 android:text="终端类型"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv4"
+                android:id="@+id/tv_type"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv3"
+                android:layout_toRightOf="@id/tv_time"
                 android:text="取号机"
                 app:layout_widthPercent="28%" />
 
@@ -81,17 +77,15 @@
             <TextView
                 android:id="@+id/tv2_1"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv1"
+                android:layout_below="@id/tv_break_type"
                 android:background="@color/color_eee"
                 android:text="终端区划"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv2_2"
+                android:id="@+id/tv_area1"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv2"
+                android:layout_below="@id/tv_describe"
                 android:layout_toRightOf="@id/tv2_1"
                 android:text="朝阳区"
                 app:layout_widthPercent="28%" />
@@ -99,18 +93,16 @@
             <TextView
                 android:id="@+id/tv2_3"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv3"
-                android:layout_toRightOf="@id/tv2_2"
+                android:layout_below="@id/tv_time"
+                android:layout_toRightOf="@id/tv_area1"
                 android:background="@color/color_eee"
                 android:text="安装时间"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv2_4"
+                android:id="@+id/tv_date"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv4"
+                android:layout_below="@id/tv_type"
                 android:layout_toRightOf="@id/tv2_3"
                 android:text="2016-01-01"
                 app:layout_widthPercent="28%" />
@@ -119,24 +111,22 @@
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/tv1"
+                android:layout_below="@id/tv_break_type"
                 android:background="@color/color_bfbfbf" />
 
             <!--第三行-->
             <TextView
                 android:id="@+id/tv3_1"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/tv2_1"
                 android:background="@color/color_eee"
                 android:text="所在区域"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv3_2"
+                android:id="@+id/tv_area2"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv2_2"
+                android:layout_below="@id/tv_area1"
                 android:layout_toRightOf="@id/tv3_1"
                 android:text="一楼右"
                 app:layout_widthPercent="28%" />
@@ -144,18 +134,16 @@
             <TextView
                 android:id="@+id/tv3_3"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/tv2_3"
-                android:layout_toRightOf="@id/tv3_2"
+                android:layout_toRightOf="@id/tv_area2"
                 android:background="@color/color_eee"
                 android:text="所在楼层"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv3_4"
+                android:id="@+id/tv_floor"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv2_4"
+                android:layout_below="@id/tv_date"
                 android:layout_toRightOf="@id/tv3_3"
                 android:text="二楼"
                 app:layout_widthPercent="28%" />
@@ -171,17 +159,15 @@
             <TextView
                 android:id="@+id/tv4_1"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/tv3_1"
                 android:background="@color/color_eee"
                 android:text="网络地址"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv4_2"
+                android:id="@+id/tv_ip"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv3_2"
+                android:layout_below="@id/tv_area2"
                 android:layout_toRightOf="@id/tv4_1"
                 android:text="192.168.0.1"
                 app:layout_widthPercent="78%" />
@@ -197,17 +183,15 @@
             <TextView
                 android:id="@+id/tv5_1"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/tv4_1"
                 android:background="@color/color_eee"
                 android:text="备注"
                 app:layout_widthPercent="22%" />
 
             <TextView
-                android:id="@+id/tv5_2"
+                android:id="@+id/tv_remarks"
                 style="@style/s_table_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv4_2"
+                android:layout_below="@id/tv_ip"
                 android:layout_toRightOf="@id/tv5_1"
                 android:text="测试笔记本电脑"
                 app:layout_widthPercent="78%" />
@@ -224,7 +208,7 @@
                 android:layout_width="1dp"
                 android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv5_1"
-                android:layout_toRightOf="@id/tv1"
+                android:layout_toRightOf="@id/tv_break_type"
                 android:background="@color/color_bfbfbf" />
 
             <View
@@ -232,7 +216,7 @@
                 android:layout_width="1dp"
                 android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv3_1"
-                android:layout_toRightOf="@id/tv2"
+                android:layout_toRightOf="@id/tv_describe"
                 android:background="@color/color_bfbfbf" />
 
             <View
@@ -240,7 +224,7 @@
                 android:layout_width="1dp"
                 android:layout_height="400dp"
                 android:layout_alignBottom="@id/tv3_1"
-                android:layout_toRightOf="@id/tv3"
+                android:layout_toRightOf="@id/tv_time"
                 android:background="@color/color_bfbfbf" />
         </android.support.percent.PercentRelativeLayout>
     </LinearLayout>

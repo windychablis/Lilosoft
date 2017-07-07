@@ -1,6 +1,7 @@
 package com.chablis.repair.utils;
 
 import android.provider.Settings;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -15,26 +16,28 @@ import org.ksoap2.transport.HttpTransportSE;
 public class SoapUtils {
     public static String http = "192.168.1.107";
     public static String url = http + ":8899/wisdomgov/ws";
+    public static String loginUrl="http://192.168.2.56:8080/wisdomgov/ws";
+    public static String otherUrl="http://192.168.2.82:8080/wisdomgov/ws";
 
     /**
-     * 获取部门图片压缩包
+     * 登录
      */
-    public String GetZipDownloadUrl(String areacode) {
+    public static String login(String username,String password) {
         SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
-                "LoginService");
-//        request.addProperty("areacode", Settings.Global.areacode);
+                "LoginDo");
+
+        request.addProperty("loginName", username);
+        request.addProperty("passWord", CommonUtil.md5(password));
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        envelope.dotNet = true;
-        HttpTransportSE trans = new HttpTransportSE(url + "/LoginService?wsdl");
+        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/loginService?wsdl");
         trans.debug = true;
         try {
-            trans.call(null,
-                    envelope);
+            trans.call(null,envelope);
+            Log.d("SoapUtils", "envelope.bodyIn:" + envelope.bodyIn);
             SoapObject result = (SoapObject) envelope.bodyIn;
-            CommonUtil.saveLog("URL", result.toString());
             int count = result.getPropertyCount();
             if (count > 0) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
@@ -42,7 +45,70 @@ public class SoapUtils {
                 return jsonVal;
             }
         } catch (Exception e) {
-            CommonUtil.saveLog("URL_ERROR", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取设备信息
+     * @param equipmentId  设备id
+     * @return
+     */
+    public static String equipmentInfo(String equipmentId) {
+        SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
+                "queryTainIdByClientType");
+
+        request.addProperty("clientType", equipmentId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/repairService?wsdl");
+        trans.debug = true;
+        try {
+            trans.call(null,envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                return jsonVal;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取设备信息
+     * @param equipmentId  设备id
+     * @return
+     */
+    public static String equipmentRepairList(String equipmentId) {
+        SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
+                "queryServiceListByClientType");
+
+        request.addProperty("clientType", equipmentId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/repairService?wsdl");
+        trans.debug = true;
+        try {
+            trans.call(null,envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                return jsonVal;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

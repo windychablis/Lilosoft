@@ -1,6 +1,7 @@
 package com.chablis.repair.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chablis.repair.R;
+import com.chablis.repair.model.Equipment;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by chablis on 2017/6/26.
@@ -17,9 +22,9 @@ import java.util.ArrayList;
 
 public class InformationAdapter extends BaseAdapter {
     private LayoutInflater mInflater = null;
-    private ArrayList<String> data;
+    private ArrayList<Equipment.RepairInfo> data;
 
-    public InformationAdapter(Context context, ArrayList<String> data) {
+    public InformationAdapter(Context context, ArrayList<Equipment.RepairInfo> data) {
         mInflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -30,7 +35,7 @@ public class InformationAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public Equipment.RepairInfo getItem(int position) {
         return data.get(position);
     }
 
@@ -41,20 +46,37 @@ public class InformationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder = null;
+        ViewHolder holder = null;
+        Equipment.RepairInfo repairInfo = getItem(position);
         if (convertView == null) {
-            holder = new Holder();
             convertView = mInflater.inflate(R.layout.item_information, parent,
                     false);
+            holder = new ViewHolder(convertView);
+            holder.tvBreakType.setText(repairInfo.getBIGCLASS());
+            holder.tvDescribe.setText(repairInfo.getSMALLCLASS());
+            holder.tvTime.setText(repairInfo.getREPAIRDATE());
+            holder.tvType.setText(repairInfo.getSTATUS().equals("0") ? "未维修" : "已维修");
 
             convertView.setTag(holder);
         } else {
-            holder = (Holder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         return convertView;
     }
 
-    static class Holder {
-        private TextView textView;
+
+    static class ViewHolder {
+        @BindView(R.id.tv_break_type)
+        TextView tvBreakType;
+        @BindView(R.id.tv_describe)
+        TextView tvDescribe;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_type)
+        TextView tvType;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
