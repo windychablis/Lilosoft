@@ -74,6 +74,6 @@ public class CommonUtil {
     }
 
     public static void showToast(Context context, String title) {
-        Toast.makeText(context, title, Toast.LENGTH_SHORT);
+        Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
     }
 }

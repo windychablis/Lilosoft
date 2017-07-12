@@ -230,7 +230,13 @@
                     android:layout_marginBottom="16dp"
                     android:background="@color/color_bfbfbf" />
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_images1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line6"
+                    android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+                <!--<LinearLayout
                     android:id="@+id/ll_images1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,7 +266,7 @@
                         android:layout_width="0dp"
                         android:layout_height="80dp"
                         android:layout_weight="1" />
-                </LinearLayout>
+                </LinearLayout>-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -297,10 +303,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_below="@id/tv_answer2"
-                    android:layout_marginBottom="16dp"
                     android:background="@color/color_bfbfbf" />
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_images2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line7"
+                    android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+                <!--<LinearLayout
                     android:id="@+id/ll_images2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -330,7 +341,7 @@
                         android:layout_width="0dp"
                         android:layout_height="80dp"
                         android:layout_weight="1" />
-                </LinearLayout>
+                </LinearLayout>-->
             </RelativeLayout>
         </LinearLayout>
     </com.chablis.repair.widget.SpringScrollView>

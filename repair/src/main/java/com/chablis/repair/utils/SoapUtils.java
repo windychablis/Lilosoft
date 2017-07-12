@@ -14,7 +14,7 @@ import org.ksoap2.transport.HttpTransportSE;
  */
 
 public class SoapUtils {
-    public static String http = "192.168.1.107";
+    public static String http = "http://27.17.62.40";
     public static String url = http + ":8899/wisdomgov/ws";
     public static String loginUrl="http://192.168.2.56:8080/wisdomgov/ws";
     public static String otherUrl="http://192.168.2.82:8080/wisdomgov/ws";
@@ -32,7 +32,7 @@ public class SoapUtils {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/loginService?wsdl");
+        HttpTransportSE trans = new HttpTransportSE(url + "/loginService?wsdl");
         trans.debug = true;
         try {
             trans.call(null,envelope);
@@ -65,7 +65,7 @@ public class SoapUtils {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/repairService?wsdl");
+        HttpTransportSE trans = new HttpTransportSE(url + "/repairService?wsdl");
         trans.debug = true;
         try {
             trans.call(null,envelope);
@@ -84,20 +84,20 @@ public class SoapUtils {
     }
 
     /**
-     * 获取设备信息
+     * 获取设备信息详情
      * @param repairId  设备id
      * @return
      */
     public static String repairDetail(String repairId) {
         SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
-                "queryDepictPicListById");
+                "queryMainTainById");
 
         request.addProperty("mainTainId", repairId);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(otherUrl + "/repairService?wsdl");
+        HttpTransportSE trans = new HttpTransportSE(url + "/repairService?wsdl");
         trans.debug = true;
         try {
             trans.call(null,envelope);
@@ -114,6 +114,38 @@ public class SoapUtils {
 
         return null;
     }
+
+   /* *//**
+     * 获取设备信息详情的图片
+     * @param repairId  设备id
+     * @return
+     *//*
+    public static String repairImages(String repairId) {
+        SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
+                "queryDepictPicListById");
+
+        request.addProperty("mainTainId", repairId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        envelope.bodyOut = request;
+        HttpTransportSE trans = new HttpTransportSE(url + "/repairService?wsdl");
+        trans.debug = true;
+        try {
+            trans.call(null,envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            int count = result.getPropertyCount();
+            if (count > 0) {
+                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
+                String jsonVal = (String) object.toString();
+                return jsonVal;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }*/
 
 
 
