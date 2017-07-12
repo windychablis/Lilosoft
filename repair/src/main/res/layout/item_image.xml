@@ -6,5 +6,4 @@
     fresco:roundedCornerRadius="6dp"
     android:layout_marginBottom="16dp"
     android:layout_width="80dp"
-    android:layout_height="80dp"
-    fresco:placeholderImage="@mipmap/iv_default" />
+    android:layout_height="80dp" />

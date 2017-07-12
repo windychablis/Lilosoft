@@ -13,10 +13,11 @@ import io.reactivex.annotations.NonNull;
  * Created by chablis on 2017/7/7.
  */
 
-public class SoapObservable{
+public class  SoapObservable{
 
 
-    public static Observable<String> getObservable(final RxObserverableCallBack call){
+    //专门用来合并请求的
+    public static Observable<String> getStringObservable(final RxObserverableCallBack call){
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
@@ -32,6 +33,21 @@ public class SoapObservable{
                 }
                 e.onComplete();
 
+            }
+        });
+    }
+
+    //单个请求，生成任意跟Reponse一样的json对象
+    public static Observable<Response> getAnyObservable(final RxObserverableCallBack call){
+        return Observable.create(new ObservableOnSubscribe<Response>() {
+
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Response> e) throws Exception {
+                String result=call.doWebRequest();
+                Log.d("SoapObservable", result);
+                Response response=JSONObject.parseObject(result,Response.class);
+                e.onNext(response);
+                e.onComplete();
             }
         });
     }

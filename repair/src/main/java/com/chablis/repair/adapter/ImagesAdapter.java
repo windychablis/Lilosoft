@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chablis.repair.R;
 import com.chablis.repair.model.EquImage;
+import com.chablis.repair.model.RepairDetail;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -21,9 +22,22 @@ import butterknife.ButterKnife;
  */
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
-    private ArrayList<EquImage> images;
+    private ArrayList<RepairDetail.RepairImage> images;
+    private onItemClickListener onItemClickListener;
 
-    public ImagesAdapter(ArrayList<EquImage> images) {
+    public onItemClickListener getItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setItemClickListener(onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(View view,int position);
+    }
+
+    public ImagesAdapter(ArrayList<RepairDetail.RepairImage> images) {
         this.images = images;
     }
 
@@ -36,20 +50,28 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-//        EquImage image=images.get(position);
-        Uri uri = Uri.parse("http://img5.imgtn.bdimg.com/it/u=4040470692,460373187&fm=26&gp=0.jpg");
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        RepairDetail.RepairImage image = images.get(position);
+        Uri uri = Uri.parse(image.getFILE_URL());
         holder.myImageView.setImageURI(uri);
+        if (onItemClickListener!=null){
+            holder.myImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos=holder.getLayoutPosition();
+                    onItemClickListener.onItemClick(v,pos);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return images.size();
     }
 
 
-
-    class ViewHolder extends RecyclerView.ViewHolder  {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.my_image_view)
         SimpleDraweeView myImageView;
 

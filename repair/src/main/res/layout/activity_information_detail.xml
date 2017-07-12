@@ -27,6 +27,7 @@
     <com.chablis.repair.widget.SpringScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -67,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_title1"
                     android:layout_marginBottom="16dp"
-                    android:text="打印机卡纸无法出纸"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -95,7 +95,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_divice1"
                     android:layout_marginBottom="16dp"
-                    android:text="设备到底有什么问题我也不知道"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -126,7 +125,6 @@
                     android:layout_marginBottom="16dp"
                     android:layout_toRightOf="@id/tv_class1"
                     android:gravity="right"
-                    android:text="网络故障"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -157,7 +155,6 @@
                     android:layout_marginBottom="16dp"
                     android:layout_toRightOf="@id/tv_class3"
                     android:gravity="right"
-                    android:text="打印机卡纸"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -188,7 +185,6 @@
                     android:layout_marginBottom="16dp"
                     android:layout_toRightOf="@id/tv_time1"
                     android:gravity="right"
-                    android:text="2017-02-12"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -219,7 +215,6 @@
                     android:layout_marginBottom="16dp"
                     android:layout_toRightOf="@id/tv_time1"
                     android:gravity="right"
-                    android:text="待修"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
@@ -294,13 +289,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_answer1"
-                    android:layout_marginBottom="16dp"
-                    android:text="使用这个方法就可解决问题"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
                     android:id="@+id/line7"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="16dp"
                     android:layout_height="0.5dp"
                     android:layout_below="@id/tv_answer2"
                     android:background="@color/color_bfbfbf" />
@@ -309,6 +303,7 @@
                     android:id="@+id/rv_images2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_below="@id/line7"
                     android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
                 <!--<LinearLayout

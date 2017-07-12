@@ -16,8 +16,12 @@ public abstract class SoapObserver<T extends Response> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
+        if (t.getCode() == 0) {
+            onSuccess(t.getData());
+        } else {
+            onFailure(t.getMessage());
+        }
 
-        onSuccess(t);
     }
 
     @Override
@@ -30,7 +34,9 @@ public abstract class SoapObserver<T extends Response> implements Observer<T> {
 
     }
 
-    public abstract void onSuccess(T t);
+    public abstract void onSuccess(String s);
+
+    public abstract void onFailure(String s);
 }
 
 
