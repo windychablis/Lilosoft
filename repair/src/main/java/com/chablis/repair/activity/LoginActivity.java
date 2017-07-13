@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chablis.repair.R;
 import com.chablis.repair.base.BaseActivity;
+import com.chablis.repair.base.JsonUtils;
 import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
+import com.chablis.repair.model.User;
 import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PermissionUtils;
+import com.chablis.repair.utils.PrefUtils;
 import com.chablis.repair.utils.SoapUtils;
 
 import butterknife.BindView;
@@ -33,10 +37,16 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.loginBtn)
     public void loginBtnClick() {
-        /*nextActivity(MainActivity.class);
-        mActivity.finish();*/
-        final String username= etName.getText().toString();
-        final String password= etPass.getText().toString();
+        String username, password;
+
+            username = etName.getText().toString();
+            password = etPass.getText().toString();
+
+        login(username, password);
+
+    }
+
+    public void login(final String username, final String password) {
         new SoapAsyncTask(new TaskCallBack() {
             @Override
             public String doInBackground() {
@@ -46,15 +56,19 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 Log.d("LoginActivity", result);
+                appContext.user = JSONObject.parseObject(result, User.class);
+                PrefUtils.putCacheLoginState(true);
+                PrefUtils.saveUserName(username);
+                PrefUtils.saveUserPass(password);
                 nextActivity(MainActivity.class);
                 mActivity.finish();
-                CommonUtil.showToast(mActivity,"登录成功");
+                CommonUtil.showToast(mActivity, "登录成功");
             }
 
             @Override
             public void onFailure(String msg) {
                 Log.d("LoginActivity", msg);
-                CommonUtil.showToast(mActivity,msg);
+                CommonUtil.showToast(mActivity, msg);
             }
 
 

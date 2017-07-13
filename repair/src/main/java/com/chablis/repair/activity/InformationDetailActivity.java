@@ -58,7 +58,7 @@ public class InformationDetailActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         final Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) intent.getSerializableExtra("repairInfo");
-//        Log.d("InformationDetailActivi", "ac66136a351a43829a3e4bfca5ec4d39");
+//TODO  字段没有统一        Log.d("InformationDetailActivi", "ac66136a351a43829a3e4bfca5ec4d39");
         getRepairData("ac66136a351a43829a3e4bfca5ec4d39");
     }
 

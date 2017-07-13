@@ -22,12 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.QRCodeActivity" />
         <activity android:name=".activity.InformationActivity" />
@@ -35,9 +33,16 @@
         <activity android:name=".activity.ReportActivity" />
         <activity android:name=".activity.ScanActivity" />
         <activity android:name=".activity.RepairActivity" />
-        <activity android:name=".activity.RepairDetailActivity"></activity>
-        <activity android:name=".activity.MyRepairActivity"></activity>
-        <activity android:name=".activity.BigPictureActivity"></activity>
+        <activity android:name=".activity.RepairDetailActivity" />
+        <activity android:name=".activity.MyRepairActivity" />
+        <activity android:name=".activity.BigPictureActivity" />
+        <activity android:name=".activity.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

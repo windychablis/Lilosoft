@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_repair:
                 break;
             case R.id.tv_me:
+                nextActivity(MyRepairActivity.class);
                 break;
         }
     }

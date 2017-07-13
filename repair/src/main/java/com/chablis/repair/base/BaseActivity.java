@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import java.io.Serializable;
 
 public class BaseActivity extends AppCompatActivity {
+    protected AppContext appContext;
     protected BaseActivity mActivity;
     protected FragmentManager mFragmentManager;
     protected String TAG = this.getClass().getSimpleName();
@@ -18,6 +19,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        appContext= (AppContext) AppContext.get();
         mFragmentManager = getSupportFragmentManager();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }

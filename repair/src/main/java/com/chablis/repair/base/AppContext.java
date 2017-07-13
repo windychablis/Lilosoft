@@ -5,11 +5,13 @@ package com.chablis.repair.base;
 
 import android.app.Application;
 
+import com.chablis.repair.model.User;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class AppContext extends Application {
 
     private static Application sInstance;
+    public User user;
 
 
     @Override
