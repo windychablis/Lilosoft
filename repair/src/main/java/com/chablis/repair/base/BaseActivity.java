@@ -1,44 +1,37 @@
 package com.chablis.repair.base;
 
-import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
-
-import com.chablis.repair.R;
 
 import java.io.Serializable;
 
 public class BaseActivity extends AppCompatActivity {
     protected BaseActivity mActivity;
     protected FragmentManager mFragmentManager;
-    protected String TAG=this.getClass().getSimpleName();
+    protected String TAG = this.getClass().getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity=this;
+        mActivity = this;
         mFragmentManager = getSupportFragmentManager();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
     protected void onResume() {
-        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         super.onResume();
     }
 
 
-    public void nextActivity(Class<?> clazz, boolean isPlayAnim, String name, Serializable s){
+    public void nextActivity(Class<?> clazz, boolean isPlayAnim, String name, Serializable s) {
         Intent intent = new Intent();
         intent.setClass(this, clazz);
         if (null != name && !name.trim().equals("")) {
@@ -49,14 +42,18 @@ public class BaseActivity extends AppCompatActivity {
 //            overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
         }
     }
-    public void nextActivity(Class<?> clazz){
+
+    public void nextActivity(Class<?> clazz) {
         nextActivity(clazz, true);
     }
-    public void nextActivity(Class<?> clazz, boolean isPlayAnim){
+
+    public void nextActivity(Class<?> clazz, boolean isPlayAnim) {
         nextActivity(clazz, true, null, null);
     }
-    public void nextActivity(Class<?> clazz, String name, Serializable s){
+
+    public void nextActivity(Class<?> clazz, String name, Serializable s) {
         nextActivity(clazz, true, name, s);
     }
+
 
 }

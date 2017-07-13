@@ -59,6 +59,21 @@ public class CommonUtil {
 
     }
 
+    public static  void DeleteFile(File f) {
+        if (f == null) {
+            return;
+        }
+        boolean directory = f.isDirectory();
+        if (directory)
+        {
+            File[] files = f.listFiles();
+            for (File child : files) {
+                DeleteFile(child);
+            }
+        }
+        f.delete();
+    }
+
     public static boolean isMobileNO(String mobiles) {
         Pattern p = Pattern
                 .compile("^((13[0-9])|(15[^4,\\D])|(14[57])|(17[0-9])|(18[0-9]))\\d{8}$");

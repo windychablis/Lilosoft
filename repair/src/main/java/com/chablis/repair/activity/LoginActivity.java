@@ -9,6 +9,7 @@ import com.chablis.repair.base.BaseActivity;
 import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
 import com.chablis.repair.utils.CommonUtil;
+import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.SoapUtils;
 
 import butterknife.BindView;
@@ -27,6 +28,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        PermissionUtils.getPermission(mActivity);
     }
 
     @OnClick(R.id.loginBtn)

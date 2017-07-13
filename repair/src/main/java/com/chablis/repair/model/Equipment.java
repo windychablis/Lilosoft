@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by chablis on 2017/7/6.
  */
-public class Equipment {
+public class Equipment implements Serializable {
 
     /**
      * repairList : [{"STATUS":"1","MAINTAIN_ID":"1149A314632F4245BBE0F34ECCD96AF9","SMALLCLASS":"打印机卡纸","BIGCLASS":"网络故障","CLIENT_TYPE":"JH-H-A01-3","REPAIRDATE":"2017-06-14"}]

@@ -96,6 +96,9 @@ public class InformationActivity extends BaseActivity {
                 mActivity.finish();
                 break;
             case R.id.button:
+                Intent intent=new Intent(mActivity,ReportActivity.class);
+                intent.putExtra("clientinfo",equipment.getClientinfo());
+                startActivity(intent);
                 break;
         }
     }
