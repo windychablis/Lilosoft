@@ -42,11 +42,6 @@ public class MyRepairActivity extends BaseTitleActivity {
         ButterKnife.bind(this);
         getMyRepair();
         data = new ArrayList();
-//        for (int i = 0; i < 8; i++) {
-//            data.add("aaaaaaaa" + i);
-//        }
-//
-//        list.setAdapter(new InformationAdapter(this, data));
 
         View header = getLayoutInflater().inflate(R.layout.my_repair_table1, null);
         list.addHeaderView(header);

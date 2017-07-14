@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.chablis.repair.R;
 import com.chablis.repair.adapter.ImagesAdapter;
+import com.chablis.repair.adapter.SpaceItemDecoration;
 import com.chablis.repair.base.BaseTitleActivity;
 import com.chablis.repair.model.Equipment;
 import com.chablis.repair.model.RepairDetail;
@@ -59,7 +60,7 @@ public class InformationDetailActivity extends BaseTitleActivity {
         Intent intent = getIntent();
         final Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) intent.getSerializableExtra("repairInfo");
 //TODO  字段没有统一        Log.d("InformationDetailActivi", "ac66136a351a43829a3e4bfca5ec4d39");
-        getRepairData("ac66136a351a43829a3e4bfca5ec4d39");
+        getRepairData(repairInfo.getMAINTAIN_ID());
     }
 
     public void getRepairData(final String repairId) {
@@ -83,7 +84,6 @@ public class InformationDetailActivity extends BaseTitleActivity {
                 tvClass2.setText(repairDetail.getClientInfo().getBIGCLASS());
                 tvClass4.setText(repairDetail.getClientInfo().getSMALLCLASS());
                 tvTime2.setText(repairDetail.getClientInfo().getTIMEVIEW());
-                //TODO 后台没有状态字段                tvState2
                 tvState2.setText(repairDetail.getClientInfo().getSTATUS().equals("0") ? "未维修" : "已维修");
                 tvAnswer2.setText(repairDetail.getClientInfo().getSERVICERESULT());
                 mAdapter = new ImagesAdapter(repairDetail.getDePiclist());
@@ -120,7 +120,11 @@ public class InformationDetailActivity extends BaseTitleActivity {
     }
 
     public void initRecylerView(RecyclerView recyclerView, ImagesAdapter adapter) {
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mActivity, 4, GridLayoutManager.VERTICAL, false);//设置为一个4列的纵向网格布局
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mActivity, 4);//设置为一个4列的纵向网格布局
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
     }

@@ -36,6 +36,7 @@ public class BigPictureActivity extends BaseActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
         Log.d("BigPictureActivity", url);
+        //TODO 零时属性
 //        Uri uri = Uri.parse("http://img4.duitang.com/uploads/item/201609/20/20160920212544_GJxW3.jpeg");
 //        photoView.setImageURI(uri);
 

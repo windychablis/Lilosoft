@@ -1,6 +1,5 @@
 package com.chablis.repair.utils;
 
-import android.provider.Settings;
 import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
@@ -9,9 +8,9 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +27,7 @@ public class SoapUtils {
      * 登录
      */
     public static String login(String username, String password) {
-        HashMap map = new HashMap();
+        LinkedHashMap map = new LinkedHashMap();
         map.put("loginName", username);
         map.put("passWord", CommonUtil.md5(password));
         return SoapResuest("LoginDo", "loginService", map);
@@ -85,7 +84,7 @@ public class SoapUtils {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl");
+        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl",5*1000);
         trans.debug = true;
         try {
             trans.call(null, envelope);
@@ -109,34 +108,7 @@ public class SoapUtils {
      */
 
     public static String SoapResuest(String method, String service, HashMap params) {
-        SoapObject request = new SoapObject("http://webservice.egs.lilosoft.com/",
-                method);
-        Iterator it = params.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            request.addProperty(entry.getKey().toString(), entry.getValue());
-        }
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER11);
-        envelope.setOutputSoapObject(request);
-        envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl");
-        trans.debug = true;
-        try {
-            trans.call(null, envelope);
-            Log.d("SoapUtils", "envelope.bodyIn:" + envelope.bodyIn);
-            SoapObject result = (SoapObject) envelope.bodyIn;
-            int count = result.getPropertyCount();
-            if (count > 0) {
-                SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
-                String jsonVal = (String) object.toString();
-                return jsonVal;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+       return SoapResuest("http://webservice.egs.lilosoft.com/",method,service,params);
     }
 
 

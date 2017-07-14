@@ -54,6 +54,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
         RepairDetail.RepairImage image = images.get(position);
         Uri uri = Uri.parse(image.getFILE_URL());
         holder.myImageView.setImageURI(uri);
+        holder.myImageView.setAspectRatio(1);
         if (onItemClickListener!=null){
             holder.myImageView.setOnClickListener(new View.OnClickListener() {
                 @Override

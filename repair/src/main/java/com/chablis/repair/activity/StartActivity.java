@@ -46,6 +46,7 @@ public class StartActivity extends BaseActivity {
                 @Override
                 public void onFailure(String msg) {
                     Log.d("LoginActivity", msg);
+                    nextActivity(LoginActivity.class);
                     CommonUtil.showToast(mActivity, msg);
                 }
 
