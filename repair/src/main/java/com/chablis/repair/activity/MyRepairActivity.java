@@ -41,14 +41,13 @@ public class MyRepairActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         getMyRepair();
-        data = new ArrayList();
 
         View header = getLayoutInflater().inflate(R.layout.my_repair_table1, null);
-        list.addHeaderView(header);
+        list.addHeaderView(header,null,false);
 
 
         View footer = getLayoutInflater().inflate(R.layout.information_table2, null);
-        list.addFooterView(footer);
+        list.addFooterView(footer,null,false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -83,7 +82,7 @@ public class MyRepairActivity extends BaseTitleActivity {
                 list.setAdapter(new InformationAdapter(mActivity, data));//没有数据
                 if (data.size() == 0) {
                     View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
-                    list.addFooterView(nodata);
+                    list.addFooterView(nodata,null,false);
                 }
             }
 
@@ -92,7 +91,7 @@ public class MyRepairActivity extends BaseTitleActivity {
                 Log.d("MyRepairActivity", s);
                 CommonUtil.showToast(mActivity, s);
                 View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
-                list.addFooterView(nodata);
+                list.addFooterView(nodata,null,false);
             }
         });
     }

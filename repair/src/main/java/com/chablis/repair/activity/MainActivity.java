@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
                 nextActivity(QRCodeActivity.class);
                 break;
             case R.id.tv_repair:
+                nextActivity(RepairActivity.class);
                 break;
             case R.id.tv_me:
                 nextActivity(MyRepairActivity.class);

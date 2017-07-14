@@ -62,17 +62,17 @@ public class InformationActivity extends BaseActivity {
         tvIp.setText(equipment.getClientinfo().getCLIENT_IP());
         tvRemarks.setText(equipment.getClientinfo().getREMARK());
 
-        list.addHeaderView(header);
+        list.addHeaderView(header,null,false);
 
         //没有数据
         if (data.size() == 0) {
             View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
-            list.addFooterView(nodata);
+            list.addFooterView(nodata,null,false);
         }
 
 
         View footer = getLayoutInflater().inflate(R.layout.information_table2, null);
-        list.addFooterView(footer);
+        list.addFooterView(footer,null,false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

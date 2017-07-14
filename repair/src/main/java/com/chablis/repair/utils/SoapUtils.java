@@ -70,21 +70,33 @@ public class SoapUtils {
     }
 
     /**
+     * 获取报修列表
+     *
+     * @return
+     */
+    public static String getRepairList() {
+        return SoapResuest("queryServiceList", "repairService");
+    }
+
+
+    /**
      * soap请求
      */
     public static String SoapResuest(String namespace, String method, String service, HashMap params) {
         SoapObject request = new SoapObject(namespace,
                 method);
-        Iterator it = params.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            request.addProperty(entry.getKey().toString(), entry.getValue());
+        if (params != null) {
+            Iterator it = params.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry entry = (Map.Entry) it.next();
+                request.addProperty(entry.getKey().toString(), entry.getValue());
+            }
         }
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl",5*1000);
+        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl", 5 * 1000);
         trans.debug = true;
         try {
             trans.call(null, envelope);
@@ -108,7 +120,15 @@ public class SoapUtils {
      */
 
     public static String SoapResuest(String method, String service, HashMap params) {
-       return SoapResuest("http://webservice.egs.lilosoft.com/",method,service,params);
+        return SoapResuest("http://webservice.egs.lilosoft.com/", method, service, params);
+    }
+
+    /**
+     * soap请求
+     */
+
+    public static String SoapResuest(String method, String service) {
+        return SoapResuest("http://webservice.egs.lilosoft.com/", method, service, null);
     }
 
 
