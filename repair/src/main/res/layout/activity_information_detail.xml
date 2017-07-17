@@ -278,33 +278,35 @@
                     android:id="@+id/tv_answer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="12dp"
                     android:drawableLeft="@mipmap/xq_folder"
                     android:drawablePadding="8dp"
                     android:text="维修回复"
                     android:textColor="@color/color_sansansan" />
 
+
                 <TextView
                     android:id="@+id/tv_answer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="回复个啥呢"
                     android:layout_below="@id/tv_answer1"
                     android:textColor="@color/color_liuliuliu" />
 
                 <View
                     android:id="@+id/line7"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="16dp"
                     android:layout_height="0.5dp"
                     android:layout_below="@id/tv_answer2"
+                    android:layout_marginTop="16dp"
                     android:background="@color/color_bfbfbf" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_images2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_below="@id/line7"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
                 <!--<LinearLayout
                     android:id="@+id/ll_images2"

@@ -3,36 +3,64 @@ package com.chablis.repair.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.chablis.repair.R;
-import com.chablis.repair.base.AppConfig;
 import com.chablis.repair.base.BaseTitleActivity;
+import com.chablis.repair.base.SoapAsyncTask;
+import com.chablis.repair.base.TaskCallBack;
+import com.chablis.repair.model.BreakType;
 import com.chablis.repair.model.Equipment;
-import com.chablis.repair.rx.PermissionObserver;
+import com.chablis.repair.rx.Response;
+import com.chablis.repair.rx.RxObserverableCallBack;
+import com.chablis.repair.rx.SoapObservable;
+import com.chablis.repair.rx.SoapObserver;
+import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PermissionUtils;
+import com.chablis.repair.utils.SoapUtils;
 import com.chablis.repair.widget.ImageManagerView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ReportActivity extends BaseTitleActivity {
     private final int RESULT_TAKE_PHOTO = 0;
+    @BindView(R.id.tv_class2)
+    TextView tvClass2;
+    @BindView(R.id.tv_class4)
+    TextView tvClass4;
 
     private String mCurrentPhotoPath;
     @BindView(R.id.image_managerView)
     ImageManagerView imageManagerView;
+    private OptionsPickerView pickerView1;
+    private OptionsPickerView pickerView2;
+    private BreakType breakType;
+    private List<String> imageUrls;
+    private Equipment.ClientInfo clientInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +68,8 @@ public class ReportActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        Equipment.ClientInfo clientInfo = (Equipment.ClientInfo) intent.getSerializableExtra("clientinfo");
+        clientInfo = (Equipment.ClientInfo) intent.getSerializableExtra("clientinfo");
+        getClasses();
         imageManagerView.setOnImageClickListener(new ImageManagerView.OnImageClickListener() {
             @Override
             public void onImageClick(int position, String filePath, ImageView iv) {
@@ -54,10 +83,67 @@ public class ReportActivity extends BaseTitleActivity {
 
             @Override
             public void onAddClick() {
-                imageManagerView.addImage(null);
                 getPermission();
             }
         });
+    }
+
+    /**
+     * 获取大类小类
+     */
+    private void getClasses() {
+
+        new SoapAsyncTask(new TaskCallBack() {
+            @Override
+            public String doInBackground() {
+                return SoapUtils.getClasses();
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                Log.d("RepairDetailActivity", result);
+                breakType = JSONObject.parseObject(result, BreakType.class);
+                initView();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Log.d("RepairDetailActivity", msg);
+                CommonUtil.showToast(mActivity, msg);
+            }
+        }).execute();
+    }
+
+    private void initView() {
+        List bigList = new ArrayList();
+        for (BreakType.BigClassList big : breakType.getBigClassList()) {
+            bigList.add(big.getDICT_NAME());
+        }
+        List smallList = new ArrayList();
+        for (BreakType.SmallClassList small : breakType.getSmallClassList()) {
+            smallList.add(small.getDICT_NAME());
+        }
+        pickerView1 = new OptionsPickerView.Builder(mActivity, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                String str = breakType.getBigClassList().get(options1).getDICT_NAME();
+                tvClass2.setText(str);
+            }
+        }).setSelectOptions(0)
+                .setLineSpacingMultiplier(2.0f)//设置两横线之间的间隔倍数
+                .build();
+        pickerView1.setPicker(bigList);
+
+        pickerView2 = new OptionsPickerView.Builder(mActivity, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                String str = breakType.getSmallClassList().get(options1).getDICT_NAME();
+                tvClass4.setText(str);
+            }
+        }).setSelectOptions(0)
+                .setLineSpacingMultiplier(2.0f)//设置两横线之间的间隔倍数
+                .build();
+        pickerView2.setPicker(smallList);
     }
 
     /**
@@ -124,10 +210,67 @@ public class ReportActivity extends BaseTitleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK ) {
-            if (requestCode == RESULT_TAKE_PHOTO){{
-                Log.d("ReportActivity", mCurrentPhotoPath);
-            }}
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RESULT_TAKE_PHOTO) {
+                {
+                    imageManagerView.addImage(mCurrentPhotoPath);
+                    Log.d("ReportActivity", mCurrentPhotoPath);
+
+                }
+            }
         }
+    }
+
+
+    @OnClick({R.id.rv_class, R.id.rv_class2, R.id.button})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rv_class:
+                pickerView1.show();
+                break;
+            case R.id.rv_class2:
+                pickerView2.show();
+                break;
+            case R.id.button:
+                uploadImage();
+                break;
+        }
+    }
+
+    /**
+     * 图片上传
+     */
+    public void uploadImage() {
+        imageUrls = imageManagerView.getAllImages();
+        for (String url:imageUrls){
+            Bitmap bitmap= BitmapFactory.decodeFile(url);
+            String str=CommonUtil.Bitmap2StrByBase64(bitmap);
+            Log.d("ReportActivity", CommonUtil.getFileName(url));
+            rxUpload(str,CommonUtil.getFileName(url),"009300f8697640daaf4abcb5ca995c67");
+
+        }
+    }
+
+    private void rxUpload(final String image, final String fileName, final String mainTainId){
+        Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
+            @Override
+            public String doWebRequest() {
+                return SoapUtils.updateImage(image,fileName,mainTainId);
+            }
+        });
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers
+                        .mainThread()).subscribe(new SoapObserver<Response>() {
+            @Override
+            public void onSuccess(String s) {
+                Log.d("ReportActivity", s);
+            }
+
+            @Override
+            public void onFailure(String s) {
+                Log.d("ReportActivity", s);
+            }
+        });
     }
 }

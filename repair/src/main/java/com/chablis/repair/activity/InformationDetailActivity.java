@@ -78,7 +78,6 @@ public class InformationDetailActivity extends BaseTitleActivity {
             public void onSuccess(String s) {
                 Log.d("InformationDetailActivi", s);
                 final RepairDetail repairDetail = JSONObject.parseObject(s, RepairDetail.class);
-                System.out.println(repairDetail.getDePiclist().size());
                 tvTitle2.setText(repairDetail.getClientInfo().getTITLE());
                 tvDivice2.setText(repairDetail.getClientInfo().getPROBLEMDTION());
                 tvClass2.setText(repairDetail.getClientInfo().getBIGCLASS());

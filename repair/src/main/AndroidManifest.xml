@@ -29,11 +29,15 @@
         </activity>
         <activity android:name=".activity.QRCodeActivity" />
         <activity android:name=".activity.InformationActivity" />
-        <activity android:name=".activity.InformationDetailActivity" />
-        <activity android:name=".activity.ReportActivity" />
+        <activity android:name=".activity.InformationDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".activity.ReportActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".activity.ScanActivity" />
-        <activity android:name=".activity.RepairActivity" />
-        <activity android:name=".activity.RepairDetailActivity" />
+        <activity android:name=".activity.RepairActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".activity.RepairDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".activity.MyRepairActivity" />
         <activity android:name=".activity.BigPictureActivity" />
         <activity android:name=".activity.StartActivity">

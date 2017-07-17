@@ -1,10 +1,13 @@
 package com.chablis.repair.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Base64;
 import android.widget.Toast;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.security.MessageDigest;
@@ -57,6 +60,22 @@ public class CommonUtil {
         }
         return "";
 
+    }
+
+    /**
+     * 通过Base32将Bitmap转换成Base64字符串
+     * @param bit
+     * @return
+     */
+    public static String Bitmap2StrByBase64(Bitmap bit){
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.JPEG, 60, bos);//参数100表示不压缩
+        byte[] bytes=bos.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
+    public static String getFileName(String pathandname) {
+        return pathandname.substring(pathandname.lastIndexOf("/") + 1, pathandname.length());
     }
 
     public static  void DeleteFile(File f) {

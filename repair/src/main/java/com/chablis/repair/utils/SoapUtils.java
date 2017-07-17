@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class SoapUtils {
     public static String http = "http://27.17.62.40";
-    public static String url = http + ":8899/wisdomgov/ws";
-    public static String loginUrl = "http://192.168.2.56:8080/wisdomgov/ws";
+//    public static String url = http + ":8899/wisdomgov/ws";
+    public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
     public static String otherUrl = "http://192.168.2.82:8080/wisdomgov/ws";
 
     /**
@@ -77,6 +77,41 @@ public class SoapUtils {
     public static String getRepairList() {
         return SoapResuest("queryServiceList", "repairService");
     }
+
+    /**
+     * 获取大类小类集合
+     *
+     * @return
+     */
+    public static String getClasses() {
+        return SoapResuest("insertView", "repairService");
+    }
+
+    /**
+     * 上传图片
+     *
+     * @return
+     */
+    public static String updateImage(String image,String fileName,String mainTainId) {
+        HashMap map = new HashMap();
+        map.put("folder", "repair/image");
+        map.put("type", "jpg");
+        map.put("file", image);
+        map.put("fileName", fileName);
+        map.put("mainTainId", mainTainId);
+        return SoapResuest("insertPic", "repairService");
+    }
+
+
+    /**
+     * 获取政务中心
+     *
+     * @return
+     */
+    public static String getAreaList() {
+        return SoapResuest("queryAllArea", "repairService");
+    }
+
 
 
     /**
