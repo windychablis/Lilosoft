@@ -75,7 +75,12 @@ public class SoapUtils {
      * @return
      */
     public static String getRepairList() {
-        return SoapResuest("queryServiceList", "repairService");
+        return SoapResuest("queryMainTainByCode", "repairService");
+    }
+    public static String getRepairList(String code) {
+        HashMap map = new HashMap();
+        map.put("area_code", code);
+        return SoapResuest("queryMainTainByCode", "repairService",map);
     }
 
     /**

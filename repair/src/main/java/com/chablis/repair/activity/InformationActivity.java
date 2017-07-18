@@ -27,6 +27,10 @@ public class InformationActivity extends BaseActivity {
     @BindView(R.id.list)
     ListView list;
 
+    private View header;
+    private View nodata;
+    private View footer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class InformationActivity extends BaseActivity {
 
         list.setAdapter(new InformationAdapter(this, data));
 
-        View header = getLayoutInflater().inflate(R.layout.information_table1, null);
+        header = getLayoutInflater().inflate(R.layout.information_table1, null);
         TextView tvNumber = ButterKnife.findById(header, R.id.tv_describe);
         TextView tvType = ButterKnife.findById(header, R.id.tv_type);
         TextView tvArea1 = ButterKnife.findById(header, R.id.tv_area1);
@@ -66,13 +70,12 @@ public class InformationActivity extends BaseActivity {
 
         //没有数据
         if (data.size() == 0) {
-            View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
-            list.addFooterView(nodata,null,false);
+            nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
+            list.addFooterView(nodata, null, false);
+
         }
-
-
-        View footer = getLayoutInflater().inflate(R.layout.information_table2, null);
-        list.addFooterView(footer,null,false);
+        footer = getLayoutInflater().inflate(R.layout.information_table2, null);
+        list.addFooterView(footer, null, false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

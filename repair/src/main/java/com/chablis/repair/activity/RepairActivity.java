@@ -1,7 +1,6 @@
 package com.chablis.repair.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.chablis.repair.rx.RxObserverableCallBack;
 import com.chablis.repair.rx.SoapObservable;
 import com.chablis.repair.rx.SoapObserver;
 import com.chablis.repair.rx.SoapObserverArray;
-import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.SoapUtils;
 
 import java.util.ArrayList;
@@ -40,6 +38,10 @@ public class RepairActivity extends BaseTitleActivity {
     private ArrayList data;
     private ArrayList<Area> areas;
     private TextView tv_gov;
+    private InformationAdapter mAdapter;
+    private View header;
+    private View nodata;
+    private View footer;
 
     @BindView(R.id.list)
     ListView list;
@@ -49,22 +51,17 @@ public class RepairActivity extends BaseTitleActivity {
         setContentView(R.layout.activity_repair);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getRepairList();
-        View header = getLayoutInflater().inflate(R.layout.repair_table1, null);
+        getAreaAndRepairList();
+        header = getLayoutInflater().inflate(R.layout.repair_table1, null);
         tv_gov = (TextView) header.findViewById(R.id.tv_gov);
         list.addHeaderView(header);
-
-        View footer = getLayoutInflater().inflate(R.layout.information_table2, null);
-        list.addFooterView(footer, null, false);
-
-
     }
 
-    public void getRepairList() {
+    public void getAreaAndRepairList() {
         Observable<String> observable1 = SoapObservable.getStringObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
-                return SoapUtils.getRepairList();
+                return SoapUtils.getRepairList("");
             }
         });
         Observable<String> observable2 = SoapObservable.getStringObservable(new RxObserverableCallBack() {
@@ -92,7 +89,30 @@ public class RepairActivity extends BaseTitleActivity {
 
             @Override
             public void onFailure(String s) {
+                Log.d("RepairActivity", s);
+            }
+        });
+    }
 
+    public void getRepairList(final String areaCode){
+        Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
+            @Override
+            public String doWebRequest() {
+                return SoapUtils.getRepairList(areaCode);
+            }
+        });
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers
+                        .mainThread()).subscribe(new SoapObserver<Response>() {
+            @Override
+            public void onSuccess(String s) {
+                Log.d("RepairActivity", s);
+                initList(s);
+            }
+
+            @Override
+            public void onFailure(String s) {
+                Log.d("RepairActivity", s);
             }
         });
     }
@@ -108,9 +128,9 @@ public class RepairActivity extends BaseTitleActivity {
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Area area = areas.get(options1);
                 tv_gov.setText(area.getName());
+                getRepairList(area.getAreaCode());
             }
         }).setSelectOptions(0)
-                .setContentTextSize(20)//设置滚轮文字大小
                 .setLineSpacingMultiplier(2.0f)//设置两横线之间的间隔倍数
                 .build();
         pickerView.setPicker(data);
@@ -118,12 +138,19 @@ public class RepairActivity extends BaseTitleActivity {
     }
 
     public void initList(String json) {
+        list.removeFooterView(footer);
+        list.removeFooterView(nodata);
         data = (ArrayList) JSONArray.parseArray(json, Equipment.RepairInfo.class);
-        list.setAdapter(new InformationAdapter(mActivity, data));//没有数据
+        mAdapter=new InformationAdapter(mActivity, data);
+        list.setAdapter(mAdapter);//没有数据
         if (data.size() == 0) {
-            View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
+            nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
             list.addFooterView(nodata, null, false);
+
         }
+        footer = getLayoutInflater().inflate(R.layout.information_table2, null);
+        list.addFooterView(footer, null, false);
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
