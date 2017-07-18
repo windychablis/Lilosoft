@@ -47,7 +47,7 @@
             android:drawableLeft="@mipmap/street_view"
             android:drawableRight="@mipmap/right"
             android:drawablePadding="8dp"
-            android:text="朝阳区政务服务中心" />
+            android:text="" />
 
     </RelativeLayout>
 

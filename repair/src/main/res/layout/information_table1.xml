@@ -53,7 +53,6 @@
                 style="@style/s_table_text"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/tv_break_type"
-                android:text="JH-JH-JH-01"
                 app:layout_widthPercent="28%" />
 
             <TextView
@@ -68,7 +67,6 @@
                 android:id="@+id/tv_type"
                 style="@style/s_table_text"
                 android:layout_toRightOf="@id/tv_time"
-                android:text="取号机"
                 app:layout_widthPercent="28%" />
 
 
@@ -86,7 +84,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_describe"
                 android:layout_toRightOf="@id/tv2_1"
-                android:text="朝阳区"
                 app:layout_widthPercent="28%" />
 
             <TextView
@@ -103,7 +100,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_type"
                 android:layout_toRightOf="@id/tv2_3"
-                android:text="2016-01-01"
                 app:layout_widthPercent="28%" />
 
             <View
@@ -127,7 +123,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_area1"
                 android:layout_toRightOf="@id/tv3_1"
-                android:text="一楼右"
                 app:layout_widthPercent="28%" />
 
             <TextView
@@ -144,7 +139,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_date"
                 android:layout_toRightOf="@id/tv3_3"
-                android:text="二楼"
                 app:layout_widthPercent="28%" />
 
             <View
@@ -168,7 +162,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_area2"
                 android:layout_toRightOf="@id/tv4_1"
-                android:text="192.168.0.1"
                 app:layout_widthPercent="78%" />
 
             <View
@@ -192,7 +185,6 @@
                 style="@style/s_table_text"
                 android:layout_below="@id/tv_ip"
                 android:layout_toRightOf="@id/tv5_1"
-                android:text="测试笔记本电脑"
                 app:layout_widthPercent="78%" />
 
             <View
