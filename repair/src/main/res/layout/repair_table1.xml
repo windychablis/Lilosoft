@@ -6,38 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.chablis.repair.activity.RepairActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bk_bg_1"
-        android:padding="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_back">
 
-        <TextView
-            android:id="@+id/tv_gov"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_sansansan"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@mipmap/street_view"
-            android:drawablePadding="8dp"
-            android:text="朝阳区政务服务中心" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/right" />
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -50,8 +19,7 @@
         android:orientation="vertical"
         android:padding="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:layout_width="wrap_content"

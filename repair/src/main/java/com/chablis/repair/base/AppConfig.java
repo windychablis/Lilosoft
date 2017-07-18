@@ -1,7 +1,6 @@
 package com.chablis.repair.base;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.chablis.repair.utils.CommonUtil;

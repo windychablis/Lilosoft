@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.chablis.repair.rx.RxObserverableCallBack;
 import com.chablis.repair.rx.SoapObservable;
 import com.chablis.repair.rx.SoapObserver;
 import com.chablis.repair.rx.SoapObserverArray;
+import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.SoapUtils;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -34,12 +37,14 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class RepairActivity extends BaseTitleActivity {
+    @BindView(R.id.linearLayout3)
+    LinearLayout linearLayout3;
+    @BindView(R.id.tv_gov)
+    TextView tvGov;
     private OptionsPickerView pickerView;
     private ArrayList data;
     private ArrayList<Area> areas;
-    private TextView tv_gov;
     private InformationAdapter mAdapter;
-    private View header;
     private View nodata;
     private View footer;
 
@@ -52,9 +57,6 @@ public class RepairActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         getAreaAndRepairList();
-        header = getLayoutInflater().inflate(R.layout.repair_table1, null);
-        tv_gov = (TextView) header.findViewById(R.id.tv_gov);
-        list.addHeaderView(header);
     }
 
     public void getAreaAndRepairList() {
@@ -90,11 +92,14 @@ public class RepairActivity extends BaseTitleActivity {
             @Override
             public void onFailure(String s) {
                 Log.d("RepairActivity", s);
+                CommonUtil.showToast(mActivity, s);
+                View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
+                list.addFooterView(nodata, null, false);
             }
         });
     }
 
-    public void getRepairList(final String areaCode){
+    public void getRepairList(final String areaCode) {
         Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
@@ -113,6 +118,10 @@ public class RepairActivity extends BaseTitleActivity {
             @Override
             public void onFailure(String s) {
                 Log.d("RepairActivity", s);
+                Log.d("MyRepairActivity", s);
+                CommonUtil.showToast(mActivity, s);
+                View nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
+                list.addFooterView(nodata, null, false);
             }
         });
     }
@@ -120,6 +129,7 @@ public class RepairActivity extends BaseTitleActivity {
     public void initArea(String json) {
         List data = new ArrayList();
         final List<Area> areas = JSONArray.parseArray(json, Area.class);
+        tvGov.setText(areas.get(0).getName());
         for (Area area : areas) {
             data.add(area.getName());
         }
@@ -127,21 +137,21 @@ public class RepairActivity extends BaseTitleActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Area area = areas.get(options1);
-                tv_gov.setText(area.getName());
+                tvGov.setText(area.getName());
                 getRepairList(area.getAreaCode());
             }
         }).setSelectOptions(0)
                 .setLineSpacingMultiplier(2.0f)//设置两横线之间的间隔倍数
                 .build();
         pickerView.setPicker(data);
-
     }
 
     public void initList(String json) {
+        linearLayout3.setVisibility(View.VISIBLE);
         list.removeFooterView(footer);
         list.removeFooterView(nodata);
         data = (ArrayList) JSONArray.parseArray(json, Equipment.RepairInfo.class);
-        mAdapter=new InformationAdapter(mActivity, data);
+        mAdapter = new InformationAdapter(mActivity, data);
         list.setAdapter(mAdapter);//没有数据
         if (data.size() == 0) {
             nodata = getLayoutInflater().inflate(R.layout.information_nodata, null);
@@ -154,17 +164,18 @@ public class RepairActivity extends BaseTitleActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //listview有头部，下标从1开始
-                if (position == 0) {
-                    pickerView.show();
-                    return;
-                }
                 Log.d(TAG, "position:" + position);
-                Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) data.get(position - 1);
+                Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) data.get(position);
                 Intent intent = new Intent(mActivity, RepairDetailActivity.class);
                 intent.putExtra("repairInfo", repairInfo);
                 startActivity(intent);
             }
         });
+    }
+
+
+    @OnClick(R.id.relativeLayout)
+    public void onViewClicked() {
+        pickerView.show();
     }
 }

@@ -1,7 +1,6 @@
 package com.chablis.repair.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by chablis on 2017/7/10.

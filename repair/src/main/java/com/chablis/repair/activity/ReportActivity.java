@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -116,17 +115,21 @@ public class ReportActivity extends BaseTitleActivity {
 
     private void initView() {
         List bigList = new ArrayList();
-        for (BreakType.BigClassList big : breakType.getBigClassList()) {
+        final List<BreakType.BigClassList> bigClassLists=breakType.getBigClassList();
+        final List<BreakType.SmallClassList> smallClassLists=breakType.getSmallClassList();
+        tvClass2.setText(bigClassLists.get(0).getDICT_NAME());
+        tvClass4.setText(smallClassLists.get(0).getDICT_NAME());
+        for (BreakType.BigClassList big : bigClassLists) {
             bigList.add(big.getDICT_NAME());
         }
         List smallList = new ArrayList();
-        for (BreakType.SmallClassList small : breakType.getSmallClassList()) {
+        for (BreakType.SmallClassList small : smallClassLists) {
             smallList.add(small.getDICT_NAME());
         }
         pickerView1 = new OptionsPickerView.Builder(mActivity, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                String str = breakType.getBigClassList().get(options1).getDICT_NAME();
+                String str = bigClassLists.get(options1).getDICT_NAME();
                 tvClass2.setText(str);
             }
         }).setSelectOptions(0)
@@ -137,7 +140,7 @@ public class ReportActivity extends BaseTitleActivity {
         pickerView2 = new OptionsPickerView.Builder(mActivity, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                String str = breakType.getSmallClassList().get(options1).getDICT_NAME();
+                String str = smallClassLists.get(options1).getDICT_NAME();
                 tvClass4.setText(str);
             }
         }).setSelectOptions(0)

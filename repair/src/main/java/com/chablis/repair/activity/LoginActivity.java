@@ -7,7 +7,6 @@ import android.widget.EditText;
 import com.alibaba.fastjson.JSONObject;
 import com.chablis.repair.R;
 import com.chablis.repair.base.BaseActivity;
-import com.chablis.repair.base.JsonUtils;
 import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
 import com.chablis.repair.model.User;

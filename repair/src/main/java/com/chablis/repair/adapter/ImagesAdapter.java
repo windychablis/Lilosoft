@@ -2,13 +2,11 @@ package com.chablis.repair.adapter;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chablis.repair.R;
-import com.chablis.repair.model.EquImage;
 import com.chablis.repair.model.RepairDetail;
 import com.facebook.drawee.view.SimpleDraweeView;
 

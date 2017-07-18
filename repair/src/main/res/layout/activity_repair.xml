@@ -25,22 +25,133 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bk_bg_1"
+        android:padding="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_back">
+
+        <TextView
+            android:id="@+id/tv_gov"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_sansansan"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@mipmap/street_view"
+            android:drawableRight="@mipmap/right"
+            android:drawablePadding="8dp"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bk_bg_3"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/maintenance"
+            android:drawablePadding="8dp"
+            android:text="维护信息"
+            android:textColor="@color/color_sansansan"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ants_line"
+            android:layerType="software" />
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_class1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="大类"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="22%" />
+
+            <TextView
+                android:id="@+id/tv_class2"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class1"
+                android:gravity="center"
+                android:text="小类"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="28%" />
+
+            <TextView
+                android:id="@+id/tv_class3"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class2"
+                android:gravity="center"
+                android:text="报修时间"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="28%" />
+
+            <TextView
+                android:id="@+id/tv_class4"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_class3"
+                android:gravity="center"
+                android:text="状态"
+                android:textColor="@color/color_sansansan"
+                android:textSize="14sp"
+                app:layout_widthPercent="22%" />
+        </android.support.percent.PercentRelativeLayout>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/color_bfbfbf" />
+
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:divider="@null"
         android:scrollbars="none"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_back"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

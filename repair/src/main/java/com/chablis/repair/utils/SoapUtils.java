@@ -63,9 +63,10 @@ public class SoapUtils {
      * @param userId
      * @return
      */
-    public static String getMyRepair(String userId) {
-        HashMap map = new HashMap();
+    public static String getMyRepair(String userId,String code) {
+        LinkedHashMap map = new LinkedHashMap();
         map.put("repairUserId", userId);
+        map.put("areaCode", code);
         return SoapResuest("queryListByRepairId", "repairService", map);
     }
 
@@ -74,9 +75,7 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String getRepairList() {
-        return SoapResuest("queryMainTainByCode", "repairService");
-    }
+
     public static String getRepairList(String code) {
         HashMap map = new HashMap();
         map.put("area_code", code);
