@@ -13,8 +13,6 @@ import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PrefUtils;
 import com.chablis.repair.utils.SoapUtils;
 
-import butterknife.ButterKnife;
-
 public class StartActivity extends BaseActivity {
 
     @Override

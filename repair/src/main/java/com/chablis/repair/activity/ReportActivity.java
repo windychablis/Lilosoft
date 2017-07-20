@@ -34,7 +34,6 @@ import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.SoapUtils;
 import com.chablis.repair.utils.StringUtils;
 import com.chablis.repair.widget.ImageManagerView;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
