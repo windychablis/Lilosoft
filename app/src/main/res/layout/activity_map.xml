@@ -34,14 +34,26 @@
             android:text="地图导航"
             android:textColor="@color/white"
             android:textSize="36sp" />
-        <ImageView
+        <!--<ImageView
             android:id="@+id/iv_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/location"/>
+            android:src="@mipmap/location"/>-->
+        <TextView
+            android:id="@+id/tv_menu"
+            android:padding="20dp"
+            android:drawableRight="@mipmap/location"
+            android:text="政务中心"
+            android:textSize="30sp"
+            android:drawablePadding="10dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <com.amap.api.maps2d.MapView

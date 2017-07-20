@@ -1,10 +1,12 @@
 package com.chablis.repair.activity;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 
 import com.chablis.repair.R;
 import com.chablis.repair.base.BaseActivity;
+import com.chablis.repair.utils.FileUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

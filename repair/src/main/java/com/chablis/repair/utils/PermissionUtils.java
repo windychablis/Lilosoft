@@ -13,7 +13,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 public class PermissionUtils {
     public static void getPermission(final Activity activity){
         RxPermissions rxPermissions=new RxPermissions(activity);
-        rxPermissions.request(Manifest.permission.CAMERA).subscribe(new PermissionObserver() {
+        rxPermissions.request(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new PermissionObserver() {
             @Override
             public void onSuccess() {
             }

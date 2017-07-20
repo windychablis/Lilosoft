@@ -1,4 +1,4 @@
-package com.chablis.repair.base;
+package com.chablis.repair.utils;
 
 import com.alibaba.fastjson.JSONObject;
 

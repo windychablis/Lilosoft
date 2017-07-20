@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chablis.repair.R;
 import com.chablis.repair.base.BaseActivity;
 import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
@@ -12,11 +13,14 @@ import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PrefUtils;
 import com.chablis.repair.utils.SoapUtils;
 
+import butterknife.ButterKnife;
+
 public class StartActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
         autoLogin();
     }
 
@@ -46,6 +50,7 @@ public class StartActivity extends BaseActivity {
                 @Override
                 public void onFailure(String msg) {
                     Log.d("LoginActivity", msg);
+                    mActivity.finish();
                     nextActivity(LoginActivity.class);
                     CommonUtil.showToast(mActivity, msg);
                 }

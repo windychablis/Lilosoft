@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class SoapUtils {
     public static String http = "http://27.17.62.40";
-//    public static String url = http + ":8899/wisdomgov/ws";
+    //    public static String url = http + ":8899/wisdomgov/ws";
     public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
     public static String otherUrl = "http://192.168.2.82:8080/wisdomgov/ws";
 
@@ -96,14 +96,29 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String updateImage(String image,String fileName,String mainTainId) {
-        HashMap map = new HashMap();
+    public static String updateImage(String image) {
+        LinkedHashMap map = new LinkedHashMap();
         map.put("folder", "repair/image");
-        map.put("type", "jpg");
+        map.put("type", "1");
         map.put("file", image);
-        map.put("fileName", fileName);
+        map.put("fileName", "temp.jpg");
+        return SoapResuest("insertPic", "repairService",map);
+    }
+    /**
+     * 上传维修信息
+     *
+     * @return
+     */
+    public static String updateRepairInfo(String bigClass,String smallClass,String title,String problemDtion,String repairUserId,String clienttype,String mainTainId) {
+        LinkedHashMap map = new LinkedHashMap();
+        map.put("bigClass", bigClass);
+        map.put("smallClass", smallClass);
+        map.put("title", title);
+        map.put("problemDtion", problemDtion);
+        map.put("repairUserId", repairUserId);
+        map.put("clienttype", clienttype);
         map.put("mainTainId", mainTainId);
-        return SoapResuest("insertPic", "repairService");
+        return SoapResuest("insertPic", "repairService",map);
     }
 
 
@@ -135,7 +150,7 @@ public class SoapUtils {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl", 5 * 1000);
+        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl", 50 * 1000);
         trans.debug = true;
         try {
             trans.call(null, envelope);

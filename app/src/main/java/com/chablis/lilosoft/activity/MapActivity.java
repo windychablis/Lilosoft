@@ -173,7 +173,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
         for (int i = 0; i < mapAddresses.size(); i++) {
             MapAddress address = mapAddresses.get(i);
-            String firstName = address.getChina_initial().substring(0, 1);
+            String firstName = address.getChina_initial().substring(0, 1).toUpperCase();
             if (firstName.matches(FORMAT)) {
                 if (mSections.contains(firstName)) {
                     mMap.get(firstName).add(address.getArea_name());
@@ -252,16 +252,15 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
     }
 
-    @OnClick({R.id.tv_back, R.id.iv_menu})
+    @OnClick({R.id.tv_back, R.id.tv_menu})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
                 this.finish();
                 break;
-            case R.id.iv_menu:
+            case R.id.tv_menu:
                 //TODO
-                if (menu != null)
-                    menu.toggle();
+                mapToggle();
                 break;
         }
     }
