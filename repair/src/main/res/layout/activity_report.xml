@@ -127,15 +127,18 @@
 
         <EditText
             android:id="@+id/tv_title1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rv_class2"
             android:layout_marginBottom="16dp"
             android:background="@null"
             android:hint="标题"
-            android:textColor="@color/color_jiujiujiu"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/color_sansansan"
             android:textColorHint="@color/color_jiujiujiu"
             android:textSize="16sp" />
+
         <View
             android:id="@+id/line4"
             android:layout_width="match_parent"
@@ -146,13 +149,15 @@
 
         <EditText
             android:id="@+id/tv_title2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/line4"
             android:layout_marginBottom="16dp"
             android:background="@null"
             android:hint="问题描述"
-            android:textColor="@color/color_jiujiujiu"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/color_sansansan"
             android:textColorHint="@color/color_jiujiujiu"
             android:textSize="16sp" />
 

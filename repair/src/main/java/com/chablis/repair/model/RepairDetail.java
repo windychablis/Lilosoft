@@ -71,7 +71,7 @@ public class RepairDetail {
          * PROBLEMDTION : 快
          */
 
-        private int FLOORNUM;
+        private String FLOORNUM;
         private String TITLE;
         private String SMALLCLASS;
         private String BIGCLASS;
@@ -110,11 +110,11 @@ public class RepairDetail {
                     '}';
         }
 
-        public int getFLOORNUM() {
+        public String getFLOORNUM() {
             return FLOORNUM;
         }
 
-        public void setFLOORNUM(int FLOORNUM) {
+        public void setFLOORNUM(String FLOORNUM) {
             this.FLOORNUM = FLOORNUM;
         }
 

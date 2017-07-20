@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class SoapUtils {
     public static String http = "http://27.17.62.40";
-    //    public static String url = http + ":8899/wisdomgov/ws";
+//        public static String url = http + ":8899/wisdomgov/ws";
     public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
     public static String otherUrl = "http://192.168.2.82:8080/wisdomgov/ws";
 
@@ -96,12 +96,13 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String updateImage(String image) {
+    public static String updateImage(String image,String mainTainId) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("folder", "repair/image");
         map.put("type", "1");
         map.put("file", image);
         map.put("fileName", "temp.jpg");
+        map.put("mainTainId", mainTainId);
         return SoapResuest("insertPic", "repairService",map);
     }
     /**
@@ -118,7 +119,20 @@ public class SoapUtils {
         map.put("repairUserId", repairUserId);
         map.put("clienttype", clienttype);
         map.put("mainTainId", mainTainId);
-        return SoapResuest("insertPic", "repairService",map);
+        return SoapResuest("insertRepair", "repairService",map);
+    }
+
+    /**
+     * 上传维修回复
+     *
+     * @return
+     */
+    public static String updateRepairAnswer(String mainTainId,String repairId,String answer) {
+        LinkedHashMap map = new LinkedHashMap();
+        map.put("mainTainId", mainTainId);
+        map.put("disposeUserId", repairId);
+        map.put("serverResult", answer);
+        return SoapResuest("updateMainTain", "repairService",map);
     }
 
 

@@ -34,6 +34,7 @@ import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.SoapUtils;
 import com.chablis.repair.utils.StringUtils;
 import com.chablis.repair.widget.ImageManagerView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -176,23 +177,6 @@ public class ReportActivity extends BaseTitleActivity {
     }
 
     private void takeCamera() {
-
-        /*Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(mActivity.getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            photoFile = createImageFile();
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    imageUri = FileProvider.getUriForFile(mActivity, "com.chablis.lilosoft.repair.fileprovider", photoFile);//通过FileProvider创建一个content类型的Uri
-                }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-            }
-        }*/
-
         File photoFile = null;
         photoFile = createImageFile();
         Uri imageUri;
@@ -287,7 +271,7 @@ public class ReportActivity extends BaseTitleActivity {
         Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
-                return SoapUtils.updateImage(image);
+                return SoapUtils.updateImage(image,"");
             }
         });
 
@@ -300,7 +284,7 @@ public class ReportActivity extends BaseTitleActivity {
                 String title=tvTitle1.getText().toString();
                 String problem=tvTitle2.getText().toString();
                 Log.d("ReportActivity", id);
-                rxUploadRepairInfo(currentBig.getDICT_NAME(),currentSmall.getDICT_NAME(),title,problem,appContext.user.getUser_ID(),clientInfo.getCLIENT_TYPE(),id);
+                rxUploadRepairInfo(currentBig.getDICT_ID(),currentSmall.getDICT_ID(),title,problem,appContext.user.getUser_ID(),clientInfo.getCLIENT_TYPE(),id);
             }
 
             @Override
@@ -324,7 +308,9 @@ public class ReportActivity extends BaseTitleActivity {
                         .mainThread()).subscribe(new SoapObserver<Response>() {
             @Override
             public void onSuccess(String s) {
-                String id = JSONObject.parseObject(s).getString("mainTainId");
+                Log.d("ReportActivity", s);
+                CommonUtil.showToast(mActivity,"上传成功");
+                mActivity.finish();
             }
 
             @Override

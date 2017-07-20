@@ -39,7 +39,7 @@ public class BigPictureActivity extends BaseActivity {
 
 
         PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
-        controller.setUri(Uri.parse("http://img4.duitang.com/uploads/item/201609/20/20160920212544_GJxW3.jpeg"));
+        controller.setUri(Uri.parse(url));
         controller.setOldController(photoView.getController());
 // You need setControllerListener
         controller.setControllerListener(new BaseControllerListener<ImageInfo>() {
