@@ -199,7 +199,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -237,7 +238,8 @@ public class WebUtil {
             SoapObject result = (SoapObject) envelope.bodyIn;
             CommonUtil.saveLog("success", "ip =" + ip + "\n areacode=" + Global.areacode + result.toString());
             int count = result.getPropertyCount();
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 String jsonVal = (String) object.toString();
                 JSONObject jsonO = new JSONObject(jsonVal);
@@ -301,7 +303,8 @@ public class WebUtil {
                     envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
-            if (count > 0) {
+            boolean flag = result.getProperty(0).toString().contains("anyType{}");
+            if (count > 0 && !flag) {
                 SoapPrimitive object = (SoapPrimitive) result.getProperty(0);
                 json = object.toString();
                 Gson gson = new Gson();

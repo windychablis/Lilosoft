@@ -12,7 +12,6 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.model.Marker;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.MapActivity;
-import com.chablis.lilosoft.base.AppContext;
 import com.chablis.lilosoft.utils.CommonUtil;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.UIUtils;

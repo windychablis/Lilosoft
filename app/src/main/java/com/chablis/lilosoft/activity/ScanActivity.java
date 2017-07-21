@@ -10,16 +10,9 @@ import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
-import com.chablis.lilosoft.model.Affair;
-import com.chablis.lilosoft.model.AffairItem;
-import com.chablis.lilosoft.model.MapAddress;
 import com.chablis.lilosoft.model.Material;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

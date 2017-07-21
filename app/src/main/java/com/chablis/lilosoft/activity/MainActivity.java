@@ -1,6 +1,5 @@
 package com.chablis.lilosoft.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,9 +9,7 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -70,6 +67,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     private ArrayList<GridView> array;
     private static final float APP_PAGE_SIZE = 16.0f;
 
+    private ExitDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +90,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
-        LoadActivity.soundPoolUtil.play(1, 0);
+        appContext.soundPoolUtil.play(1, 0);
         super.onStart();
     }
+
 
     public void initView() {
 //        getData();
@@ -261,13 +261,14 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 //
 //        builder.setView(view);
 //        builder.show();
-        ExitDialog dialog=new ExitDialog(this,R.style.Dialog);
+        dialog=new ExitDialog(this,R.style.Dialog);
         dialog.show();
         dialog.setOnButtonClickListener(new ExitDialog.OnButtonClickListener() {
             @Override
             public void logoutListener() {
                 Log.d("MainActivity", "退出登录");
                 //退出登录
+                dialog.dismiss();
                 PrefUtils.putCacheLoginState(false);
                 nextActivity(LoadActivity.class);
                 MainActivity.this.finish();
@@ -276,6 +277,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
             @Override
             public void exitListener() {
                 Log.d("MainActivity", "退出程序");
+                dialog.dismiss();
                 //退出程序
                 android.os.Process.killProcess(android.os.Process.myPid());   //获取PID
                 System.exit(0);

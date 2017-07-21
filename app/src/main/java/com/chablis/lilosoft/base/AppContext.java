@@ -10,6 +10,7 @@ import com.chablis.lilosoft.model.ClientInfo;
 import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
+import com.chablis.lilosoft.utils.SoundPoolUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +27,25 @@ public class AppContext extends Application {
     public Dept dept;
 
     public int TAB=0;
+    public SoundPoolUtil soundPoolUtil;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        playSoundInit();
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         // 初始化服务地址
 //        Global.WebServerUrl = getResources().getString(R.string.WebServerUrl);
         Global.AppFileRootPath = getResources().getString(
                 R.string.AppFileRootPath);
+    }
+    public void playSoundInit()
+    {
+        soundPoolUtil = new SoundPoolUtil(this);
+        soundPoolUtil.loadSfx(R.raw.yy1, 1);
+        soundPoolUtil.loadSfx(R.raw.yy2, 2);
+        soundPoolUtil.loadSfx(R.raw.yy3, 3);
     }
 
     /**

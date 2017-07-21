@@ -1,14 +1,11 @@
 package com.chablis.lilosoft.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,26 +22,18 @@ import com.chablis.lilosoft.model.ClientInfo;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.utils.PrefUtils;
-import com.chablis.lilosoft.utils.SoundPoolUtil;
 import com.chablis.lilosoft.utils.UpdateUtil;
 import com.chablis.lilosoft.utils.WebUtil;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
     public static List<TDDept> list_dept;
     public static List<ClientInfo> list_client;
     public static List<TDForm[]> TDFormList = new ArrayList<TDForm[]>();
 
-    public static SoundPoolUtil soundPoolUtil;
+
     private View activity_view;
     private PopupWindow pop;
     ProgressDialog mypDialog;
@@ -56,7 +45,6 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         Global.AppFileRootPath = getResources().getString(
                 R.string.AppFileRootPath);
         WebUtil.getIPhost(mActivity);
-        playSoundInit();
 
 //        String ip = sp.getString("ip", "");
 //        String areacode = sp.getString("areacode", "");
@@ -75,51 +63,22 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         }
     }
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-        if(Global.dbExists(this, dbConfig.DB_NAME)){
-            //第一次进入
-            mHandler.sendEmptyMessageDelayed(2, 1000);
-        }else{
-            LoadToMainActivity();
+    /*@Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus){
+            return;
         }
-*//*new AsyncTask<String,Integer,String>(){
-
-    @Override
-    protected String doInBackground(String... strings) {
-        WebUtil wu=new WebUtil();
-        String str=wu.GetTableOfDept(Global.areacode);
-        ArrayList<TDDept> list=(ArrayList<TDDept>) JSONObject.parseArray(str, TDDept.class);
-        Log.d("LoadActivity", list.toString());
-        return null;
-    }
-}.execute();*//*
-    }*/
-
-/*    @Override
-    protected void onStart() {
-        super.onStart();
         if (!PrefUtils.getCacheLoginState()||!Global.dbExists(this, dbConfig.DB_NAME)){
             //第一次进入
             mHandler.sendEmptyMessageDelayed(2, 1000);
         }else{
             LoadToMainActivity();
         }
-//        if(!Global.dbExists(this, dbConfig.DB_NAME)){
-//            //第一次进入
-//            mHandler.sendEmptyMessageDelayed(2, 1000);
-//        }else{
-//            LoadToMainActivity();
-//        }
     }*/
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (!hasFocus){
-            return;
-        }
+        @Override
+    protected void onStart() {
+        super.onStart();
         if (!PrefUtils.getCacheLoginState()||!Global.dbExists(this, dbConfig.DB_NAME)){
             //第一次进入
             mHandler.sendEmptyMessageDelayed(2, 1000);
@@ -135,9 +94,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         final EditText et_update = (EditText) pop.getContentView().findViewById(R.id.et_update);
         Button btn_OK = (Button) pop.getContentView().findViewById(R.id.btn_OK);
 
-//        et_area.setText(sp.getString("areacode", ""));
-//        et_ip.setText(sp.getString("ip", ""));
-//        et_update.setText(sp.getString("update_ip", ""));
+
         et_area.setText(PrefUtils.getAreaCode());
         et_ip.setText(PrefUtils.getIp());
         et_update.setText(PrefUtils.getUpdateIp());
@@ -234,14 +191,6 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
             sql="";
         }
         return sql;
-    }
-
-    public void playSoundInit()
-    {
-        soundPoolUtil = new SoundPoolUtil(this);
-        soundPoolUtil.loadSfx(R.raw.yy1, 1);
-        soundPoolUtil.loadSfx(R.raw.yy2, 2);
-        soundPoolUtil.loadSfx(R.raw.yy3, 3);
     }
 
     private Handler mHandler = new Handler(){

@@ -7,7 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chablis.lilosoft.R;
@@ -37,8 +37,8 @@ public class TableDetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_back)
     TextView tvBack;
-    @BindView(R.id.ib_print)
-    ImageButton ibPrint;
+    @BindView(R.id.iv_print)
+    ImageView ibPrint;
     List<TDMaterials> edlist;
     @BindView(R.id.viewPager)
     HackyViewPager viewPager;
@@ -58,7 +58,8 @@ public class TableDetailActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        LoadActivity.soundPoolUtil.play(3, 0);
+
+        appContext.soundPoolUtil.play(3, 0);
     }
 
     public void initView() {

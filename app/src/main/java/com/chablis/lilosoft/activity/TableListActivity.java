@@ -63,7 +63,7 @@ public class TableListActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        LoadActivity.soundPoolUtil.play(2, 0);
+        appContext.soundPoolUtil.play(2, 0);
     }
 
     public void initView() {
