@@ -1,5 +1,6 @@
 package com.chablis.repair.rx;
 
+import android.os.Looper;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
@@ -22,7 +23,6 @@ public class  SoapObservable{
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
                 String result=call.doWebRequest();
-                Log.d("SoapObservable", result);
                 int code= JSONObject.parseObject(result).getIntValue("code");
                 if (code==0) {
                     String data = JSONObject.parseObject(result).getString("data");
@@ -44,7 +44,6 @@ public class  SoapObservable{
             @Override
             public void subscribe(@NonNull ObservableEmitter<Response> e) throws Exception {
                 String result=call.doWebRequest();
-                Log.d("SoapObservable", result);
                 Response response=JSONObject.parseObject(result,Response.class);
                 e.onNext(response);
                 e.onComplete();

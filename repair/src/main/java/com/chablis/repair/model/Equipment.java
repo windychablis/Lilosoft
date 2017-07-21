@@ -173,6 +173,7 @@ public class Equipment implements Serializable {
          * BIGCLASS : 网络故障
          * CLIENT_TYPE : JH-H-A01-3
          * REPAIRDATE : 2017-06-14
+         * TITLE
          */
 
         private String STATUS;
@@ -181,6 +182,7 @@ public class Equipment implements Serializable {
         private String BIGCLASS;
         private String CLIENT_TYPE;
         private String REPAIRDATE;
+        private String TITLE;
 
         @Override
         public String toString() {
@@ -191,7 +193,16 @@ public class Equipment implements Serializable {
                     ", BIGCLASS='" + BIGCLASS + '\'' +
                     ", CLIENT_TYPE='" + CLIENT_TYPE + '\'' +
                     ", REPAIRDATE='" + REPAIRDATE + '\'' +
+                    ", TITLE='" + TITLE + '\'' +
                     '}';
+        }
+
+        public String getTITLE() {
+            return TITLE==null?"":TITLE;
+        }
+
+        public void setTITLE(String TITLE) {
+            this.TITLE = TITLE;
         }
 
         public String getSTATUS() {

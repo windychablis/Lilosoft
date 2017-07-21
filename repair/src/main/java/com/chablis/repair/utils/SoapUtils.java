@@ -2,6 +2,10 @@ package com.chablis.repair.utils;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPObject;
+import com.chablis.repair.rx.Response;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
@@ -21,7 +25,6 @@ public class SoapUtils {
     public static String http = "http://27.17.62.40";
 //        public static String url = http + ":8899/wisdomgov/ws";
     public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
-    public static String otherUrl = "http://192.168.2.82:8080/wisdomgov/ws";
 
     /**
      * 登录
@@ -96,10 +99,10 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String updateImage(String image,String mainTainId) {
+    public static String updateImage(String image,String mainTainId,String type) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("folder", "repair/image");
-        map.put("type", "1");
+        map.put("type", type);
         map.put("file", image);
         map.put("fileName", "temp.jpg");
         map.put("mainTainId", mainTainId);
@@ -164,7 +167,7 @@ public class SoapUtils {
                 SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         envelope.bodyOut = request;
-        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl", 50 * 1000);
+        HttpTransportSE trans = new HttpTransportSE(url + "/" + service + "?wsdl", 5 * 1000);
         trans.debug = true;
         try {
             trans.call(null, envelope);
@@ -177,7 +180,13 @@ public class SoapUtils {
                 return jsonVal;
             }
         } catch (Exception e) {
+            Log.d("SoapUtils", "e:" + e);
             e.printStackTrace();
+            Response response=new Response();
+            response.setCode(-1);
+            response.setMessage("网络错误");
+            String str=JSONObject.toJSONString(response);
+            return str;
         }
 
         return null;

@@ -51,8 +51,8 @@ public class InformationAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.item_information, parent,
                     false);
             holder = new ViewHolder(convertView);
-            holder.tvBreakType.setText(repairInfo.getBIGCLASS());
-            holder.tvDescribe.setText(repairInfo.getSMALLCLASS());
+            holder.tvBreakType.setText(repairInfo.getTITLE().equals("")?repairInfo.getBIGCLASS()+"|"+repairInfo.getSMALLCLASS():repairInfo.getTITLE());
+//            holder.tvDescribe.setText(repairInfo.getSMALLCLASS());
             holder.tvTime.setText(repairInfo.getREPAIRDATE());
             holder.tvType.setText(repairInfo.getSTATUS().equals("0") ? "未维修" : "已维修");
 

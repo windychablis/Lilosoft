@@ -35,6 +35,7 @@ import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.SoapUtils;
 import com.chablis.repair.utils.StringUtils;
 import com.chablis.repair.widget.ImageManagerView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -263,10 +264,16 @@ public class RepairDetailActivity extends BaseTitleActivity {
     }
 
     private void rxUploadImage(final String image) {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("正在上传...")
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
-                return SoapUtils.updateImage(image, repairInfo.getMAINTAIN_ID());
+                return SoapUtils.updateImage(image, repairInfo.getMAINTAIN_ID(),"2");
             }
         });
 
@@ -275,6 +282,7 @@ public class RepairDetailActivity extends BaseTitleActivity {
                         .mainThread()).subscribe(new SoapObserver<Response>() {
             @Override
             public void onSuccess(String s) {
+                hud.dismiss();
                 Log.d("RepairDetailActivity", s);
                 String answer=etPropose.getText().toString();
                 rxUpdateRepairAnswer(answer);
@@ -282,6 +290,8 @@ public class RepairDetailActivity extends BaseTitleActivity {
 
             @Override
             public void onFailure(String s) {
+                hud.dismiss();
+
                 Log.d("RepairDetailActivity", s);
                 CommonUtil.showToast(mActivity, s);
             }

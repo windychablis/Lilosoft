@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/bk_bg_content"
+            android:background="@color/white"
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,16 +35,17 @@
             <TextView
                 android:id="@+id/tv_break_type"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
                 android:textColor="@color/color_liuliuliu"
                 android:textSize="12sp"
-                app:layout_widthPercent="20%" />
+                app:layout_widthPercent="55%" />
 
             <TextView
                 android:id="@+id/tv_describe"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_break_type"
                 android:gravity="center"
+                android:visibility="gone"
                 android:textColor="@color/color_liuliuliu"
                 android:textSize="12sp"
                 app:layout_widthPercent="35%" />
@@ -53,16 +54,18 @@
                 android:id="@+id/tv_time"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_describe"
-                android:gravity="right"
+                android:gravity="center"
+                android:text="2013-13-13"
                 android:textColor="@color/color_liuliuliu"
                 android:textSize="12sp"
                 app:layout_widthPercent="25%" />
 
             <TextView
                 android:id="@+id/tv_type"
+                android:text="已维修"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_time"
-                android:gravity="right"
+                android:gravity="center"
                 android:textColor="@color/color_liuliuliu"
                 android:textSize="12sp"
                 app:layout_widthPercent="20%" />

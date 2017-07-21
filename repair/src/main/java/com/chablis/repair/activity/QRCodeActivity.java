@@ -12,6 +12,7 @@ import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
 import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.SoapUtils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,11 @@ public class QRCodeActivity extends BaseActivity {
      *  获取设备信息
      */
     public void getEquipmentInfo(final String num) {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         new SoapAsyncTask(new TaskCallBack() {
             @Override
             public String doInBackground() {
@@ -57,6 +63,7 @@ public class QRCodeActivity extends BaseActivity {
 
             @Override
             public void onSuccess(String result) {
+                hud.dismiss();
                 Log.d("QRCodeActivity", result);
                 Intent intent=new Intent(mActivity,InformationActivity.class);
                 intent.putExtra("info",result);
@@ -65,6 +72,7 @@ public class QRCodeActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
+                hud.dismiss();
                 Log.d("QRCodeActivity", msg);
                 CommonUtil.showToast(mActivity,msg);
             }

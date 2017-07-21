@@ -16,7 +16,7 @@
         android:drawableLeft="@mipmap/left"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:text="维修详情"
+        android:text="维修"
         android:textColor="@color/white"
         android:textSize="16sp"
         tools:layout_constraintTop_creator="1"
@@ -94,16 +94,17 @@
                 android:id="@+id/tv_class1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="大类"
+                android:text="标题"
                 android:textColor="@color/color_sansansan"
                 android:textSize="14sp"
-                app:layout_widthPercent="22%" />
+                app:layout_widthPercent="55%" />
 
             <TextView
                 android:id="@+id/tv_class2"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_class1"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="小类"
                 android:textColor="@color/color_sansansan"
                 android:textSize="14sp"
@@ -117,7 +118,7 @@
                 android:text="报修时间"
                 android:textColor="@color/color_sansansan"
                 android:textSize="14sp"
-                app:layout_widthPercent="28%" />
+                app:layout_widthPercent="25%" />
 
             <TextView
                 android:id="@+id/tv_class4"
@@ -127,7 +128,7 @@
                 android:text="状态"
                 android:textColor="@color/color_sansansan"
                 android:textSize="14sp"
-                app:layout_widthPercent="22%" />
+                app:layout_widthPercent="20%" />
         </android.support.percent.PercentRelativeLayout>
 
         <TextView

@@ -63,7 +63,6 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 //        vibrate();
 //        mQRCodeView.startSpot();
         getEquipmentInfo(result);

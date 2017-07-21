@@ -14,6 +14,7 @@ import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.PrefUtils;
 import com.chablis.repair.utils.SoapUtils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +47,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void login(final String username, final String password) {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         new SoapAsyncTask(new TaskCallBack() {
             @Override
             public String doInBackground() {
@@ -54,6 +60,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onSuccess(String result) {
+                hud.dismiss();
                 Log.d("LoginActivity", result);
                 appContext.user = JSONObject.parseObject(result, User.class);
                 PrefUtils.putCacheLoginState(true);
@@ -66,6 +73,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
+                hud.dismiss();
                 Log.d("LoginActivity", msg);
                 CommonUtil.showToast(mActivity, msg);
             }

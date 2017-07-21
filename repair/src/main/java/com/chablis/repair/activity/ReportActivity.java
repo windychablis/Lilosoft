@@ -34,6 +34,7 @@ import com.chablis.repair.utils.PermissionUtils;
 import com.chablis.repair.utils.SoapUtils;
 import com.chablis.repair.utils.StringUtils;
 import com.chablis.repair.widget.ImageManagerView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -267,10 +268,16 @@ public class ReportActivity extends BaseTitleActivity {
     }
 
     private void rxUploadImage(final String image) {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("正在上传...")
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
-                return SoapUtils.updateImage(image,"");
+                return SoapUtils.updateImage(image,"","1");
             }
         });
 
@@ -279,8 +286,9 @@ public class ReportActivity extends BaseTitleActivity {
                         .mainThread()).subscribe(new SoapObserver<Response>() {
             @Override
             public void onSuccess(String s) {
+                hud.dismiss();
                 String id = JSONObject.parseObject(s).getString("mainTainId");
-                String title=tvTitle1.getText().toString();
+                String title=tvTitle1.getText().toString().equals("")?currentBig.getDICT_NAME()+"|"+currentSmall.getDICT_NAME():"";
                 String problem=tvTitle2.getText().toString();
                 Log.d("ReportActivity", id);
                 rxUploadRepairInfo(currentBig.getDICT_ID(),currentSmall.getDICT_ID(),title,problem,appContext.user.getUser_ID(),clientInfo.getCLIENT_TYPE(),id);
@@ -288,6 +296,7 @@ public class ReportActivity extends BaseTitleActivity {
 
             @Override
             public void onFailure(String s) {
+                hud.dismiss();
                 Log.d("ReportActivity", s);
                 CommonUtil.showToast(mActivity, s);
             }

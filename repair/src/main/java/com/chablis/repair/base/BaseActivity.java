@@ -7,12 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import java.io.Serializable;
 
 public class BaseActivity extends AppCompatActivity {
     protected AppContext appContext;
     protected BaseActivity mActivity;
     protected FragmentManager mFragmentManager;
+    protected KProgressHUD hud;
     protected String TAG = this.getClass().getSimpleName();
 
     @Override

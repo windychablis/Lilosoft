@@ -24,6 +24,7 @@ import com.chablis.repair.rx.SoapObserverArray;
 import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.PrefUtils;
 import com.chablis.repair.utils.SoapUtils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,11 @@ public class MyRepairActivity extends BaseTitleActivity {
     }
 
     public void getAreaAndRepairList() {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         Observable<String> observable1 = SoapObservable.getStringObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
@@ -93,6 +99,7 @@ public class MyRepairActivity extends BaseTitleActivity {
 
             @Override
             public void onSuccess(String s) {
+                hud.dismiss();
                 String a = s.split("\\|")[0];
                 String b = s.split("\\|")[1];
                 initList(a);
@@ -101,6 +108,7 @@ public class MyRepairActivity extends BaseTitleActivity {
 
             @Override
             public void onFailure(String s) {
+                hud.dismiss();
                 Log.d("RepairActivity", s);
             }
         });

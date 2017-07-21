@@ -21,6 +21,7 @@ import com.chablis.repair.rx.SoapObservable;
 import com.chablis.repair.rx.SoapObserver;
 import com.chablis.repair.utils.CommonUtil;
 import com.chablis.repair.utils.SoapUtils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 
@@ -59,11 +60,15 @@ public class InformationDetailActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         final Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) intent.getSerializableExtra("repairInfo");
-//TODO  字段没有统一        Log.d("InformationDetailActivi", "ac66136a351a43829a3e4bfca5ec4d39");
         getRepairData(repairInfo.getMAINTAIN_ID());
     }
 
     public void getRepairData(final String repairId) {
+        hud= KProgressHUD.create(mActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         Observable<Response> observable = SoapObservable.getAnyObservable(new RxObserverableCallBack() {
             @Override
             public String doWebRequest() {
@@ -76,6 +81,7 @@ public class InformationDetailActivity extends BaseTitleActivity {
                         .mainThread()).subscribe(new SoapObserver<Response>() {
             @Override
             public void onSuccess(String s) {
+                hud.dismiss();
                 Log.d("InformationDetailActivi", s);
                 final RepairDetail repairDetail = JSONObject.parseObject(s, RepairDetail.class);
                 tvTitle2.setText(repairDetail.getClientInfo().getTITLE());
@@ -111,6 +117,7 @@ public class InformationDetailActivity extends BaseTitleActivity {
 
             @Override
             public void onFailure(String s) {
+                hud.dismiss();
                 Log.d("InformationDetailActivi", s);
                 CommonUtil.showToast(mActivity, s);
             }
