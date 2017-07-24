@@ -23,8 +23,8 @@ import java.util.Map;
 
 public class SoapUtils {
     public static String http = "http://27.17.62.40";
-//        public static String url = http + ":8899/wisdomgov/ws";
-    public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
+        public static String url = http + ":8899/wisdomgov/ws";
+//    public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
 
     /**
      * 登录
@@ -171,7 +171,6 @@ public class SoapUtils {
         trans.debug = true;
         try {
             trans.call(null, envelope);
-            Log.d("SoapUtils", "envelope.bodyIn:" + envelope.bodyIn);
             SoapObject result = (SoapObject) envelope.bodyIn;
             int count = result.getPropertyCount();
             if (count > 0) {

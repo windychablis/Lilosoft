@@ -246,7 +246,12 @@ public class ReportActivity extends BaseTitleActivity {
                 pickerView2.show();
                 break;
             case R.id.button:
-                uploadImage();
+                imageUrls = imageManagerView.getAllImages();
+                if (imageUrls.size()!=0) {
+                    uploadImage();
+                }else {
+                    CommonUtil.showToast(mActivity,"请上传照片");
+                }
                 break;
         }
     }
@@ -255,7 +260,6 @@ public class ReportActivity extends BaseTitleActivity {
      * 图片上传
      */
     public void uploadImage() {
-        imageUrls = imageManagerView.getAllImages();
         List<String> temp = new ArrayList<String>();
         for (String url : imageUrls) {
             Bitmap bitmap = BitmapFactory.decodeFile(url);
@@ -288,7 +292,7 @@ public class ReportActivity extends BaseTitleActivity {
             public void onSuccess(String s) {
                 hud.dismiss();
                 String id = JSONObject.parseObject(s).getString("mainTainId");
-                String title=tvTitle1.getText().toString().equals("")?currentBig.getDICT_NAME()+"|"+currentSmall.getDICT_NAME():"";
+                String title=tvTitle1.getText().toString().equals("")?currentBig.getDICT_NAME()+"|"+currentSmall.getDICT_NAME():tvTitle1.getText().toString();
                 String problem=tvTitle2.getText().toString();
                 Log.d("ReportActivity", id);
                 rxUploadRepairInfo(currentBig.getDICT_ID(),currentSmall.getDICT_ID(),title,problem,appContext.user.getUser_ID(),clientInfo.getCLIENT_TYPE(),id);

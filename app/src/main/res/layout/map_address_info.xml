@@ -59,7 +59,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:text="免费发送到手机"
+        android:text="发送路径规划信息到手机"
         android:layout_below="@id/et_phone"
         android:background="@mipmap/fasong"
         android:layout_width="240dp"

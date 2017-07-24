@@ -363,7 +363,7 @@
                     android:layout_marginBottom="16dp"
                     android:drawableLeft="@mipmap/work"
                     android:drawablePadding="8dp"
-                    android:text="维修建议"
+                    android:text="维修结果说明"
                     android:textColor="@color/color_sansansan" />
 
                 <EditText
@@ -372,7 +372,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="请输入相关维修建议"
+                    android:hint="请输入维修结果"
                     android:textSize="16sp"
                     android:background="@null"
                     android:textColorHint="@color/color_jiujiujiu"

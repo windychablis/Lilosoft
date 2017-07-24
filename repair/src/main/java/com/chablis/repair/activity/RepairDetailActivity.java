@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -86,6 +87,7 @@ public class RepairDetailActivity extends BaseTitleActivity {
     private ImagesAdapter mAdapter;
     private final int RESULT_TAKE_PHOTO = 0;
     private String mCurrentPhotoPath;
+    private String answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,7 +253,6 @@ public class RepairDetailActivity extends BaseTitleActivity {
      * 图片上传
      */
     public void uploadImage() {
-        imageUrls = imageManagerView.getAllImages();
         List<String> temp = new ArrayList<String>();
         for (String url : imageUrls) {
             Bitmap bitmap = BitmapFactory.decodeFile(url);
@@ -284,7 +285,6 @@ public class RepairDetailActivity extends BaseTitleActivity {
             public void onSuccess(String s) {
                 hud.dismiss();
                 Log.d("RepairDetailActivity", s);
-                String answer=etPropose.getText().toString();
                 rxUpdateRepairAnswer(answer);
             }
 
@@ -329,6 +329,12 @@ public class RepairDetailActivity extends BaseTitleActivity {
 
     @OnClick(R.id.button)
     public void onViewClicked() {
+        imageUrls = imageManagerView.getAllImages();
+        answer=etPropose.getText().toString();
+        if (imageUrls.size()==0||answer.length()==0){
+            CommonUtil.showToast(mActivity,"请拍照或者填写维修结果");
+            return;
+        }
         uploadImage();
     }
 }

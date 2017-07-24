@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InformationActivity extends BaseActivity {
+public class InformationActivity extends BaseActivity implements AbsListView.OnScrollListener {
+    @BindView(R.id.linearLayout3)
+    LinearLayout linearLayout3;
     private ArrayList data;
     private Equipment equipment;
 
@@ -41,7 +45,6 @@ public class InformationActivity extends BaseActivity {
         final String info = intent.getStringExtra("info");
 
         equipment = JSONObject.parseObject(info, Equipment.class);
-        Log.d("InformationActivity", "equipment:" + equipment);
 
         data = (ArrayList) equipment.getRepairList();
 
@@ -66,7 +69,9 @@ public class InformationActivity extends BaseActivity {
         tvIp.setText(equipment.getClientinfo().getCLIENT_IP());
         tvRemarks.setText(equipment.getClientinfo().getREMARK());
 
-        list.addHeaderView(header,null,false);
+        list.addHeaderView(header, null, false);
+        View suspend = getLayoutInflater().inflate(R.layout.repair_table1, null);
+        list.addHeaderView(suspend, null, false);
 
         //没有数据
         if (data.size() == 0) {
@@ -79,15 +84,17 @@ public class InformationActivity extends BaseActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //listview有头部，下标从1开始
                 Log.d("InformationActivity", "position:" + position);
-                Equipment.RepairInfo repairInfo=equipment.getRepairList().get(position-1);
-                intent.putExtra("repairInfo",repairInfo);
-                intent.setClass(mActivity,InformationDetailActivity.class);
+                //listview有头部，下标从1开始
+                Equipment.RepairInfo repairInfo = equipment.getRepairList().get(position - 2);
+                intent.putExtra("repairInfo", repairInfo);
+                intent.setClass(mActivity, InformationDetailActivity.class);
                 startActivity(intent);
 
             }
         });
+
+        list.setOnScrollListener(this);
 
 
     }
@@ -99,10 +106,24 @@ public class InformationActivity extends BaseActivity {
                 mActivity.finish();
                 break;
             case R.id.button:
-                Intent intent=new Intent(mActivity,ReportActivity.class);
-                intent.putExtra("clientinfo",equipment.getClientinfo());
+                Intent intent = new Intent(mActivity, ReportActivity.class);
+                intent.putExtra("clientinfo", equipment.getClientinfo());
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (firstVisibleItem >= 1) {
+            linearLayout3.setVisibility(View.VISIBLE);
+        } else {
+            linearLayout3.setVisibility(View.GONE);
         }
     }
 }

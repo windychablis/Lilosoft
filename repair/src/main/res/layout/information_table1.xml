@@ -13,6 +13,7 @@
         android:layout_marginRight="8dp"
         android:background="@drawable/bk_bg_1"
         android:orientation="vertical"
+        android:layout_marginBottom="8dp"
         android:padding="8dp">
 
         <TextView
@@ -220,87 +221,4 @@
         </android.support.percent.PercentRelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bk_bg_3"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/maintenance"
-            android:drawablePadding="8dp"
-            android:text="维护信息"
-            android:textColor="@color/color_sansansan"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ants_line"
-            android:layerType="software" />
-
-        <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_class1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="标题"
-                android:textColor="@color/color_sansansan"
-                android:textSize="14sp"
-                app:layout_widthPercent="55%" />
-
-            <TextView
-                android:id="@+id/tv_class2"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_class1"
-                android:gravity="center"
-                android:visibility="gone"
-                android:text="小类"
-                android:textColor="@color/color_sansansan"
-                android:textSize="14sp"
-                app:layout_widthPercent="28%" />
-
-            <TextView
-                android:id="@+id/tv_class3"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_class2"
-                android:gravity="center"
-                android:text="报修时间"
-                android:textColor="@color/color_sansansan"
-                android:textSize="14sp"
-                app:layout_widthPercent="25%" />
-
-            <TextView
-                android:id="@+id/tv_class4"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_class3"
-                android:gravity="center"
-                android:text="状态"
-                android:textColor="@color/color_sansansan"
-                android:textSize="14sp"
-                app:layout_widthPercent="20%" />
-        </android.support.percent.PercentRelativeLayout>
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/color_bfbfbf" />
-
-
-    </LinearLayout>
 </LinearLayout>

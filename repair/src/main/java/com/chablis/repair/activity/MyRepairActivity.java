@@ -91,7 +91,7 @@ public class MyRepairActivity extends BaseTitleActivity {
         Observable.combineLatest(observable1, observable2, new BiFunction<String, String, String>() {
             @Override
             public String apply(@NonNull String s, @NonNull String s2) throws Exception {
-                return s + "|" + s2;
+                return s + "||" + s2;
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers
@@ -100,8 +100,8 @@ public class MyRepairActivity extends BaseTitleActivity {
             @Override
             public void onSuccess(String s) {
                 hud.dismiss();
-                String a = s.split("\\|")[0];
-                String b = s.split("\\|")[1];
+                String a = s.split("\\|\\|")[0];
+                String b = s.split("\\|\\|")[1];
                 initList(a);
                 initArea(b);
             }
