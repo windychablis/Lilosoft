@@ -5,6 +5,21 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
 
+    signingConfigs {
+        debug {
+            keyAlias 'chablis'
+            keyPassword 'chablis'
+            storeFile file('/Users/chablis/Documents/key/debug.jks')
+            storePassword 'chablis'
+        }
+        release {
+            keyAlias 'dbkey'
+            keyPassword 'lilo123'
+            storeFile file('/Users/chablis/Documents/key/DBScreenKey')
+            storePassword 'lilo123'
+        }
+    }
+
     defaultConfig {
         applicationId "com.chablis.repair"
         minSdkVersion 19
@@ -19,6 +34,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
+            jniDebuggable false
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -28,11 +49,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:percent:25.0.0'
+    compile 'com.android.support:percent:25.3.1'
     compile 'com.jakewharton:butterknife:8.1.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.google.zxing:core:3.2.1'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.7@aar'
@@ -46,4 +67,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     compile 'com.contrarywind:Android-PickerView:3.2.5'
     compile 'com.kaopiz:kprogresshud:1.1.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
 }

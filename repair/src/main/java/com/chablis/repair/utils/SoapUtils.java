@@ -22,8 +22,9 @@ import java.util.Map;
  */
 
 public class SoapUtils {
-    public static String http = "http://27.17.62.40";
-        public static String url = http + ":8899/wisdomgov/ws";
+    public static String http = "http://";
+    public static String settingUrl = "27.17.62.40:8899";
+    public static String url = http + settingUrl + "/wisdomgov/ws";
 //    public static String url = "http://192.168.2.56:8080/wisdomgov/ws";
 
     /**
@@ -66,7 +67,7 @@ public class SoapUtils {
      * @param userId
      * @return
      */
-    public static String getMyRepair(String userId,String code) {
+    public static String getMyRepair(String userId, String code) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("repairUserId", userId);
         map.put("areaCode", code);
@@ -82,7 +83,7 @@ public class SoapUtils {
     public static String getRepairList(String code) {
         HashMap map = new HashMap();
         map.put("area_code", code);
-        return SoapResuest("queryMainTainByCode", "repairService",map);
+        return SoapResuest("queryMainTainByCode", "repairService", map);
     }
 
     /**
@@ -99,21 +100,22 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String updateImage(String image,String mainTainId,String type) {
+    public static String updateImage(String image, String mainTainId, String type) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("folder", "repair/image");
         map.put("type", type);
         map.put("file", image);
         map.put("fileName", "temp.jpg");
         map.put("mainTainId", mainTainId);
-        return SoapResuest("insertPic", "repairService",map);
+        return SoapResuest("insertPic", "repairService", map);
     }
+
     /**
      * 上传维修信息
      *
      * @return
      */
-    public static String updateRepairInfo(String bigClass,String smallClass,String title,String problemDtion,String repairUserId,String clienttype,String mainTainId) {
+    public static String updateRepairInfo(String bigClass, String smallClass, String title, String problemDtion, String repairUserId, String clienttype, String mainTainId) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("bigClass", bigClass);
         map.put("smallClass", smallClass);
@@ -122,7 +124,7 @@ public class SoapUtils {
         map.put("repairUserId", repairUserId);
         map.put("clienttype", clienttype);
         map.put("mainTainId", mainTainId);
-        return SoapResuest("insertRepair", "repairService",map);
+        return SoapResuest("insertRepair", "repairService", map);
     }
 
     /**
@@ -130,12 +132,12 @@ public class SoapUtils {
      *
      * @return
      */
-    public static String updateRepairAnswer(String mainTainId,String repairId,String answer) {
+    public static String updateRepairAnswer(String mainTainId, String repairId, String answer) {
         LinkedHashMap map = new LinkedHashMap();
         map.put("mainTainId", mainTainId);
         map.put("disposeUserId", repairId);
         map.put("serverResult", answer);
-        return SoapResuest("updateMainTain", "repairService",map);
+        return SoapResuest("updateMainTain", "repairService", map);
     }
 
 
@@ -147,7 +149,6 @@ public class SoapUtils {
     public static String getAreaList() {
         return SoapResuest("queryAllArea", "repairService");
     }
-
 
 
     /**
@@ -181,10 +182,10 @@ public class SoapUtils {
         } catch (Exception e) {
             Log.d("SoapUtils", "e:" + e);
             e.printStackTrace();
-            Response response=new Response();
+            Response response = new Response();
             response.setCode(-1);
             response.setMessage("网络错误");
-            String str=JSONObject.toJSONString(response);
+            String str = JSONObject.toJSONString(response);
             return str;
         }
 

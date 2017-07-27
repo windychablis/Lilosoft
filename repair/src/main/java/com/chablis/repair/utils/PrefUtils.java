@@ -68,6 +68,18 @@ public class PrefUtils {
                 .getString("password", "");
     }
 
+    //保存用户名
+    public static void saveUrl(String url) {
+        SharedPreferences.Editor editor = AppContext.get()
+                .getSharedPreferences(PREF_NAME_CACHE, 0).edit();
+        editor.putString("url", url).commit();
+    }
+
+    public static String getUrl() {
+        return AppContext.get().getSharedPreferences(PREF_NAME_CACHE, 0)
+                .getString("url", "");
+    }
+
     //注销用户缓存
     public static void logout(){
         putCacheLoginState(false);

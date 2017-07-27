@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Repair</string>
+
+    <string name="s_url">服务器地址</string>
+    <string name="s_content">配置服务器</string>
+    <string name="s_port">27.17.62.40:8899</string>
 </resources>
