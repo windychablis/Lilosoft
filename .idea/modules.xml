@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Lilosoft.iml" filepath="$PROJECT_DIR$/Lilosoft.iml" />
       <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/repair/repair.iml" filepath="$PROJECT_DIR$/repair/repair.iml" />
-      <module fileurl="file://$PROJECT_DIR$/电子填单台/电子填单台.iml" filepath="$PROJECT_DIR$/电子填单台/电子填单台.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sheetTD/sheetTD.iml" filepath="$PROJECT_DIR$/sheetTD/sheetTD.iml" />
     </modules>
   </component>
 </project>

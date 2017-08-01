@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SlidingMenu" />
             <option value="$PROJECT_DIR$/repair" />
-            <option value="$PROJECT_DIR$/电子填单台" />
+            <option value="$PROJECT_DIR$/sheetTD" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
