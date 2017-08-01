@@ -1,7 +1,11 @@
 package com.chablis.repair.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.chablis.repair.R;
+import com.chablis.repair.base.AppConfig;
 import com.chablis.repair.base.BaseTitleActivity;
 import com.chablis.repair.base.SoapAsyncTask;
 import com.chablis.repair.base.TaskCallBack;
@@ -53,6 +58,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ReportActivity extends BaseTitleActivity {
     private final int RESULT_TAKE_PHOTO = 0;
+    private final int RESULT_PIC_IMAGE = 1;
     @BindView(R.id.tv_class2)
     TextView tvClass2;
     @BindView(R.id.tv_class4)
@@ -78,6 +84,7 @@ public class ReportActivity extends BaseTitleActivity {
         setContentView(R.layout.activity_report);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+//        imageUrls=new ArrayList<String>();
         Intent intent = getIntent();
         clientInfo = (Equipment.ClientInfo) intent.getSerializableExtra("clientinfo");
         getClasses();
@@ -169,8 +176,8 @@ public class ReportActivity extends BaseTitleActivity {
 
     public void getPermission() {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
-        if (rxPermissions.isGranted(Manifest.permission.CAMERA)) {
-            takeCamera();
+        if (rxPermissions.isGranted(Manifest.permission.CAMERA)&&rxPermissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            pickPhoto();
             return;
         }
         PermissionUtils.getPermission(mActivity);
@@ -226,12 +233,19 @@ public class ReportActivity extends BaseTitleActivity {
             if (requestCode == RESULT_TAKE_PHOTO) {
                 {
                     imageManagerView.addImage(mCurrentPhotoPath);
+                    imageUrls=imageManagerView.getAllImages();
                     Log.d("ReportActivity", mCurrentPhotoPath);
 
                 }
+            }else if(requestCode==RESULT_PIC_IMAGE){
+                //TODO
+                Uri uri = data.getData();
+                String imagePath = getRealPath(uri);
+                imageManagerView.addImage(imagePath);
             }
+            imageUrls=imageManagerView.getAllImages();
         } else {
-            FileUtils.deleteDir(mCurrentPhotoPath);
+//            FileUtils.deleteDir(mCurrentPhotoPath);
         }
     }
 
@@ -263,7 +277,7 @@ public class ReportActivity extends BaseTitleActivity {
         List<String> temp = new ArrayList<String>();
         for (String url : imageUrls) {
             Bitmap bitmap = BitmapFactory.decodeFile(url);
-            FileUtils.deleteDir(url);
+            Log.d("ReportActivity", url);
             String str = CommonUtil.Bitmap2StrByBase64(bitmap);
             temp.add(str);
         }
@@ -333,5 +347,41 @@ public class ReportActivity extends BaseTitleActivity {
         });
     }
 
+
+    /***
+     * 从相册中取图片
+     */
+    private void pickPhoto() {
+        CharSequence[] items = { "相册", "相机" };
+        new AlertDialog.Builder(this).setTitle("选择图片来源")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_PICK);
+                            startActivityForResult(intent, RESULT_PIC_IMAGE);
+                        } else {
+                            takeCamera();
+                        }
+                    }
+                }).create().show();
+    }
+
+    /**
+     * 根据资源的uri获取资源的真实路径
+     *
+     * @return
+     */
+    public String getRealPath(Uri uri) {
+        ContentResolver cr = this.getContentResolver();
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = cr.query(uri, proj, null, null, null);
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String img_path = cursor.getString(index);
+        mCurrentPhotoPath=img_path;
+        return img_path;
+    }
 
 }

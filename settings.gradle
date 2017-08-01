@@ -1,1 +1,1 @@
-include ':app', ':SlidingMenu', ':repair'
+include ':电子填单台', ':SlidingMenu', ':repair'

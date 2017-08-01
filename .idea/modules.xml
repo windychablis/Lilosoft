@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Lilosoft.iml" filepath="$PROJECT_DIR$/Lilosoft.iml" />
       <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/repair/repair.iml" filepath="$PROJECT_DIR$/repair/repair.iml" />
+      <module fileurl="file://$PROJECT_DIR$/电子填单台/电子填单台.iml" filepath="$PROJECT_DIR$/电子填单台/电子填单台.iml" />
     </modules>
   </component>
 </project>
