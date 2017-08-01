@@ -61,6 +61,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
         if(!TextUtils.isEmpty(update_ip)){
             Global.setUpdateUrl(update_ip);
         }
+        Global.setLogoUrl(ip);
     }
 
     /*@Override

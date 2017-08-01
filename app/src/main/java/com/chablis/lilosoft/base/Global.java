@@ -25,6 +25,7 @@ public class Global {
     public static int ProxyPort = 9991;
 
     public static String areacode = "110105000000";
+    public static String logoUrl="http://192.168.1.107:9003/pic/td/110105000000_top.png";
 
     public static String webUrl = "http://192.168.1.107:9003/SPService.svc";
 //    public static String webUrl = "http://10.180.227.251:9003/SPService.svc";
@@ -35,6 +36,10 @@ public class Global {
 
     public static void setWebUrl(String ip) {
         webUrl = "http://" + ip + "/SPService.svc";
+    }
+
+    public static void setLogoUrl(String ip) {
+        webUrl = "http://" + ip + "/pic/td/"+areacode+"_top.png";
     }
 
     public static void setUpdateUrl(String ip) {

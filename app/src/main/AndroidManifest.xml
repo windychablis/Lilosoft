@@ -35,7 +35,8 @@
         android:launchMode="singleTask"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="sensorPortrait" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -43,14 +44,14 @@
 
         <activity
             android:name=".activity.TableListActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.TableDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.LoadActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,33 +60,33 @@
         </activity>
         <activity
             android:name=".activity.DeptListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
 
 
         <activity
             android:name=".activity.MapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.QuestionnaireActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.QuestionnaireListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.AppointmentActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.AffairActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensorPortrait" />
         <activity android:name=".activity.MatterListActivity" />
         <activity
             android:name=".activity.AppointmentTimeActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensorPortrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity android:name=".activity.AppointmentInfoActivity" />
         <activity android:name=".activity.ScanActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensorPortrait"/>
 
         <!-- 向系统注册receiver -->
         <receiver

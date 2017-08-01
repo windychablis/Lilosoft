@@ -4,6 +4,7 @@ package com.chablis.lilosoft.base;
  */
 
 import android.app.Application;
+import android.graphics.Bitmap;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.model.ClientInfo;
@@ -11,7 +12,14 @@ import com.chablis.lilosoft.model.Dept;
 import com.chablis.lilosoft.model.TDDept;
 import com.chablis.lilosoft.model.TDForm;
 import com.chablis.lilosoft.utils.SoundPoolUtil;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +41,19 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisc(true).considerExifParams(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(options)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .discCacheFileCount(500)
+                .tasksProcessingOrder(QueueProcessingType.LIFO).build();
+        ImageLoader.getInstance().init(config);
         playSoundInit();
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         // 初始化服务地址
