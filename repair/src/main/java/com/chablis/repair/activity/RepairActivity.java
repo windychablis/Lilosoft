@@ -57,6 +57,11 @@ public class RepairActivity extends BaseTitleActivity {
         setContentView(R.layout.activity_repair);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getAreaAndRepairList();
     }
 

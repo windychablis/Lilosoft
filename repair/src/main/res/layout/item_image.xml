@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.facebook.drawee.view.SimpleDraweeView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/my_image_view"
-    fresco:roundedCornerRadius="6dp"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="0dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="80dp" >
+    <ImageView
+        android:id="@+id/my_image_view"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.v7.widget.CardView>

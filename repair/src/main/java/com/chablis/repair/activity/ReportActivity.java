@@ -231,12 +231,10 @@ public class ReportActivity extends BaseTitleActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == RESULT_TAKE_PHOTO) {
-                {
                     imageManagerView.addImage(mCurrentPhotoPath);
                     imageUrls=imageManagerView.getAllImages();
                     Log.d("ReportActivity", mCurrentPhotoPath);
 
-                }
             }else if(requestCode==RESULT_PIC_IMAGE){
                 //TODO
                 Uri uri = data.getData();
@@ -244,8 +242,6 @@ public class ReportActivity extends BaseTitleActivity {
                 imageManagerView.addImage(imagePath);
             }
             imageUrls=imageManagerView.getAllImages();
-        } else {
-//            FileUtils.deleteDir(mCurrentPhotoPath);
         }
     }
 

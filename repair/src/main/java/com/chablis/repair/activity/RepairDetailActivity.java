@@ -1,7 +1,11 @@
 package com.chablis.repair.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -54,7 +58,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class RepairDetailActivity extends BaseTitleActivity {
-
+    private final int RESULT_TAKE_PHOTO = 0;
+    private final int RESULT_PIC_IMAGE = 1;
     @BindView(R.id.image_managerView)
     ImageManagerView imageManagerView;
     @BindView(R.id.tv_describe)
@@ -85,7 +90,6 @@ public class RepairDetailActivity extends BaseTitleActivity {
     private List<String> imageUrls;
     private Equipment.RepairInfo repairInfo;
     private ImagesAdapter mAdapter;
-    private final int RESULT_TAKE_PHOTO = 0;
     private String mCurrentPhotoPath;
     private String answer;
 
@@ -118,10 +122,11 @@ public class RepairDetailActivity extends BaseTitleActivity {
         });
     }
 
+
     public void getPermission() {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
-        if (rxPermissions.isGranted(Manifest.permission.CAMERA)) {
-            takeCamera();
+        if (rxPermissions.isGranted(Manifest.permission.CAMERA)&&rxPermissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            pickPhoto();
             return;
         }
         PermissionUtils.getPermission(mActivity);
@@ -199,14 +204,15 @@ public class RepairDetailActivity extends BaseTitleActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == RESULT_TAKE_PHOTO) {
-                {
                     imageManagerView.addImage(mCurrentPhotoPath);
                     Log.d("ReportActivity", mCurrentPhotoPath);
-
-                }
+            }else if(requestCode==RESULT_PIC_IMAGE){
+                //TODO
+                Uri uri = data.getData();
+                String imagePath = getRealPath(uri);
+                imageManagerView.addImage(imagePath);
             }
-        } else {
-            FileUtils.deleteDir(mCurrentPhotoPath);
+            imageUrls=imageManagerView.getAllImages();
         }
     }
 
@@ -253,6 +259,11 @@ public class RepairDetailActivity extends BaseTitleActivity {
      * 图片上传
      */
     public void uploadImage() {
+        //不上传图片就直接提交回复
+        if (imageUrls.size()==0){
+            rxUpdateRepairAnswer(answer);
+            return;
+        }
         List<String> temp = new ArrayList<String>();
         for (String url : imageUrls) {
             Bitmap bitmap = BitmapFactory.decodeFile(url);
@@ -285,6 +296,11 @@ public class RepairDetailActivity extends BaseTitleActivity {
             public void onSuccess(String s) {
                 hud.dismiss();
                 Log.d("RepairDetailActivity", s);
+                if (answer.isEmpty()){
+                    CommonUtil.showToast(mActivity,"上传成功");
+                    mActivity.finish();
+                    return;
+                }
                 rxUpdateRepairAnswer(answer);
             }
 
@@ -312,7 +328,7 @@ public class RepairDetailActivity extends BaseTitleActivity {
             @Override
             public void onSuccess(String s) {
                 Log.d("RepairDetailActivity", s);
-                CommonUtil.showToast(mActivity,"上传成功");
+                CommonUtil.showToast(mActivity,"提交成功");
                 mActivity.finish();
             }
 
@@ -331,10 +347,46 @@ public class RepairDetailActivity extends BaseTitleActivity {
     public void onViewClicked() {
         imageUrls = imageManagerView.getAllImages();
         answer=etPropose.getText().toString();
-        if (imageUrls.size()==0||answer.length()==0){
+        if (imageUrls.size()==0&&answer.isEmpty()){
             CommonUtil.showToast(mActivity,"请拍照或者填写维修结果");
             return;
         }
         uploadImage();
+    }
+
+    /***
+     * 从相册中取图片
+     */
+    private void pickPhoto() {
+        CharSequence[] items = { "相册", "相机" };
+        new AlertDialog.Builder(this).setTitle("选择图片来源")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_PICK);
+                            startActivityForResult(intent, RESULT_PIC_IMAGE);
+                        } else {
+                            takeCamera();
+                        }
+                    }
+                }).create().show();
+    }
+
+    /**
+     * 根据资源的uri获取资源的真实路径
+     *
+     * @return
+     */
+    public String getRealPath(Uri uri) {
+        ContentResolver cr = this.getContentResolver();
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = cr.query(uri, proj, null, null, null);
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String img_path = cursor.getString(index);
+        mCurrentPhotoPath=img_path;
+        return img_path;
     }
 }

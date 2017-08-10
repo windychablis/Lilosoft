@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.chablis.repair.R;
 import com.chablis.repair.model.RepairDetail;
+import com.chablis.repair.utils.ImageLoaderUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -51,8 +53,8 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         RepairDetail.RepairImage image = images.get(position);
         Uri uri = Uri.parse(image.getFILE_URL());
-        holder.myImageView.setImageURI(uri);
-        holder.myImageView.setAspectRatio(1);
+//        holder.myImageView.setImageURI(uri);
+        ImageLoaderUtils.loaderImage(holder.myImageView,image.getFILE_URL());
         if (onItemClickListener!=null){
             holder.myImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,7 +74,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.my_image_view)
-        SimpleDraweeView myImageView;
+        ImageView myImageView;
 
         ViewHolder(View view) {
             super(view);

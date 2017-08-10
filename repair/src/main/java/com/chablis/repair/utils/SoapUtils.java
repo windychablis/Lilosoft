@@ -134,9 +134,9 @@ public class SoapUtils {
      */
     public static String updateRepairAnswer(String mainTainId, String repairId, String answer) {
         LinkedHashMap map = new LinkedHashMap();
-        map.put("mainTainId", mainTainId);
-        map.put("disposeUserId", repairId);
         map.put("serverResult", answer);
+        map.put("disposeUserId", repairId);
+        map.put("mainTainId", mainTainId);
         return SoapResuest("updateMainTain", "repairService", map);
     }
 

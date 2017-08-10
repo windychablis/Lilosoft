@@ -56,6 +56,12 @@ public class MyRepairActivity extends BaseTitleActivity {
         setContentView(R.layout.activity_my_repair);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getAreaAndRepairList();
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -182,7 +188,7 @@ public class MyRepairActivity extends BaseTitleActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "position:" + position);
                 Equipment.RepairInfo repairInfo = (Equipment.RepairInfo) data.get(position);
-                Intent intent = new Intent(mActivity, RepairDetailActivity.class);
+                Intent intent = new Intent(mActivity, InformationDetailActivity.class);
                 intent.putExtra("repairInfo", repairInfo);
                 startActivity(intent);
             }
