@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
+        Log.d("LoadActivity", Global.webUrl);
         Global.AppFileRootPath = getResources().getString(
                 R.string.AppFileRootPath);
         WebUtil.getIPhost(mActivity);
@@ -105,8 +107,9 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                String ip=et_ip.getText().toString();
                 Global.areacode = et_area.getText().toString();
-                Global.setWebUrl(et_ip.getText().toString());
+                Global.setWebUrl(ip);
                 Global.setUpdateUrl(et_update.getText().toString());
                 PrefUtils.putCacheLoginState(true);
 
@@ -115,9 +118,9 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
 //                editor.putString("update_ip", et_update.getText().toString());
 //                editor.commit();
                 PrefUtils.putAreaCode(et_area.getText().toString());
-                PrefUtils.putIp(et_ip.getText().toString());
+                PrefUtils.putIp(ip);
                 PrefUtils.putUpdateIp(et_update.getText().toString());
-
+                Global.setLogoUrl(ip);
                 UpdateUtil updateUtil = new UpdateUtil(LoadActivity.this);
                 updateUtil.starUpdate();
 

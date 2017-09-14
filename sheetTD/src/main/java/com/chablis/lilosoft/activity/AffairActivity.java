@@ -264,7 +264,8 @@ public class AffairActivity extends BaseActivity {
         cnqx.setText(material.getPromise_desc());
         expandtv1.setText(material.getCharge_standard());
         zxdh.setText(material.getView_consulting_mode());
-        expandtv2.setText(material.getProcess());
+
+        expandtv2.setText(material.getProcess().replaceAll("&rarr;"," → "));
         expandtv3.setText(material.getFoundation());
 
     }

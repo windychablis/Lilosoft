@@ -39,7 +39,7 @@ public class Global {
     }
 
     public static void setLogoUrl(String ip) {
-        webUrl = "http://" + ip + "/pic/td/"+areacode+"_top.png";
+        logoUrl = "http://" + ip + "/pic/td/"+areacode+"_top.png";
     }
 
     public static void setUpdateUrl(String ip) {

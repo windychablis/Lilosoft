@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
 import com.chablis.lilosoft.model.Material;
+import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.google.gson.Gson;
 
@@ -31,7 +32,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
         setContentView(R.layout.activity_scan);
         ButterKnife.bind(this);
         mQRCodeView.setDelegate(this);
-        getData("2");
+//        getData("2");
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.i(TAG, "result:" + result);
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 //        vibrate();
 //        mQRCodeView.startSpot();
         getData(result);
@@ -106,7 +107,10 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                         intent.putExtra("material",material);
                         startActivity(intent);
                     }
+                }else{
+                    ToastUtils.showToast(mActivity,"未能查到数据");
                 }
+                mActivity.finish();
             }
         }.execute();
     }

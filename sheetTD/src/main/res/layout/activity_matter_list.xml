@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="公安分局"
+            android:text="事项列表"
             android:textColor="@color/white"
             android:textSize="36sp" />
     </RelativeLayout>
