@@ -120,14 +120,32 @@ public class AppointmentActivity extends BaseActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if (s != null) {
-                    Intent intent = new Intent(mActivity, AppointmentInfoActivity.class);
-                    intent.putExtra("affairItem", affairItem);
-                    intent.putExtra("name", name);
-                    intent.putExtra("mobile", mobile);
-                    intent.putExtra("idcard", idcard);
-                    intent.putExtra("date", date + "   " + time);
-                    startActivity(intent);
+                if (s == null) {
+                    return;
+                }
+                switch (s){
+                    case "0" :
+                        ToastUtils.showToast(mActivity,"预约失败",ToastUtils.BLACK);
+                            break;
+                    case "-1" :
+                        ToastUtils.showToast(mActivity,"预约已满",ToastUtils.BLACK);
+                        break;
+                    case "-2" :
+                        ToastUtils.showToast(mActivity,"服务器错误",ToastUtils.BLACK);
+                        break;
+                    case  "-3" :
+                        ToastUtils.showToast(mActivity,"已经预约",ToastUtils.BLACK);
+                        break;
+                    default:
+                        ToastUtils.showToast(mActivity,"预约成功",ToastUtils.BLACK);
+                        Intent intent = new Intent(mActivity, AppointmentInfoActivity.class);
+                        intent.putExtra("affairItem", affairItem);
+                        intent.putExtra("name", name);
+                        intent.putExtra("mobile", mobile);
+                        intent.putExtra("idcard", idcard);
+                        intent.putExtra("date", date + "   " + time);
+                        startActivity(intent);
+                        break;
                 }
 
             }
