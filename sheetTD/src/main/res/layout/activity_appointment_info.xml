@@ -212,7 +212,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="朝阳区政务中心"
+            android:text="@string/address"
             android:textSize="28sp"
             android:textColor="@color/color_sansansan"
             android:layout_marginTop="24dp"
