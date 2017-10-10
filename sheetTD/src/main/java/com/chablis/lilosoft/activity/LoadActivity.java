@@ -64,6 +64,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
             Global.setUpdateUrl(update_ip);
         }
         Global.setLogoUrl(ip);
+        Global.setMapUrl(ip);
     }
 
     /*@Override
@@ -121,6 +122,7 @@ public class LoadActivity  extends BaseActivity implements BaseFragment.OnFragme
                 PrefUtils.putIp(ip);
                 PrefUtils.putUpdateIp(et_update.getText().toString());
                 Global.setLogoUrl(ip);
+                Global.setMapUrl(ip);
                 UpdateUtil updateUtil = new UpdateUtil(LoadActivity.this);
                 updateUtil.starUpdate();
 

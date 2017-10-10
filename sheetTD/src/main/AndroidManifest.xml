@@ -35,7 +35,8 @@
         android:launchMode="singleTask"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.MainActivity"
             android:screenOrientation="sensorPortrait" />
 
         <meta-data
@@ -61,8 +62,6 @@
         <activity
             android:name=".activity.DeptListActivity"
             android:screenOrientation="sensorPortrait" />
-
-
         <activity
             android:name=".activity.MapActivity"
             android:screenOrientation="sensorPortrait" />
@@ -74,8 +73,8 @@
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".activity.AppointmentActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="sensorPortrait" />
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.AffairActivity"
             android:screenOrientation="sensorPortrait" />
@@ -85,17 +84,18 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity android:name=".activity.AppointmentInfoActivity" />
-        <activity android:name=".activity.ScanActivity"
-            android:screenOrientation="sensorPortrait"/>
+        <activity
+            android:name=".activity.ScanActivity"
+            android:screenOrientation="sensorPortrait" />
 
         <!-- 向系统注册receiver -->
-        <receiver
-            android:name="com.chablis.lilosoft.base.BootRestartReceiver"
-            >
-            <intent-filter >
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <receiver android:name=".base.BootRestartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.Map2Activity"></activity>
     </application>
 
 </manifest>

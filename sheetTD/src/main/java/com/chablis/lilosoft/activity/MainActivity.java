@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 nextActivity(DeptListActivity.class);
                 break;
             case R.id.tabMapButton:
-                nextActivity(MapActivity.class);
+                nextActivity(Map2Activity.class);
                 break;
             case R.id.tabScanButton:
                 nextActivity(ScanActivity.class);

@@ -26,6 +26,7 @@ public class Global {
 
     public static String areacode = "110105000000";
     public static String logoUrl="http://192.168.1.107:9003/pic/td/110105000000_top.png";
+    public static String mapUrl="http://192.168.1.107:9003/pic/td/429004_map.png";
 
     public static String webUrl = "http://192.168.1.107:9003/SPService.svc";
 //    public static String webUrl = "http://10.180.227.251:9003/SPService.svc";
@@ -40,6 +41,10 @@ public class Global {
 
     public static void setLogoUrl(String ip) {
         logoUrl = "http://" + ip + "/pic/td/"+areacode+"_top.png";
+    }
+
+    public static void setMapUrl(String ip) {
+        mapUrl = "http://" + ip + "/pic/td/"+areacode+"_map.png";
     }
 
     public static void setUpdateUrl(String ip) {
