@@ -1,7 +1,6 @@
 package com.chablis.lilosoft.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +11,6 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.model.Marker;
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.activity.MapActivity;
-import com.chablis.lilosoft.utils.CommonUtil;
-import com.chablis.lilosoft.utils.ToastUtils;
-import com.chablis.lilosoft.utils.UIUtils;
 
 /**
  * Created by chablis on 2017/4/19.

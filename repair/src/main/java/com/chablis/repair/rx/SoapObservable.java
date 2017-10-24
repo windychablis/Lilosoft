@@ -1,8 +1,5 @@
 package com.chablis.repair.rx;
 
-import android.os.Looper;
-import android.util.Log;
-
 import com.alibaba.fastjson.JSONObject;
 
 import io.reactivex.Observable;
