@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.chablis.repair.R;
 import com.chablis.repair.model.RepairDetail;
 import com.chablis.repair.utils.ImageLoaderUtils;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.chablis.lilosoft.R;
 import com.chablis.lilosoft.base.BaseActivity;
