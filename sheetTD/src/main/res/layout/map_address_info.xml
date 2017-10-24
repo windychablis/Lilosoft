@@ -36,34 +36,36 @@
         android:layout_marginTop="10dp"
         android:text="发送到手机短信"
         android:textColor="@color/color_sansansan"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/et_phone"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tv_send"
         android:layout_below="@id/tv_send"
         android:layout_marginTop="10dp"
-        android:drawableLeft="@mipmap/phone"
         android:background="@mipmap/phone_bj"
-        android:paddingLeft="20dp"
+        android:drawableLeft="@mipmap/phone"
+        android:drawablePadding="10dp"
         android:imeOptions="actionDone"
         android:inputType="phone"
+        android:paddingLeft="20dp"
         android:singleLine="true"
-        android:drawablePadding="10dp"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content" />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_send"
-        android:layout_alignLeft="@id/et_phone"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="发送路径规划信息到手机"
-        android:layout_below="@id/et_phone"
-        android:background="@mipmap/fasong"
         android:layout_width="240dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignLeft="@id/et_phone"
+        android:layout_below="@id/et_phone"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/fasong"
+        android:text="公交线路查询"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

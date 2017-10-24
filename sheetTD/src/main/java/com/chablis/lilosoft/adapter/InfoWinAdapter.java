@@ -67,18 +67,19 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter{
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = et_phone.getText().toString();
-                if (CommonUtil.isMobileNO(str)) {
-                    if (agentName.equals("")||url.equals(""))
-                        return;
-                    String content = agentName + "，点击：" + url + "\n查看位置线路、团购优惠、靠谱评论、周边探索";
-                    Log.d("MapActivity", content);
-                    ((MapActivity)mContext).sendMessage(str, content);
-                    UIUtils.HideKeyboard(view);
-                } else {
-//                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-                    ToastUtils.showToast(mContext, "请输入正确的手机号码", ToastUtils.BLACK);
-                }
+                ((MapActivity) mContext).showDialog();
+//                String str = et_phone.getText().toString();
+//                if (CommonUtil.isMobileNO(str)) {
+//                    if (agentName.equals("")||url.equals(""))
+//                        return;
+//                    String content = agentName + "，点击：" + url + "\n查看位置线路、团购优惠、靠谱评论、周边探索";
+//                    Log.d("MapActivity", content);
+//                    ((MapActivity)mContext).sendMessage(str, content);
+//                    UIUtils.HideKeyboard(view);
+//                } else {
+////                            Toast.makeText(MapActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+//                    ToastUtils.showToast(mContext, "请输入正确的手机号码", ToastUtils.BLACK);
+//                }
 
             }
         });

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ListView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -28,8 +29,15 @@ import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.amap.api.services.route.BusPath;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.share.ShareSearch;
 import com.chablis.lilosoft.R;
+import com.chablis.lilosoft.activity.route.BusResultListAdapter;
 import com.chablis.lilosoft.adapter.InfoWinAdapter;
 import com.chablis.lilosoft.adapter.MapAddressAdapter;
 import com.chablis.lilosoft.base.BaseActivity;
@@ -38,6 +46,7 @@ import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.model.MapAddress;
 import com.chablis.lilosoft.utils.CommonUtil;
 import com.chablis.lilosoft.utils.ComparatorList;
+import com.chablis.lilosoft.utils.MapUtils;
 import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.WebUtil;
 import com.chablis.lilosoft.widget.BladeView;
@@ -45,6 +54,8 @@ import com.chablis.lilosoft.widget.PinnedHeaderListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -62,7 +73,7 @@ import butterknife.OnClick;
  */
 public class MapActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, LocationSource,
         AMapLocationListener, AMap.OnMarkerClickListener,
-        GeocodeSearch.OnGeocodeSearchListener, ShareSearch.OnShareSearchListener, AMap.OnMapLoadedListener {
+        GeocodeSearch.OnGeocodeSearchListener, ShareSearch.OnShareSearchListener, AMap.OnMapLoadedListener, RouteSearch.OnRouteSearchListener {
     private SlidingMenu menu;
 
     @BindView(R.id.map)
@@ -98,6 +109,10 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     public String address = "";
 
     public String msgUrl = "";
+
+    private BusRouteResult mBusRouteResult;
+
+    private LatLonPoint currentPoint;
 
 
     @Override
@@ -139,7 +154,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         // 为侧滑菜单设置布局
         menu.setMenu(R.layout.menu_map);
 
-        // TODO Auto-generated method stub
         mListView = (PinnedHeaderListView) findViewById(R.id.pinnedListView);
         mLetter = (BladeView) findViewById(R.id.friends_myletterlistview);
         mLetter.setOnItemClickListener(new BladeView.OnItemClickListener() {
@@ -259,7 +273,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                 this.finish();
                 break;
             case R.id.tv_menu:
-                //TODO
                 mapToggle();
                 break;
         }
@@ -310,25 +323,27 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
     }
 
     public void sendMessage(final String mobile, final String content) {
-        new AsyncTask<String, Integer, Boolean>() {
+//        new AsyncTask<String, Integer, Boolean>() {
+//
+//            @Override
+//            protected Boolean doInBackground(String... params) {
+//                return WebUtil.sendMessage(mobile, content);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Boolean s) {
+//                super.onPostExecute(s);
+//                if (s) {
+//                    ToastUtils.showToast(mActivity, "发送成功", ToastUtils.BLACK);
+//                    currentMarker.hideInfoWindow();
+//                } else {
+//                    ToastUtils.showToast(mActivity, "发送失败", ToastUtils.BLACK);
+//                }
+//
+//            }
+//        }.execute();
+        showDialog();
 
-            @Override
-            protected Boolean doInBackground(String... params) {
-                return WebUtil.sendMessage(mobile, content);
-            }
-
-            @Override
-            protected void onPostExecute(Boolean s) {
-                super.onPostExecute(s);
-                if (s) {
-                    ToastUtils.showToast(mActivity, "发送成功", ToastUtils.BLACK);
-                    currentMarker.hideInfoWindow();
-                } else {
-                    ToastUtils.showToast(mActivity, "发送失败", ToastUtils.BLACK);
-                }
-
-            }
-        }.execute();
     }
 
 
@@ -352,6 +367,15 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
         aMap.addMarker(markerOption);
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(point));
         aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
+        //TODO 自动弹出位置信息弹框
+        RouteSearch routeSearch=new RouteSearch(this);
+        routeSearch.setRouteSearchListener(this);
+        LatLonPoint p1=new LatLonPoint(30.775688,114.224414);
+        LatLonPoint p2=new LatLonPoint(30.54282,114.306468);
+        RouteSearch.FromAndTo fromAndTo =new RouteSearch.FromAndTo(currentPoint,point1);
+        RouteSearch.BusRouteQuery query = new RouteSearch.BusRouteQuery(fromAndTo, RouteSearch.BUS_DEFAULT, "010",0);
+        routeSearch.calculateBusRouteAsyn(query);//开始规划路径
+
     }
 
     /**
@@ -387,6 +411,9 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
                     && aMapLocation.getErrorCode() == 0) {
                 mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
+                //TODO 获取定位位置
+                currentPoint.setLatitude(aMapLocation.getLatitude());
+                currentPoint.setLongitude(aMapLocation.getLongitude());
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
@@ -466,7 +493,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
     @Override
     public void onLocationShareUrlSearched(String url, int errorCode) {
-        // TODO Auto-generated method stub
         if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
             msgUrl = url;
             Log.d("MapActivity", url);
@@ -497,5 +523,60 @@ public class MapActivity extends BaseActivity implements BaseFragment.OnFragment
 
     @Override
     public void onMapLoaded() {
+    }
+
+    public void showDialog(){
+
+        BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(mActivity, mBusRouteResult);
+        DialogPlus dialog = DialogPlus.newDialog(this)
+                .setAdapter(mBusResultListAdapter)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                        Log.d("MapActivity", "position:" + position);
+                    }
+                })
+                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                .create();
+        dialog.show();
+    }
+
+    @Override
+    public void onBusRouteSearched(BusRouteResult busRouteResult, int errorCode) {
+        BusPath busPath= busRouteResult.getPaths().get(0);
+        Log.d("MapActivity", MapUtils.getBusPathTitle(busPath));
+        Log.d("MapActivity", MapUtils.getBusPathDes(busPath));
+        if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (busRouteResult != null && busRouteResult.getPaths() != null) {
+                if (busRouteResult.getPaths().size() > 0) {
+                    mBusRouteResult = busRouteResult;
+//                    BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(mActivity, mBusRouteResult);
+//                    mBusResultList.setAdapter(mBusResultListAdapter);
+                    showDialog();
+                } else if (busRouteResult != null && busRouteResult.getPaths() == null) {
+                    ToastUtils.showToast(mActivity,"没有找到公交线路",ToastUtils.BLACK);
+                }
+            } else {
+
+                ToastUtils.showToast(mActivity,"没有找到公交线路",ToastUtils.BLACK);
+            }
+        } else {
+//            ToastUtil.showerror(this.getApplicationContext(), errorCode);
+        }
+    }
+
+    @Override
+    public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
+
     }
 }

@@ -22,4 +22,11 @@
 
     <color name="colorScan">#62e188</color>
 
+    <color name="act_background">#efefef</color>
+
+    <color name="phone_bg">#f6f6f6</color>
+
+    <color name="black"> #000000</color>
+    <color name="red"> #FF0000</color>
+    <color name="blue">#4c90f9</color>
 </resources>
