@@ -3,7 +3,6 @@ package com.chablis.repair.utils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import com.chablis.repair.rx.Response;
 
 import org.ksoap2.SoapEnvelope;

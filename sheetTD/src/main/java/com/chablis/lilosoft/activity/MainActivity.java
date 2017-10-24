@@ -27,7 +27,6 @@ import com.chablis.lilosoft.base.Global;
 import com.chablis.lilosoft.utils.DateUtil;
 import com.chablis.lilosoft.utils.ImageLoaderUtils;
 import com.chablis.lilosoft.utils.PrefUtils;
-import com.chablis.lilosoft.utils.ToastUtils;
 import com.chablis.lilosoft.utils.UpdateManager;
 import com.chablis.lilosoft.widget.ExitDialog;
 import com.chablis.lilosoft.widget.RoundNavigationIndicator;
